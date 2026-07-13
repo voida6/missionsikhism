@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "missionsikhism",
+  "compatibility_date": "2026-07-13",
+  // Serve the static site Astro builds into ./dist as Cloudflare Static Assets.
+  // No Worker script (`main`) is needed — this is a pure static deploy.
+  "assets": {
+    "directory": "./dist"
+  }
+}

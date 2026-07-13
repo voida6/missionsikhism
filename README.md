@@ -47,3 +47,5 @@ Pushes to the `main` branch auto-deploy via Cloudflare Pages.
 - Output directory: `dist`
 - **Set `NODE_VERSION` = `22.12.0`** in the Pages project (Cloudflare's default
   Node is too old for current Astro). The `.nvmrc` in this repo covers it too.
+
+Deployed via Cloudflare.

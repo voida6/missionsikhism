@@ -9,6 +9,8 @@ const eras = (await getCollection('eras')).sort(
 );
 
 const events = await getCollection('events');
+const eraCount = eras.length;
+const eventCount = events.length;
 ---
 
 <BaseLayout
@@ -34,7 +36,7 @@ const events = await getCollection('events');
         {
           eras.map((era) => (
             <li class="era-card">
-              <h3>{era.data.title}</h3>
+              <h3><a href={"/history/" + era.id}>{era.data.title}</a></h3>
               <p class="years">
                 {era.data.startYear}
                 {era.data.endYear ? `–${era.data.endYear}` : '–present'}
@@ -44,10 +46,7 @@ const events = await getCollection('events');
           ))
         }
       </ul>
-      <p style="margin-top:1.5rem;color:var(--color-muted)">
-        {eras.length} era{eras.length === 1 ? '' : 's'} and {events.length}
-        mapped event{events.length === 1 ? '' : 's'} loaded from content files.
-      </p>
+      <p class="muted-note">{eraCount} eras and {eventCount} mapped events loaded from content files.</p>
     </div>
   </section>
 </BaseLayout>

@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Every event already carries coordinates, so the map has its data waiting.
+// The interactive Leaflet/MapLibre island will be added next.
+const events = await getCollection('events');
+---
+
+<BaseLayout title="Global Map — Mission Sikhism" description="An interactive map of Sikh history.">
+  <section class="section">
+    <div class="container">
+      <h1>Global Map</h1>
+      <p>
+        An interactive map of Sikh history. {events.length} event{events.length === 1 ? '' : 's'}
+        with coordinates are ready to plot — the interactive map is coming next.
+      </p>
+      <ul>
+        {
+          events.map((e) => (
+            <li>
+              <a href={`/events/${e.id}`}>{e.data.title}</a> — {e.data.lat}, {e.data.lng}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

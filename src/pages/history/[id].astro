@@ -1,0 +1,52 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SourceList from '../../components/SourceList.astro';
+
+export async function getStaticPaths() {
+  const eras = await getCollection('eras');
+  return eras.map((era) => ({ params: { id: era.id }, props: { era } }));
+}
+
+const { era } = Astro.props;
+const { Content } = await render(era);
+
+// Events belonging to this era, oldest first. Pulled from the same files
+// that drive the map — no duplication.
+const events = (await getCollection('events'))
+  .filter((e) => e.data.era.id === era.id)
+  .sort((a, b) => a.data.year - b.data.year);
+---
+
+<BaseLayout title={`${era.data.title} — Mission Sikhism`} description={era.data.summary}>
+  <article class="section">
+    <div class="container">
+      <p class="years">
+        {era.data.startYear}{era.data.endYear ? `–${era.data.endYear}` : '–present'}
+      </p>
+      <h1>{era.data.title}</h1>
+      <p>{era.data.summary}</p>
+
+      <Content />
+
+      {
+        events.length > 0 && (
+          <>
+            <h2>Events in this era</h2>
+            <ul>
+              {events.map((e) => (
+                <li>
+                  <a href={`/events/${e.id}`}>
+                    <strong>{e.data.year}</strong> — {e.data.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+
+      <SourceList sources={era.data.sources} />
+    </div>
+  </article>
+</BaseLayout>

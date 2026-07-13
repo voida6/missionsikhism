@@ -1,0 +1,56 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SourceList from '../../components/SourceList.astro';
+
+export async function getStaticPaths() {
+  const people = await getCollection('people');
+  return people.map((person) => ({ params: { id: person.id }, props: { person } }));
+}
+
+const { person } = Astro.props;
+const { Content } = await render(person);
+
+// Events this person appears in.
+const events = (await getCollection('events'))
+  .filter((e) => (e.data.people ?? []).some((ref) => ref.id === person.id))
+  .sort((a, b) => a.data.year - b.data.year);
+---
+
+<BaseLayout title={`${person.data.name} — Mission Sikhism`} description={person.data.summary}>
+  <article class="section">
+    <div class="container">
+      {
+        (person.data.born || person.data.died) && (
+          <p class="years">
+            {person.data.born ?? '?'}–{person.data.died ?? 'present'}
+          </p>
+        )
+      }
+      <h1>{person.data.name}</h1>
+      {person.data.role && <p><em>{person.data.role}</em></p>}
+      <p>{person.data.summary}</p>
+
+      <Content />
+
+      {
+        events.length > 0 && (
+          <>
+            <h2>Appears in</h2>
+            <ul>
+              {events.map((e) => (
+                <li>
+                  <a href={`/events/${e.id}`}>
+                    <strong>{e.data.year}</strong> — {e.data.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+
+      <SourceList sources={person.data.sources} />
+    </div>
+  </article>
+</BaseLayout>

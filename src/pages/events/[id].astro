@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SourceList from '../../components/SourceList.astro';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+  return events.map((event) => ({ params: { id: event.id }, props: { event } }));
+}
+
+const { event } = Astro.props;
+const { Content } = await render(event);
+
+// Resolve linked era and people references to real entries.
+const eras = await getCollection('eras');
+const era = eras.find((e) => e.id === event.data.era.id);
+
+const allPeople = await getCollection('people');
+const people = (event.data.people ?? [])
+  .map((ref) => allPeople.find((p) => p.id === ref.id))
+  .filter((p) => p !== undefined);
+---
+
+<BaseLayout title={`${event.data.title} — Mission Sikhism`} description={event.data.summary}>
+  <article class="section">
+    <div class="container">
+      <p class="years">
+        {event.data.date ?? event.data.year}
+        {event.data.location ? ` · ${event.data.location}` : ''}
+      </p>
+      <h1>{event.data.title}</h1>
+      <p>{event.data.summary}</p>
+
+      <Content />
+
+      <p style="color:var(--color-muted);font-size:0.9rem">
+        Coordinates: {event.data.lat}, {event.data.lng}
+        {era && (
+          <>
+            {' · '}Era: <a href={`/history/${era.id}`}>{era.data.title}</a>
+          </>
+        )}
+      </p>
+
+      {
+        people.length > 0 && (
+          <p>
+            People: {people.map((p, i) => (
+              <>
+                {i > 0 ? ', ' : ''}
+                <a href={`/people/${p!.id}`}>{p!.data.name}</a>
+              </>
+            ))}
+          </p>
+        )
+      }
+
+      <SourceList sources={event.data.sources} />
+    </div>
+  </article>
+</BaseLayout>

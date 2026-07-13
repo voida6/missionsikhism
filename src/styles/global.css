@@ -1,6 +1,4 @@
 :root {
-  /* Placeholder palette — refine in the design phase.
-     Saffron + deep blue nods to a Sikh visual identity. */
   --color-saffron: #d97706;
   --color-saffron-dark: #b45309;
   --color-ink: #1a1a2e;
@@ -13,9 +11,7 @@
   --maxw: 70rem;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -25,9 +21,7 @@ body {
   line-height: 1.6;
 }
 
-a {
-  color: var(--color-blue);
-}
+a { color: var(--color-blue); }
 
 .container {
   max-width: var(--maxw);
@@ -57,21 +51,9 @@ a {
   text-decoration: none;
 }
 
-.nav {
-  display: flex;
-  gap: 1.1rem;
-  flex-wrap: wrap;
-}
-
-.nav a {
-  text-decoration: none;
-  color: var(--color-ink);
-  font-size: 0.95rem;
-}
-
-.nav a:hover {
-  color: var(--color-saffron-dark);
-}
+.nav { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+.nav a { text-decoration: none; color: var(--color-ink); font-size: 0.95rem; }
+.nav a:hover { color: var(--color-saffron-dark); }
 
 .hero {
   background: linear-gradient(135deg, var(--color-blue), var(--color-ink));
@@ -85,11 +67,7 @@ a {
   margin: 0 0 0.75rem;
 }
 
-.hero p {
-  font-size: 1.15rem;
-  max-width: 40rem;
-  color: #e8eef5;
-}
+.hero p { font-size: 1.15rem; max-width: 40rem; color: #e8eef5; }
 
 .badge {
   display: inline-block;
@@ -102,20 +80,10 @@ a {
   margin-bottom: 1rem;
 }
 
-.section {
-  padding-block: 3rem;
-}
+.section { padding-block: 3rem; }
+.section h2 { font-family: var(--font-serif); }
 
-.section h2 {
-  font-family: var(--font-serif);
-}
-
-.era-list {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 1rem;
-}
+.era-list { list-style: none; padding: 0; display: grid; gap: 1rem; }
 
 .era-card {
   border: 1px solid var(--color-border);
@@ -125,14 +93,8 @@ a {
   background: #fff;
 }
 
-.era-card h3 {
-  margin: 0 0 0.35rem;
-}
-
-.era-card .years {
-  color: var(--color-muted);
-  font-size: 0.9rem;
-}
+.era-card h3 { margin: 0 0 0.35rem; }
+.years { color: var(--color-muted); font-size: 0.9rem; }
 
 .sources {
   margin-top: 2rem;
@@ -149,10 +111,9 @@ a {
   color: var(--color-muted);
 }
 
-.sources ol {
-  margin: 0;
-  padding-left: 1.25rem;
-}
+.sources ol { margin: 0; padding-left: 1.25rem; }
+
+.muted-note { margin-top: 1.5rem; color: var(--color-muted); }
 
 .site-footer {
   border-top: 1px solid var(--color-border);

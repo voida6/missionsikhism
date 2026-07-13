@@ -1,0 +1,47 @@
+---
+/**
+ * Renders the citations for a piece of content. Because the `sources` field is
+ * required by the schema, this component always has something to show — the
+ * "every fact sourced" promise made visible on the page.
+ */
+interface Source {
+  title: string;
+  author?: string;
+  publisher?: string;
+  year?: number;
+  url?: string;
+  page?: string;
+  note?: string;
+}
+
+interface Props {
+  sources: Source[];
+}
+
+const { sources } = Astro.props;
+---
+
+<aside class="sources">
+  <h4>Sources</h4>
+  <ol>
+    {
+      sources.map((s) => (
+        <li>
+          {s.author && <span>{s.author}. </span>}
+          {s.url ? (
+            <a href={s.url} rel="noopener noreferrer" target="_blank">
+              <cite>{s.title}</cite>
+            </a>
+          ) : (
+            <cite>{s.title}</cite>
+          )}
+          {s.publisher && <span>. {s.publisher}</span>}
+          {s.year && <span> ({s.year})</span>}
+          {s.page && <span>, {s.page}</span>}
+          {s.note && <span> — {s.note}</span>}
+          <span>.</span>
+        </li>
+      ))
+    }
+  </ol>
+</aside>

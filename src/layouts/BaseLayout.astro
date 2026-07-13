@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const nav = [
+  { label: 'History', href: '/history' },
+  { label: 'The Faith', href: '/faith' },
+  { label: 'Global Map', href: '/map' },
+  { label: 'Explore', href: '/explore' },
+  { label: 'Library', href: '/library' },
+  { label: 'Contribute', href: '/contribute' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="brand" href="/">Mission Sikhism</a>
+        <nav class="nav">
+          {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          Mission Sikhism — a non-profit, fully-sourced history of the Sikh
+          faith. Every fact on this site is cited.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

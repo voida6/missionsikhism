@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Eras are pulled from the content collection and sorted by their `order`.
+// Add a Markdown file under src/content/eras and it appears here automatically.
+const eras = (await getCollection('eras')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const events = await getCollection('events');
+---
+
+<BaseLayout
+  title="Mission Sikhism — A Sourced History of the Sikh Faith"
+  description="A non-profit, fully-sourced history of the Sikh faith, from 1469 to today. Every fact is cited."
+>
+  <section class="hero">
+    <div class="container">
+      <span class="badge">Every fact sourced</span>
+      <h1>The history of the Sikh faith, 1469 to today</h1>
+      <p>
+        A non-profit, community-built history — six eras, an interactive global
+        map, and a growing library. Every claim on this site is tied to a
+        citation, enforced at build time.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Explore the eras</h2>
+      <ul class="era-list">
+        {
+          eras.map((era) => (
+            <li class="era-card">
+              <h3>{era.data.title}</h3>
+              <p class="years">
+                {era.data.startYear}
+                {era.data.endYear ? `–${era.data.endYear}` : '–present'}
+              </p>
+              <p>{era.data.summary}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <p style="margin-top:1.5rem;color:var(--color-muted)">
+        {eras.length} era{eras.length === 1 ? '' : 's'} and {events.length}
+        mapped event{events.length === 1 ? '' : 's'} loaded from content files.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

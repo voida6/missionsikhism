@@ -351,3 +351,15 @@ article.section .container { max-width: 48rem; }
   .map-controls { position: static; }
   #map { height: 62vh; }
 }
+
+/* --- Homepage stat band --- */
+.stat-band { padding-block: 2rem; background: var(--color-blue-soft); border-block: 1px solid var(--color-border); }
+.stat-row { display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; justify-content: center; }
+.stat { display: flex; flex-direction: column; align-items: center; min-width: 5rem; }
+.stat-num { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 700; color: var(--color-saffron-dark); line-height: 1; }
+.stat-label { font-size: 0.85rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.35rem; }
+
+/* Long-form page readability (culture, about) */
+.culture, .about { max-width: 48rem; }
+.culture h2, .about h2 { margin-top: 2rem; font-size: 1.35rem; }
+.about h3 { margin-top: 1.5rem; font-size: 1.08rem; }

@@ -2,16 +2,36 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Eras and events drive the counts and the featured era. Add a Markdown file
-// and it flows through automatically.
+// Everything on the homepage is generated from the content collections, so it
+// stays true as content grows.
 const eras = (await getCollection('eras')).sort((a, b) => a.data.order - b.data.order);
-const events = await getCollection('events');
+const events = (await getCollection('events')).sort((a, b) => a.data.year - b.data.year);
 const people = await getCollection('people');
+const faith = await getCollection('faith');
 
 const eraCount = eras.length;
 const eventCount = events.length;
 const peopleCount = people.length;
-const featured = eras[0]; // earliest era as the featured entry point
+
+// Count unique sources across everything, mirroring the Library.
+const seen = new Set<string>();
+for (const coll of [eras, events, people, faith]) {
+  for (const e of coll) {
+    for (const s of (e.data as any).sources ?? []) {
+      seen.add(`${(s.author ?? '').toLowerCase()}|${s.title.toLowerCase()}`);
+    }
+  }
+}
+const sourceCount = seen.size;
+
+// A few featured events spread across the timeline.
+const featuredSlugs = ['creation-of-the-khalsa', 'installation-of-adi-granth', 'kartarpur-corridor-opens'];
+const featuredEvents = featuredSlugs
+  .map((slug) => events.find((e) => e.id === slug))
+  .filter((e): e is (typeof events)[number] => Boolean(e));
+
+const firstEra = eras[0];
+const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.data.year ?? new Date().getFullYear()}`;
 ---
 
 <BaseLayout
@@ -34,6 +54,16 @@ const featured = eras[0]; // earliest era as the featured entry point
     </div>
   </section>
 
+  <!-- The promise, backed by live numbers -->
+  <section class="section stat-band">
+    <div class="container stat-row">
+      <div class="stat"><span class="stat-num">{eraCount}</span><span class="stat-label">eras</span></div>
+      <div class="stat"><span class="stat-num">{eventCount}</span><span class="stat-label">mapped events</span></div>
+      <div class="stat"><span class="stat-num">{peopleCount}</span><span class="stat-label">people</span></div>
+      <div class="stat"><span class="stat-num">{sourceCount}</span><span class="stat-label">sources cited</span></div>
+    </div>
+  </section>
+
   <!-- Three lenses onto the same events -->
   <section class="section">
     <div class="container">
@@ -41,37 +71,56 @@ const featured = eras[0]; // earliest era as the featured entry point
       <ul class="lens-grid">
         <li class="lens-card">
           <h3><a href="/history">History</a></h3>
-          <p>The story across {eraCount} era{eraCount === 1 ? '' : 's'}, 1469 to today.</p>
+          <p>The story across {eraCount} eras, {span}.</p>
         </li>
         <li class="lens-card lens-card--map">
           <h3><a href="/map">Global Map</a></h3>
-          <p>{eventCount} mapped event{eventCount === 1 ? '' : 's'} — see history unfold across the world.</p>
+          <p>{eventCount} events plotted where they happened — filter by era or person, or scrub the timeline.</p>
         </li>
         <li class="lens-card">
           <h3><a href="/people">People</a></h3>
-          <p>{peopleCount} figure{peopleCount === 1 ? '' : 's'} — the Gurus and those who shaped the faith.</p>
+          <p>{peopleCount} figures — the Gurus and those who shaped the faith.</p>
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- Featured era as a taste of the history -->
+  <!-- Featured moments -->
+  <section class="section">
+    <div class="container">
+      <h2>Moments in the story</h2>
+      <ul class="lens-grid">
+        {
+          featuredEvents.map((e) => (
+            <li class="lens-card">
+              <h3><a href={`/events/${e.id}`}>{e.data.title}</a></h3>
+              <p class="years">{e.data.year}</p>
+              <p>{e.data.summary}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Featured era + explore evergreen -->
   {
-    featured && (
+    firstEra && (
       <section class="section">
         <div class="container">
-          <h2>Featured era</h2>
+          <h2>Begin at the beginning</h2>
           <div class="era-card">
-            <h3><a href={`/history/${featured.id}`}>{featured.data.title}</a></h3>
+            <h3><a href={`/history/${firstEra.id}`}>{firstEra.data.title}</a></h3>
             <p class="years">
-              {featured.data.startYear}
-              {featured.data.endYear ? `–${featured.data.endYear}` : '–present'}
+              {firstEra.data.startYear}
+              {firstEra.data.endYear ? `–${firstEra.data.endYear}` : '–present'}
             </p>
-            <p>{featured.data.summary}</p>
+            <p>{firstEra.data.summary}</p>
           </div>
           <p class="muted-note">
-            {eraCount} era{eraCount === 1 ? '' : 's'}, {eventCount} mapped event{eventCount === 1 ? '' : 's'},
-            and {peopleCount} {peopleCount === 1 ? 'person' : 'people'} loaded from content files.
+            Or explore <a href="/faith">The Faith</a>,
+            <a href="/culture"> Culture &amp; Heritage</a>, or search everything in
+            the <a href="/library">Library</a>.
           </p>
         </div>
       </section>

@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SourceList from '../components/SourceList.astro';
+
+// Culture & Heritage is a hand-built page: lived, material and artistic
+// culture, distinct from the doctrinal topics under The Faith. Claims here are
+// backed by the sources listed at the foot of the page.
+const sources = [
+  { title: 'Sikhism: A Very Short Introduction', author: 'Eleanor Nesbitt', publisher: 'Oxford University Press', year: 2005 },
+  { title: 'The Sikhs: Their Religious Beliefs and Practices', author: 'W. Owen Cole and Piara Singh Sambhi', note: 'standard academic reference on Sikh belief and practice' },
+  { title: 'A History of the Sikhs, Volume 1: 1469–1839', author: 'Khushwant Singh', publisher: 'Oxford University Press', year: 2004 },
+  { title: 'Encyclopaedia Britannica — Sikhism', url: 'https://www.britannica.com/topic/Sikhism' },
+];
+---
+
+<BaseLayout
+  title="Culture & Heritage — Mission Sikhism"
+  description="The lived culture of the Sikh world — its music, kitchens, language, art and global reach."
+>
+  <section class="section">
+    <div class="container culture">
+      <h1>Culture &amp; Heritage</h1>
+      <p class="lede">
+        Beyond belief and history lies a living culture — the sound, language,
+        hospitality and craft through which Sikhi is practised day to day, in the
+        Punjab and across a global diaspora.
+      </p>
+
+      <h2>The gurdwara and the langar</h2>
+      <p>
+        The <strong>gurdwara</strong> ("doorway to the Guru") is the Sikh place of
+        worship, open to all regardless of faith or background. At its heart sits
+        the Guru Granth Sahib, and attached to almost every gurdwara is the
+        <strong>langar</strong> — the free community kitchen founded in Guru Nanak's
+        own time, where volunteers cook and serve a meal to anyone who comes, all
+        seated together on the floor as equals. Langar is Sikhi's most visible
+        social teaching: equality and service made edible.
+      </p>
+
+      <h2>Sacred music</h2>
+      <p>
+        Sikh worship is sung. <strong>Kirtan</strong> — the singing of scripture —
+        is central to Sikh devotional life, and the Guru Granth Sahib is itself
+        organised by <em>raag</em>, the classical melodic framework to which each
+        hymn is set. The tradition reaches back to Guru Nanak and his lifelong
+        companion Bhai Mardana, who accompanied him on the rebab. Music remains the
+        living voice of the scripture.
+      </p>
+
+      <h2>Language and script</h2>
+      <p>
+        Sikh scripture is written in <strong>Gurmukhi</strong>, the script
+        standardised by Guru Angad, and its language is closely tied to Punjabi.
+        Learning to read Gurmukhi is, for many Sikhs, a first step toward reading
+        the Guru directly — and Punjabi language and literature are woven through
+        Sikh cultural life.
+      </p>
+
+      <h2>Symbol and dress</h2>
+      <p>
+        The <strong>Nishan Sahib</strong>, the saffron triangular flag bearing the
+        Khanda emblem, flies over every gurdwara. Initiated Sikhs keep the five
+        articles of faith described under <a href="/faith/rehat-maryada">the Rehat
+        Maryada</a>, of which the turban and uncut hair are the most recognised the
+        world over — a visible commitment to identity and equality.
+      </p>
+
+      <h2>A martial tradition</h2>
+      <p>
+        From Guru Hargobind's doctrine of <em>miri-piri</em> onward, Sikhi has held
+        together the spiritual and the martial. That heritage survives in the
+        <strong>Akali Nihang</strong> orders and in <strong>gatka</strong>, the
+        Sikh martial art demonstrated each year at
+        <a href="/faith/festivals-and-gurpurabs">Hola Mohalla</a> in Anandpur.
+      </p>
+
+      <h2>A global community</h2>
+      <p>
+        Sikhs today live on every continent, carrying gurdwaras, langar and
+        festival to cities far from the Punjab. The diaspora — shaped in part by
+        the upheaval of <a href="/events/partition-of-punjab">Partition</a> and by
+        later migration — has made Sikh culture a genuinely global presence while
+        keeping its roots in the land of the Gurus.
+      </p>
+
+      <SourceList sources={sources} />
+
+      <p class="muted-note">
+        Draft for review — this page gives an overview; individual topics may be
+        expanded into their own entries over time.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -4,41 +4,79 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="About — Mission Sikhism"
-  description="Mission Sikhism is a non-profit, community-built, fully-sourced history of the Sikh faith."
+  description="A non-profit, community-built, fully-sourced history of the Sikh faith — and how to contribute to it."
 >
   <section class="section">
-    <div class="container">
+    <div class="container about">
       <h1>About</h1>
-      <p>
+      <p class="lede">
         Mission Sikhism is a non-profit, community-built history of the Sikh
-        faith, from 1469 to today. Its guiding promise is simple: every fact is
-        sourced. That promise is enforced by the build itself — a page cannot go
-        live if any claim on it lacks a citation.
+        faith, from 1469 to today — offered freely, without paywalls, in the
+        spirit of <em>sarbat da bhala</em>, the welfare of all.
+      </p>
+
+      <h2>Our one promise</h2>
+      <p>
+        Sikh history is often retold without references. This site takes the
+        opposite approach: <strong>every factual claim is tied to a citation</strong>,
+        and that rule is enforced by the build itself. A page physically cannot
+        publish if any of its content lacks a source — the guarantee is checked by
+        software, not left to memory. You can see the result on the
+        <a href="/library">Library</a> page, which gathers every source cited
+        across the whole site into one bibliography.
+      </p>
+
+      <h2>How the site is built</h2>
+      <p>
+        The history is organised three ways over one set of facts: as a
+        <a href="/history">timeline</a>, as an interactive <a href="/map">map</a>
+        where every event is placed where it happened, and as the
+        <a href="/people">people</a> who shaped it. Alongside sit
+        <a href="/faith">The Faith</a> and <a href="/culture">Culture &amp;
+        Heritage</a>. It is a static, open project — plain text files in a public
+        repository — so it is fast, durable, and free to run.
       </p>
 
       <h2 id="contribute">Contribute</h2>
       <p>
-        The site is built from plain Markdown files in a public repository. To
-        contribute, submit a change with a citation for every factual claim, and
-        a maintainer will review it before it goes live. A full contributor
-        guide is coming soon.
+        This project grows as research grows, and it is better for more eyes. If
+        you have spotted an inaccuracy, found a stronger source, or know of an
+        event not yet documented, we would like to hear from you.
+      </p>
+      <p>
+        There is one condition, and it is the same one the whole site runs on:
+        <strong>include a reference</strong>. Every suggestion should come with a
+        verifiable source — a book with its author and page, or a link — so a
+        maintainer can check and credit it before it goes live. Contributions
+        without a source cannot be published, however well-intentioned.
       </p>
 
-      <h2 id="faq">FAQ</h2>
+      <h2 id="faq">Frequently asked questions</h2>
+
       <h3>Why is everything sourced?</h3>
       <p>
-        Sikh history is often retold without references. This site takes the
-        opposite approach: if a fact can't be cited, it doesn't ship.
+        Because trust is the point. A history that cannot be checked is just a
+        story. Requiring a citation for every claim keeps the site honest and lets
+        readers follow any fact back to where it comes from.
       </p>
-      <h3>How are the eras divided?</h3>
+
+      <h3>How is the history divided?</h3>
       <p>
-        History is organised into eras from 1469 to today. The framing is meant
-        to be clear and faithful to the tradition — feedback is welcome.
+        Into six eras, from Guru Nanak in 1469 to the present day. The framing is
+        meant to be clear and faithful to the tradition; if you think an era is
+        drawn wrongly, that is exactly the kind of feedback we welcome.
       </p>
-      <h3>Can I reuse this content?</h3>
+
+      <h3>Who is behind it?</h3>
       <p>
-        Mission Sikhism is a community resource. Licensing details will be
-        published here.
+        It is a volunteer, non-profit effort, dedicated to Waheguru and offered as
+        a free resource for study, practice and research.
+      </p>
+
+      <h3>Can I reuse the content?</h3>
+      <p>
+        The site is intended as a free educational resource. Full licensing
+        details will be published here.
       </p>
     </div>
   </section>

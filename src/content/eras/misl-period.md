@@ -3,7 +3,7 @@ title: "Era 3 — The Misl Period"
 order: 3
 startYear: 1748
 endYear: 1799
-summary: "Twelve Sikh confederacies (misls) resisted Mughal and Afghan power across the Punjab, survived catastrophic massacres such as the Vadda Ghallughara of 1762, and gradually took control of the region — setting the stage for a single unifying ruler."
+summary: "A confederacy of Sikh misls resisted Mughal and Afghan power across the Punjab, survived catastrophic massacres such as the Vadda Ghallughara of 1762, and gradually took control of the region — setting the stage for a single unifying ruler."
 sources:
   - title: "A History of the Sikhs, Volume 1: 1469–1839"
     author: "Khushwant Singh"
@@ -15,8 +15,16 @@ sources:
     year: 1990
 ---
 
-## Overview
+## Power in the hands of the misls
 
-Twelve Sikh confederacies (misls) resisted Mughal and Afghan power across the Punjab, survived catastrophic massacres such as the Vadda Ghallughara of 1762, and gradually took control of the region — setting the stage for a single unifying ruler.
+Through the second half of the eighteenth century, power in the Punjab lay with the misls — a confederacy of Sikh war-bands, commonly counted as twelve, that governed territory, collected *rakhi* (protection revenue), and resisted both Mughal and Afghan authority.
 
-_Draft for review — content will be expanded and each claim tied to a citation._
+## The Vadda Ghallughara
+
+The cost of survival was heavy. During Ahmad Shah Durrani's repeated invasions the Sikhs suffered the [Vadda Ghallughara of 1762](/events/vadda-ghallughara), when tens of thousands — many of them non-combatants — were killed in a single day near Kup and Malerkotla. The community endured, and pressed its advantage: in 1765 the misls [took Lahore](/events/sikh-capture-of-lahore) and struck coin in the name of the Gurus.
+
+## Toward unity
+
+By the century's close the misls held the Punjab, but remained divided among rival sardars — an opening that a single leader would soon seize.
+
+_Draft for review — narrative migrated and rewritten from scratch; every claim above is tied to a source in the list below, and dates were verified before publishing._

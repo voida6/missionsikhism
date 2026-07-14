@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Evergreen context: beliefs, practices, values. Non-chronological.
+const topics = (await getCollection('faith')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<BaseLayout
+  title="The Faith — Mission Sikhism"
+  description="The core beliefs, practices, and values of the Sikh faith — each one sourced."
+>
+  <section class="section">
+    <div class="container">
+      <h1>The Faith</h1>
+      <p>
+        The beliefs, practices, and values of Sikhi — the evergreen foundations
+        beneath the history. Like everything on this site, each topic is cited.
+      </p>
+      {
+        topics.length === 0 ? (
+          <p class="muted-note">Topics coming soon.</p>
+        ) : (
+          <ul class="topic-list">
+            {topics.map((t) => (
+              <li class="topic-card">
+                <h3><a href={`/faith/${t.id}`}>{t.data.title}</a></h3>
+                <p>{t.data.summary}</p>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

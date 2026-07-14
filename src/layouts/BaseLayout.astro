@@ -7,14 +7,21 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+
+// Top nav — the six lenses/sections. Order matters: the three lenses
+// (History, Map, People) first, then evergreen context.
 const nav = [
   { label: 'History', href: '/history' },
+  { label: 'Map', href: '/map' },
+  { label: 'People', href: '/people' },
   { label: 'The Faith', href: '/faith' },
-  { label: 'Global Map', href: '/map' },
-  { label: 'Explore', href: '/explore' },
   { label: 'Library', href: '/library' },
-  { label: 'Contribute', href: '/contribute' },
+  { label: 'About', href: '/about' },
 ];
+
+// Mark the current section active by matching the first path segment.
+const path = Astro.url.pathname;
+const seg = '/' + (path.split('/').filter(Boolean)[0] ?? '');
 ---
 
 <!doctype html>
@@ -31,7 +38,13 @@ const nav = [
       <div class="container">
         <a class="brand" href="/">Mission Sikhism</a>
         <nav class="nav">
-          {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+          {
+            nav.map((item) => (
+              <a href={item.href} aria-current={seg === item.href ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
         </nav>
       </div>
     </header>
@@ -46,6 +59,12 @@ const nav = [
           Mission Sikhism — a non-profit, fully-sourced history of the Sikh
           faith. Every fact on this site is cited.
         </p>
+        <nav class="footer-nav">
+          <a href="/about">About</a>
+          <a href="/about#contribute">Contribute</a>
+          <a href="/about#faq">FAQ</a>
+          <a href="/library">Library</a>
+        </nav>
       </div>
     </footer>
   </body>

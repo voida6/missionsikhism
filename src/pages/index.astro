@@ -2,15 +2,16 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Eras are pulled from the content collection and sorted by their `order`.
-// Add a Markdown file under src/content/eras and it appears here automatically.
-const eras = (await getCollection('eras')).sort(
-  (a, b) => a.data.order - b.data.order,
-);
-
+// Eras and events drive the counts and the featured era. Add a Markdown file
+// and it flows through automatically.
+const eras = (await getCollection('eras')).sort((a, b) => a.data.order - b.data.order);
 const events = await getCollection('events');
+const people = await getCollection('people');
+
 const eraCount = eras.length;
 const eventCount = events.length;
+const peopleCount = people.length;
+const featured = eras[0]; // earliest era as the featured entry point
 ---
 
 <BaseLayout
@@ -22,31 +23,58 @@ const eventCount = events.length;
       <span class="badge">Every fact sourced</span>
       <h1>The history of the Sikh faith, 1469 to today</h1>
       <p>
-        A non-profit, community-built history — six eras, an interactive global
-        map, and a growing library. Every claim on this site is tied to a
-        citation, enforced at build time.
+        A non-profit, community-built history — explore it by time, by place, or
+        by the people who shaped it. Every claim is tied to a citation, enforced
+        at build time.
+      </p>
+      <p class="hero-actions">
+        <a class="btn btn-primary" href="/history">Start with the history</a>
+        <a class="btn" href="/map">Open the map</a>
       </p>
     </div>
   </section>
 
+  <!-- Three lenses onto the same events -->
   <section class="section">
     <div class="container">
-      <h2>Explore the eras</h2>
-      <ul class="era-list">
-        {
-          eras.map((era) => (
-            <li class="era-card">
-              <h3><a href={"/history/" + era.id}>{era.data.title}</a></h3>
-              <p class="years">
-                {era.data.startYear}
-                {era.data.endYear ? `–${era.data.endYear}` : '–present'}
-              </p>
-              <p>{era.data.summary}</p>
-            </li>
-          ))
-        }
+      <h2>Three ways in</h2>
+      <ul class="lens-grid">
+        <li class="lens-card">
+          <h3><a href="/history">History</a></h3>
+          <p>The story across {eraCount} era{eraCount === 1 ? '' : 's'}, 1469 to today.</p>
+        </li>
+        <li class="lens-card lens-card--map">
+          <h3><a href="/map">Global Map</a></h3>
+          <p>{eventCount} mapped event{eventCount === 1 ? '' : 's'} — see history unfold across the world.</p>
+        </li>
+        <li class="lens-card">
+          <h3><a href="/people">People</a></h3>
+          <p>{peopleCount} figure{peopleCount === 1 ? '' : 's'} — the Gurus and those who shaped the faith.</p>
+        </li>
       </ul>
-      <p class="muted-note">{eraCount} eras and {eventCount} mapped events loaded from content files.</p>
     </div>
   </section>
+
+  <!-- Featured era as a taste of the history -->
+  {
+    featured && (
+      <section class="section">
+        <div class="container">
+          <h2>Featured era</h2>
+          <div class="era-card">
+            <h3><a href={`/history/${featured.id}`}>{featured.data.title}</a></h3>
+            <p class="years">
+              {featured.data.startYear}
+              {featured.data.endYear ? `–${featured.data.endYear}` : '–present'}
+            </p>
+            <p>{featured.data.summary}</p>
+          </div>
+          <p class="muted-note">
+            {eraCount} era{eraCount === 1 ? '' : 's'}, {eventCount} mapped event{eventCount === 1 ? '' : 's'},
+            and {peopleCount} {peopleCount === 1 ? 'person' : 'people'} loaded from content files.
+          </p>
+        </div>
+      </section>
+    )
+  }
 </BaseLayout>

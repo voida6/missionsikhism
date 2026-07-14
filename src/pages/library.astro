@@ -1,12 +1,65 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// The Library IS the citation rule turned into a feature. We walk every
+// collection, pull each entry's `sources`, and build one de-duplicated
+// bibliography — the "fully sourced" promise, made browsable.
+const collections = ['eras', 'events', 'people', 'faith'] as const;
+
+type Src = {
+  title: string; author?: string; publisher?: string;
+  year?: number; url?: string; page?: string; note?: string;
+};
+
+const seen = new Map<string, Src>();
+for (const name of collections) {
+  const entries = await getCollection(name as any);
+  for (const entry of entries) {
+    for (const s of (entry.data.sources ?? []) as Src[]) {
+      // De-dupe on author + title + year (page numbers vary per citation).
+      const key = `${(s.author ?? '').toLowerCase()}|${s.title.toLowerCase()}|${s.year ?? ''}`;
+      if (!seen.has(key)) seen.set(key, s);
+    }
+  }
+}
+
+// Sort by author (surname-ish), then title.
+const sortKey = (s: Src) => (s.author ?? s.title).toLowerCase();
+const library = [...seen.values()].sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
 ---
 
-<BaseLayout title="Library — Mission Sikhism" description="Books and resources on Sikh history and faith.">
+<BaseLayout
+  title="Library — Mission Sikhism"
+  description="Every source cited across the site, gathered into one browsable bibliography."
+>
   <section class="section">
     <div class="container">
       <h1>Library</h1>
-      <p>Recommended books and resources on Sikh history and faith. Coming soon.</p>
+      <p>
+        Every claim on this site is tied to a citation, enforced at build time.
+        This page gathers those citations — {library.length} unique
+        source{library.length === 1 ? '' : 's'} so far — into one bibliography.
+        Search across the whole site is coming next.
+      </p>
+      <ol class="library-list">
+        {
+          library.map((s) => (
+            <li>
+              {s.author && <span>{s.author}. </span>}
+              {s.url ? (
+                <a href={s.url} rel="noopener noreferrer" target="_blank"><cite>{s.title}</cite></a>
+              ) : (
+                <cite>{s.title}</cite>
+              )}
+              {s.publisher && <span>. {s.publisher}</span>}
+              {s.year && <span> ({s.year})</span>}
+              {s.note && <span> — {s.note}</span>}
+              <span>.</span>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </section>
 </BaseLayout>

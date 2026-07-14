@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SourceList from '../../components/SourceList.astro';
+
+export async function getStaticPaths() {
+  const topics = await getCollection('faith');
+  return topics.map((topic) => ({ params: { id: topic.id }, props: { topic } }));
+}
+
+const { topic } = Astro.props;
+const { Content } = await render(topic);
+---
+
+<BaseLayout title={`${topic.data.title} — The Faith`} description={topic.data.summary}>
+  <article class="section">
+    <div class="container">
+      <p class="crumb"><a href="/faith">← The Faith</a></p>
+      <h1>{topic.data.title}</h1>
+      <p class="lede">{topic.data.summary}</p>
+      <Content />
+      <SourceList sources={topic.data.sources} />
+    </div>
+  </article>
+</BaseLayout>

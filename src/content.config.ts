@@ -69,4 +69,17 @@ const people = defineCollection({
   }),
 });
 
-export const collections = { eras, events, people };
+
+// The Faith: evergreen topics (beliefs, practices, values). Non-chronological,
+// so no year/era — but still sourced like everything else.
+const faith = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/faith' }),
+  schema: z.object({
+    title: z.string(),
+    order: z.number().default(100), // controls listing order on /faith
+    summary: z.string(),
+    sources,
+  }),
+});
+
+export const collections = { eras, events, people, faith };

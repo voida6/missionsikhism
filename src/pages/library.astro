@@ -4,7 +4,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 // The Library IS the citation rule turned into a feature. We walk every
 // collection, pull each entry's `sources`, and build one de-duplicated
-// bibliography — the "fully sourced" promise, made browsable.
+// bibliography — the "fully sourced" promise, made browsable. Pagefind adds
+// full-site search on top (its index is generated after the Astro build).
 const collections = ['eras', 'events', 'people', 'faith'] as const;
 
 type Src = {
@@ -31,17 +32,22 @@ const library = [...seen.values()].sort((a, b) => sortKey(a).localeCompare(sortK
 
 <BaseLayout
   title="Library — Mission Sikhism"
-  description="Every source cited across the site, gathered into one browsable bibliography."
+  description="Search the whole site, and browse every source cited across it in one bibliography."
 >
+  <link is:inline rel="stylesheet" href="/pagefind/pagefind-ui.css" />
   <section class="section">
     <div class="container">
       <h1>Library</h1>
       <p>
         Every claim on this site is tied to a citation, enforced at build time.
-        This page gathers those citations — {library.length} unique
-        source{library.length === 1 ? '' : 's'} so far — into one bibliography.
-        Search across the whole site is coming next.
+        Search the whole site below — every era, event, person, and topic — or
+        browse the {library.length} unique
+        source{library.length === 1 ? '' : 's'} gathered into one bibliography.
       </p>
+
+      <div id="search" class="pf-search"></div>
+
+      <h2 class="library-heading">Bibliography</h2>
       <ol class="library-list">
         {
           library.map((s) => (
@@ -62,4 +68,33 @@ const library = [...seen.values()].sort((a, b) => sortKey(a).localeCompare(sortK
       </ol>
     </div>
   </section>
+
+  <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', function () {
+      if (window.PagefindUI) {
+        new PagefindUI({
+          element: '#search',
+          showSubResults: true,
+          showImages: false,
+          resetStyles: false,
+        });
+      }
+    });
+  </script>
+
+  <style is:global>
+    /* Theme Pagefind's default UI to the saffron palette. */
+    .pf-search {
+      --pagefind-ui-primary: var(--color-saffron-dark);
+      --pagefind-ui-text: var(--color-ink);
+      --pagefind-ui-background: var(--color-surface);
+      --pagefind-ui-border: var(--color-border-strong);
+      --pagefind-ui-tag: var(--color-saffron-soft);
+      --pagefind-ui-border-radius: 10px;
+      --pagefind-ui-font: var(--font-body);
+      margin-bottom: 2.25rem;
+    }
+    .library-heading { font-size: 1.35rem; margin: 0 0 1rem; }
+  </style>
 </BaseLayout>

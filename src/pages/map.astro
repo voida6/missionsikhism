@@ -2,28 +2,237 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Every event already carries coordinates, so the map has its data waiting.
-// The interactive Leaflet/MapLibre island will be added next.
-const events = await getCollection('events');
+// The signature feature. Every event already carries lat/lng, so the map
+// generates from the same content files as the history pages — one source of
+// truth. We serialise a compact data island here; ALL interactive logic lives
+// in the is:inline script below (kept out of the Astro compiler on purpose).
+const eventsRaw = await getCollection('events');
+const erasRaw = (await getCollection('eras')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const peopleRaw = await getCollection('people');
+
+const peopleById = new Map(peopleRaw.map((p) => [p.id, p.data.name]));
+const eraById = new Map(erasRaw.map((e) => [e.id, e.data.title]));
+
+const events = eventsRaw
+  .filter((e) => typeof e.data.lat === 'number' && typeof e.data.lng === 'number')
+  .map((e) => ({
+    id: e.id,
+    title: e.data.title,
+    year: e.data.year,
+    era: e.data.era.id,
+    eraTitle: eraById.get(e.data.era.id) ?? '',
+    lat: e.data.lat,
+    lng: e.data.lng,
+    location: e.data.location ?? '',
+    summary: e.data.summary,
+    people: (e.data.people ?? []).map((r) => ({
+      id: r.id,
+      name: peopleById.get(r.id) ?? r.id,
+    })),
+    url: `/events/${e.id}`,
+  }))
+  .sort((a, b) => a.year - b.year);
+
+const eras = erasRaw.map((e) => ({
+  id: e.id,
+  title: e.data.title,
+  startYear: e.data.startYear,
+  endYear: e.data.endYear ?? null,
+}));
+
+const people = peopleRaw
+  .map((p) => ({ id: p.id, name: p.data.name }))
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+const years = events.map((e) => e.year);
+const minYear = years.length ? Math.min(...years) : 1469;
+const maxYear = years.length ? Math.max(...years) : new Date().getFullYear();
+
+const mapData = { events, eras, people, minYear, maxYear };
 ---
 
-<BaseLayout title="Global Map — Mission Sikhism" description="An interactive map of Sikh history.">
-  <section class="section">
+<BaseLayout
+  title="Global Map — Mission Sikhism"
+  description="An interactive map of Sikh history — every event plotted by place and time, filterable by era and person."
+>
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
+
+  <section class="section map-section">
     <div class="container">
       <h1>Global Map</h1>
       <p>
-        An interactive map of Sikh history. {events.length} event{events.length === 1 ? '' : 's'}
-        with coordinates are ready to plot — the interactive map is coming next.
+        Every event in the history, plotted where it happened. Filter by era or
+        person, or drag the timeline to watch the story spread across the world.
       </p>
-      <ul>
-        {
-          events.map((e) => (
-            <li>
-              <a href={`/events/${e.id}`}>{e.data.title}</a> — {e.data.lat}, {e.data.lng}
-            </li>
-          ))
-        }
-      </ul>
+    </div>
+
+    <div class="map-layout container">
+      <aside class="map-controls" aria-label="Map filters">
+        <div class="control">
+          <label for="era-filter">Era</label>
+          <select id="era-filter"><option value="">All eras</option></select>
+        </div>
+        <div class="control">
+          <label for="person-filter">Person</label>
+          <select id="person-filter"><option value="">Everyone</option></select>
+        </div>
+        <div class="control">
+          <label for="year-slider">
+            Up to year: <strong id="year-label">{maxYear}</strong>
+          </label>
+          <input
+            id="year-slider"
+            type="range"
+            min={minYear}
+            max={maxYear}
+            value={maxYear}
+            step="1"
+          />
+          <div class="timeline-actions">
+            <button id="play-btn" type="button">▶ Play</button>
+            <button id="reset-btn" type="button">Reset</button>
+          </div>
+        </div>
+        <p class="map-count"><span id="visible-count">0</span> events shown</p>
+      </aside>
+
+      <div id="map" role="application" aria-label="Interactive map of Sikh history"></div>
     </div>
   </section>
+
+  <script type="application/json" id="map-data" set:html={JSON.stringify(mapData)}></script>
+  <script is:inline src="/vendor/leaflet/leaflet.js"></script>
+  <script is:inline>
+    (function () {
+      var el = document.getElementById('map-data');
+      if (!el || typeof L === 'undefined') return;
+      var data = JSON.parse(el.textContent);
+      var events = data.events || [];
+
+      var map = L.map('map', { scrollWheelZoom: true }).setView([28, 74], 3);
+      L.tileLayer(
+        'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+        {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+          subdomains: 'abcd',
+          maxZoom: 19,
+        }
+      ).addTo(map);
+
+      function esc(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+
+      // One marker per event, kept alongside its data for filtering.
+      var markers = events.map(function (ev) {
+        var m = L.circleMarker([ev.lat, ev.lng], {
+          radius: 8,
+          color: '#b45309',
+          weight: 2,
+          fillColor: '#f59e0b',
+          fillOpacity: 0.85,
+        });
+        var peopleLine = ev.people && ev.people.length
+          ? '<div class="pop-people">' +
+            ev.people.map(function (p) {
+              return '<a href="/people/' + esc(p.id) + '">' + esc(p.name) + '</a>';
+            }).join(', ') +
+            '</div>'
+          : '';
+        m.bindPopup(
+          '<div class="map-popup">' +
+            '<strong>' + esc(ev.title) + '</strong>' +
+            '<div class="pop-meta">' + esc(ev.year) +
+              (ev.location ? ' &middot; ' + esc(ev.location) : '') + '</div>' +
+            '<p>' + esc(ev.summary) + '</p>' +
+            peopleLine +
+            '<a class="pop-link" href="' + esc(ev.url) + '">Read more &rarr;</a>' +
+          '</div>'
+        );
+        return { ev: ev, marker: m };
+      });
+
+      var eraSel = document.getElementById('era-filter');
+      var personSel = document.getElementById('person-filter');
+      var slider = document.getElementById('year-slider');
+      var yearLabel = document.getElementById('year-label');
+      var countEl = document.getElementById('visible-count');
+
+      (data.eras || []).forEach(function (e) {
+        var o = document.createElement('option');
+        o.value = e.id; o.textContent = e.title; eraSel.appendChild(o);
+      });
+      (data.people || []).forEach(function (p) {
+        var o = document.createElement('option');
+        o.value = p.id; o.textContent = p.name; personSel.appendChild(o);
+      });
+
+      function apply() {
+        var era = eraSel.value;
+        var person = personSel.value;
+        var upTo = parseInt(slider.value, 10);
+        yearLabel.textContent = upTo;
+        var shown = 0;
+        markers.forEach(function (mk) {
+          var ev = mk.ev;
+          var ok =
+            ev.year <= upTo &&
+            (!era || ev.era === era) &&
+            (!person || (ev.people || []).some(function (p) { return p.id === person; }));
+          if (ok) {
+            if (!map.hasLayer(mk.marker)) mk.marker.addTo(map);
+            shown++;
+          } else if (map.hasLayer(mk.marker)) {
+            map.removeLayer(mk.marker);
+          }
+        });
+        countEl.textContent = shown;
+      }
+
+      eraSel.addEventListener('change', apply);
+      personSel.addEventListener('change', apply);
+      slider.addEventListener('input', apply);
+
+      // Timeline play: sweep from min year to max, revealing events over time.
+      var playBtn = document.getElementById('play-btn');
+      var resetBtn = document.getElementById('reset-btn');
+      var timer = null;
+      function stopPlay() {
+        if (timer) { clearInterval(timer); timer = null; }
+        playBtn.textContent = '▶ Play';
+      }
+      playBtn.addEventListener('click', function () {
+        if (timer) { stopPlay(); return; }
+        if (parseInt(slider.value, 10) >= data.maxYear) slider.value = data.minYear;
+        playBtn.textContent = '❚❚ Pause';
+        timer = setInterval(function () {
+          var v = parseInt(slider.value, 10);
+          if (v >= data.maxYear) { stopPlay(); return; }
+          slider.value = v + Math.max(1, Math.round((data.maxYear - data.minYear) / 60));
+          if (parseInt(slider.value, 10) > data.maxYear) slider.value = data.maxYear;
+          apply();
+        }, 120);
+      });
+      resetBtn.addEventListener('click', function () {
+        stopPlay();
+        eraSel.value = ''; personSel.value = ''; slider.value = data.maxYear;
+        apply();
+        fitAll();
+      });
+
+      function fitAll() {
+        var pts = markers.map(function (mk) { return [mk.ev.lat, mk.ev.lng]; });
+        if (pts.length === 1) { map.setView(pts[0], 5); }
+        else if (pts.length > 1) { map.fitBounds(pts, { padding: [40, 40] }); }
+      }
+
+      apply();
+      fitAll();
+    })();
+  </script>
 </BaseLayout>

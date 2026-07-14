@@ -183,3 +183,56 @@ a { color: var(--color-blue); }
 /* --- Library bibliography --- */
 .library-list { line-height: 1.7; }
 .library-list cite { font-style: italic; }
+
+/* --- Global Map (Phase 4) --- */
+.map-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+#map {
+  height: 70vh;
+  min-height: 460px;
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  z-index: 0;
+}
+.map-controls {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.map-controls .control { display: flex; flex-direction: column; gap: 0.35rem; }
+.map-controls label { font-size: 0.85rem; color: var(--color-muted); }
+.map-controls select,
+.map-controls input[type="range"] { width: 100%; }
+.timeline-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+.timeline-actions button {
+  flex: 1;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+}
+.timeline-actions button:hover { border-color: var(--color-saffron-dark); color: var(--color-saffron-dark); }
+.map-count { font-size: 0.85rem; color: var(--color-muted); margin: 0; }
+
+/* Popups */
+.map-popup { max-width: 240px; }
+.map-popup .pop-meta { font-size: 0.8rem; color: var(--color-muted); margin: 0.15rem 0 0.4rem; }
+.map-popup p { margin: 0 0 0.5rem; font-size: 0.9rem; }
+.map-popup .pop-people { font-size: 0.8rem; margin-bottom: 0.4rem; }
+.map-popup .pop-link { font-weight: 600; }
+
+@media (max-width: 720px) {
+  .map-layout { grid-template-columns: 1fr; }
+  #map { height: 60vh; }
+}

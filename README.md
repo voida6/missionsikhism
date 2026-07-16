@@ -6,22 +6,29 @@ no database, no CMS, nothing to hack.
 
 ## The core rule: every fact is sourced
 
-Content is organised into three collections — `eras`, `events`, and `people`
-(see `src/content.config.ts`). Every entry **must** include a non-empty
-`sources` list. If a content file omits it, **the build fails.** The site's
-"every fact sourced" promise is enforced by the build, not by memory.
+Content is organised into content collections — `eras`, `places`, `events`,
+`people`, and `faith` (see `src/content.config.ts`). Every entry **must**
+include a non-empty `sources` list. If a content file omits it, **the build
+fails.** The site's "every fact sourced" promise is enforced by the build, not
+by memory. Beyond `sources`, the build also enforces the controlled
+vocabularies — every event needs a `type`, every person a `category`, and every
+era a hex `color`, or the build fails.
 
 ## Content lives here
 
 ```
 src/content/
-  eras/     one file per historical era
-  events/   one file per event — each carries lat/lng for the map
-  people/   one file per person
+  eras/     one file per historical era (title, order, colour, sources)
+  places/   one file per location (coords, type, region, sources)
+  events/   one file per event — links to a place, an era, people, a type
+  people/   one file per person (grouped by category)
+  faith/    one file per evergreen faith topic
 ```
 
-Events carry coordinates, so the history pages and the Global Map are generated
-from the same files. Write the event once; the map pin appears automatically.
+Each event references a `place` for its coordinates (with an optional lat/lng
+override for a precise spot), so the history pages, the place pages, and the
+Global Map are all generated from the same files. Write the event once; its map
+pin, place listing, and timeline entry all follow automatically.
 
 ## Running locally
 

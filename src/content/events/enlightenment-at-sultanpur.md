@@ -4,6 +4,10 @@ year: 1499
 date: "c. 1499"
 era: guru-period
 place: sultanpur-lodhi
+type: life-event
+faith:
+  - one-god
+  - foundations-philosophy
 lat: 31.2205
 lng: 75.1887
 location: "Sultanpur Lodhi, Punjab, India"

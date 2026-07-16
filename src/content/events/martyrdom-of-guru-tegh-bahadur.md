@@ -4,6 +4,7 @@ year: 1675
 date: "1675"
 era: guru-period
 place: delhi
+type: martyrdom
 lat: 28.6562
 lng: 77.2301
 location: "Chandni Chowk, Delhi, India"

@@ -11,13 +11,35 @@ export async function getStaticPaths() {
 const { person } = Astro.props;
 const { Content } = await render(person);
 
-// Events this person appears in.
 const events = (await getCollection('events'))
   .filter((e) => (e.data.people ?? []).some((ref) => ref.id === person.id))
   .sort((a, b) => a.data.year - b.data.year);
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const jsonld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: person.data.name,
+    description: person.data.summary,
+    url: canonical,
+    ...(person.data.born ? { birthDate: String(person.data.born) } : {}),
+    ...(person.data.died ? { deathDate: String(person.data.died) } : {}),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: 'People', item: new URL('/people', Astro.site).href },
+      { '@type': 'ListItem', position: 3, name: person.data.name, item: canonical },
+    ],
+  },
+];
 ---
 
 <BaseLayout title={`${person.data.name} — Mission Sikhism`} description={person.data.summary}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
   <article class="section">
     <div class="container">
       <nav class="crumb" aria-label="Breadcrumb">

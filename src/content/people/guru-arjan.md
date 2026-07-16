@@ -1,5 +1,6 @@
 ---
 name: "Guru Arjan Dev Ji"
+category: guru
 born: 1563
 died: 1606
 role: "Fifth Sikh Guru, first Sikh martyr"

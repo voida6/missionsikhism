@@ -4,6 +4,7 @@ year: 1716
 date: "1716"
 era: sovereignty-banda-singh
 place: delhi
+type: martyrdom
 lat: 28.5245
 lng: 77.1855
 location: "Delhi, India"

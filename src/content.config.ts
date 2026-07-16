@@ -51,7 +51,7 @@ const eras = defineCollection({
     endYear: z.number().optional(), // omit for the ongoing/current era
     summary: z.string(),
     // Phase A (additive):
-    color: z.string().optional(), // era accent colour (e.g. "#b45309"); tightened in Phase D
+    color: z.string().regex(/^#[0-9a-fA-F]{6}$/), // era accent colour, e.g. "#b45309" (Phase D: required, build-enforced)
     shortName: z.string().optional(), // compact label for chips/legends
     image: image.optional(),
     sources,
@@ -115,8 +115,7 @@ const events = defineCollection({
           'publication',
           'life-event',
           'other',
-        ])
-        .optional(), // Phase A optional; tightened (required) in Phase D
+        ]), // Phase D: required, build-enforced
       people: z.array(reference('people')).optional(),
       relatedEvents: z.array(reference('events')).optional(), // Phase A
       faith: z.array(reference('faith')).optional(), // Phase A: linked doctrine/topics
@@ -160,8 +159,7 @@ const people = defineCollection({
         'saint',
         'modern-figure',
         'other',
-      ])
-      .optional(), // tightened (required) in Phase D
+      ]), // Phase D: required, build-enforced
     sortName: z.string().optional(), // for alphabetical listing (e.g. "Nanak, Guru")
     honorific: z.string().optional(), // "Sri", "Ji", etc., kept out of the id/name
     relatedPeople: z.array(reference('people')).optional(), // e.g. Guru succession

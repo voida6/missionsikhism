@@ -4,6 +4,13 @@ year: 1699
 date: "Vaisakhi, 1699"
 era: guru-period
 place: anandpur
+type: founding
+faith:
+  - rehat-maryada
+  - ceremonies-and-rites
+relatedEvents:
+  - founding-of-anandpur
+  - guru-granth-eternal-guruship
 lat: 31.2389
 lng: 76.5028
 location: "Anandpur Sahib, Punjab, India"

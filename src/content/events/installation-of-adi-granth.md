@@ -4,6 +4,12 @@ year: 1604
 date: "16 August 1604"
 era: guru-period
 place: amritsar
+type: publication
+faith:
+  - guru-granth-sahib
+relatedEvents:
+  - martyrdom-of-guru-arjan
+  - founding-of-amritsar
 lat: 31.62
 lng: 74.8765
 location: "Harmandir Sahib (Golden Temple), Amritsar, India"

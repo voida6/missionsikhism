@@ -4,6 +4,11 @@ year: 1708
 date: "1708"
 era: guru-period
 place: nanded
+type: institution
+faith:
+  - guru-granth-sahib
+relatedEvents:
+  - creation-of-the-khalsa
 lat: 19.1528
 lng: 77.3189
 location: "Nanded (Takht Sri Hazur Sahib), Maharashtra, India"

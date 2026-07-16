@@ -1,6 +1,8 @@
 ---
 title: "Era 6 — The Modern Era"
 order: 6
+color: "#6b21a8"
+shortName: "Modern"
 startYear: 1947
 summary: "From the Partition of Punjab in 1947, through the events of 1984, to a global Sikh diaspora contributing across every field. The story remains open and ongoing."
 sources:

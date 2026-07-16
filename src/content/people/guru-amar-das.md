@@ -1,5 +1,6 @@
 ---
 name: "Guru Amar Das Ji"
+category: guru
 born: 1479
 died: 1574
 role: "Third Sikh Guru"

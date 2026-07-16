@@ -1,5 +1,6 @@
 ---
 name: "Guru Har Rai Ji"
+category: guru
 born: 1630
 died: 1661
 role: "Seventh Sikh Guru"

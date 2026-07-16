@@ -4,6 +4,7 @@ year: 1710
 date: "12 May 1710"
 era: sovereignty-banda-singh
 place: chappar-chiri
+type: battle
 lat: 30.655
 lng: 76.67
 location: "Chappar Chiri, near Sirhind, Punjab, India"

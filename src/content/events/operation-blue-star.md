@@ -4,6 +4,7 @@ year: 1984
 date: "June 1984"
 era: modern-era
 place: amritsar
+type: battle
 lat: 31.62
 lng: 74.8765
 location: "Harmandir Sahib (Golden Temple), Amritsar, India"

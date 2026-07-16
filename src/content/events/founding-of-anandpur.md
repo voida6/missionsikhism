@@ -4,6 +4,7 @@ year: 1665
 date: "1665"
 era: guru-period
 place: anandpur
+type: founding
 lat: 31.2389
 lng: 76.5028
 location: "Anandpur Sahib, Punjab, India"

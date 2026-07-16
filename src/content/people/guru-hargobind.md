@@ -1,5 +1,6 @@
 ---
 name: "Guru Hargobind Ji"
+category: guru
 born: 1595
 died: 1644
 role: "Sixth Sikh Guru"

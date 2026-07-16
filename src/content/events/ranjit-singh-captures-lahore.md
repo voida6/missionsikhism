@@ -4,6 +4,9 @@ year: 1799
 date: "1799"
 era: sikh-empire
 place: lahore
+type: battle
+relatedEvents:
+  - sikh-capture-of-lahore
 lat: 31.582
 lng: 74.3294
 location: "Lahore, present-day Pakistan"

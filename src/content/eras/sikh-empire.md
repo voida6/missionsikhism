@@ -1,6 +1,8 @@
 ---
 title: "Era 4 — The Sikh Empire"
 order: 4
+color: "#1e3a5f"
+shortName: "Empire"
 startYear: 1799
 endYear: 1849
 summary: "Maharaja Ranjit Singh unified the misls into a powerful, secular kingdom centred on Lahore, ruling from 1799 until his death in 1839. After two Anglo-Sikh wars the empire fell to British annexation in 1849."

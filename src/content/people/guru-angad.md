@@ -1,5 +1,6 @@
 ---
 name: "Guru Angad Dev Ji"
+category: guru
 born: 1504
 died: 1552
 role: "Second Sikh Guru"

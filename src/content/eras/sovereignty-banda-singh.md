@@ -1,6 +1,8 @@
 ---
 title: "Era 2 — Sovereignty & Banda Singh"
 order: 2
+color: "#b91c1c"
+shortName: "Banda Singh"
 startYear: 1708
 endYear: 1748
 summary: "The first sovereign Sikh state. Banda Singh Bahadur carried Guru Gobind Singh's authority into the Punjab, defeated the Mughal governor at Sirhind in 1710, struck coins and issued land reforms, and was executed in 1716 — followed by decades of persecution and regrouping."

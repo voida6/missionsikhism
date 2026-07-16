@@ -2,42 +2,73 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-// The WHO lens: Gurus and key figures. Sorted by birth year where known,
-// falling back to name so undated figures still appear in a stable order.
-const people = (await getCollection('people')).sort((a, b) => {
+// The WHO lens, sectioned by category (Phase D). Within a section, sort by
+// birth year where known, then name so undated figures stay in stable order.
+const people = await getCollection('people');
+
+const categoryLabels = {
+  guru: 'Gurus',
+  martyr: 'Martyrs',
+  general: 'Generals & Commanders',
+  ruler: 'Rulers',
+  reformer: 'Reformers',
+  scholar: 'Scholars',
+  saint: 'Saints',
+  'modern-figure': 'Modern Figures',
+  other: 'Others',
+};
+
+const byBirthThenName = (a, b) => {
   const ay = a.data.born ?? 9999;
   const by = b.data.born ?? 9999;
   if (ay !== by) return ay - by;
   return a.data.name.localeCompare(b.data.name);
-});
+};
+
+const groups = Object.keys(categoryLabels)
+  .map((cat) => ({
+    cat,
+    label: categoryLabels[cat],
+    items: people.filter((p) => p.data.category === cat).sort(byBirthThenName),
+  }))
+  .filter((g) => g.items.length > 0);
 ---
 
 <BaseLayout
   title="People — Mission Sikhism"
-  description="The Gurus and key figures of Sikh history, each life tied to the events they shaped."
+  description="The Gurus and key figures of Sikh history, grouped by their role, each life tied to the events they shaped."
 >
   <section class="section">
     <div class="container">
       <h1>People</h1>
       <p>
-        The Gurus, scholars, and figures who shaped Sikh history. Each life links
-        to the events they appear in — the same events you can see on the
-        <a href="/map">map</a> and in the <a href="/history">timeline</a>.
+        The Gurus, generals, rulers, and figures who shaped Sikh history. Each
+        life links to the events they appear in — the same events you can see on
+        the <a href="/map">map</a> and in the <a href="/history">timeline</a>.
       </p>
-      <ul class="people-list">
-        {
-          people.map((p) => (
-            <li class="person-card">
-              <h3><a href={`/people/${p.id}`}>{p.data.name}</a></h3>
-              {p.data.role && <p class="role">{p.data.role}</p>}
-              <p class="years">
-                {p.data.born ?? '?'}{p.data.died ? `–${p.data.died}` : ''}
-              </p>
-              <p>{p.data.summary}</p>
-            </li>
-          ))
-        }
-      </ul>
+
+      {
+        groups.map((group) => (
+          <>
+            <h2>{group.label}</h2>
+            <ul class="people-list">
+              {group.items.map((p) => (
+                <li class="person-card">
+                  <h3><a href={`/people/${p.id}`}>{p.data.name}</a></h3>
+                  <p class="pill" data-cat={p.data.category}>
+                    {categoryLabels[p.data.category]}
+                  </p>
+                  {p.data.role && <p class="role">{p.data.role}</p>}
+                  <p class="years">
+                    {p.data.born ?? '?'}{p.data.died ? `–${p.data.died}` : ''}
+                  </p>
+                  <p>{p.data.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </>
+        ))
+      }
     </div>
   </section>
 </BaseLayout>

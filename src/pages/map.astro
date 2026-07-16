@@ -2,30 +2,37 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// The signature feature. Events resolve their coordinates from their own
-// lat/lng when present, otherwise from their referenced `place` (Phase C) —
-// one source of truth shared with the history and place pages. We serialise a
-// compact data island here; ALL interactive logic lives in the is:inline
-// script below (kept out of the Astro compiler on purpose).
+// Signature feature (Phase E). We resolve each event's coordinates server-side
+// (event coords override, else its place) and serialise a lean island; all
+// interactive logic lives in the is:inline script below.
 const eventsRaw = await getCollection('events');
-const erasRaw = (await getCollection('eras')).sort(
-  (a, b) => a.data.order - b.data.order,
-);
+const erasRaw = (await getCollection('eras')).sort((a, b) => a.data.order - b.data.order);
 const peopleRaw = await getCollection('people');
 const placesRaw = await getCollection('places');
 
-const peopleById = new Map(peopleRaw.map((p) => [p.id, p.data.name]));
-const eraById = new Map(erasRaw.map((e) => [e.id, e.data.title]));
-const placeById = new Map(
-  placesRaw.map((p) => [p.id, { name: p.data.name, lat: p.data.lat, lng: p.data.lng }]),
-);
+const peopleById = new Map(peopleRaw.map((p) => [p.id, p.data]));
+const eraById = new Map(erasRaw.map((e) => [e.id, e.data]));
+const placeById = new Map(placesRaw.map((p) => [p.id, p.data]));
+
+// Fixed vocabulary → label + colour (04-CONTENT-GOVERNANCE / 03-MAP-SPEC).
+const TYPE_META = {
+  founding: { label: 'Founding', color: '#b45309' },
+  battle: { label: 'Battle', color: '#b91c1c' },
+  martyrdom: { label: 'Martyrdom', color: '#6d28d9' },
+  institution: { label: 'Institution', color: '#0369a1' },
+  treaty: { label: 'Treaty', color: '#047857' },
+  massacre: { label: 'Massacre', color: '#7f1d1d' },
+  migration: { label: 'Migration', color: '#a16207' },
+  reform: { label: 'Reform', color: '#0e7490' },
+  publication: { label: 'Publication', color: '#4d7c0f' },
+  'life-event': { label: 'Life event', color: '#be185d' },
+  other: { label: 'Other', color: '#57534e' },
+};
 
 const events = eventsRaw
   .map((e) => {
-    // Coordinate resolution: event coords override, else the place's coords.
     const place = e.data.place ? placeById.get(e.data.place.id) : undefined;
-    const hasOwn =
-      typeof e.data.lat === 'number' && typeof e.data.lng === 'number';
+    const hasOwn = typeof e.data.lat === 'number' && typeof e.data.lng === 'number';
     const lat = hasOwn ? e.data.lat : place?.lat;
     const lng = hasOwn ? e.data.lng : place?.lng;
     return { e, lat, lng, place };
@@ -35,8 +42,9 @@ const events = eventsRaw
     id: e.id,
     title: e.data.title,
     year: e.data.year,
+    endYear: e.data.endYear ?? null,
     era: e.data.era.id,
-    eraTitle: eraById.get(e.data.era.id) ?? '',
+    type: e.data.type,
     lat,
     lng,
     location: e.data.location ?? place?.name ?? '',
@@ -45,7 +53,7 @@ const events = eventsRaw
     summary: e.data.summary,
     people: (e.data.people ?? []).map((r) => ({
       id: r.id,
-      name: peopleById.get(r.id) ?? r.id,
+      name: peopleById.get(r.id)?.name ?? r.id,
     })),
     url: `/events/${e.id}`,
   }))
@@ -54,72 +62,119 @@ const events = eventsRaw
 const eras = erasRaw.map((e) => ({
   id: e.id,
   title: e.data.title,
-  startYear: e.data.startYear,
-  endYear: e.data.endYear ?? null,
+  short: e.data.shortName ?? e.data.title,
+  color: e.data.color,
+  order: e.data.order,
 }));
 
+// Only surface type chips/legend entries for types that actually occur.
+const presentTypes = new Set(events.map((e) => e.type));
+const types = Object.keys(TYPE_META)
+  .filter((t) => presentTypes.has(t))
+  .map((t) => ({ id: t, label: TYPE_META[t].label, color: TYPE_META[t].color }));
+
 const people = peopleRaw
-  .map((p) => ({ id: p.id, name: p.data.name }))
+  .map((p) => ({ id: p.id, name: p.data.name, category: p.data.category }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
-const years = events.map((e) => e.year);
-const minYear = years.length ? Math.min(...years) : 1469;
-const maxYear = years.length ? Math.max(...years) : new Date().getFullYear();
+const categoryLabels = {
+  guru: 'Gurus', martyr: 'Martyrs', general: 'Generals & Commanders',
+  ruler: 'Rulers', reformer: 'Reformers', scholar: 'Scholars',
+  saint: 'Saints', 'modern-figure': 'Modern Figures', other: 'Others',
+};
 
-const mapData = { events, eras, people, minYear, maxYear };
+const mapData = { events, eras, types, people, categoryLabels };
 ---
 
 <BaseLayout
   title="Global Map — Mission Sikhism"
-  description="An interactive map of Sikh history — every event plotted by place and time, filterable by era and person."
+  description="An interactive map of Sikh history — every event plotted by place and time, filterable by era, type, and person."
 >
   <link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="/vendor/markercluster/MarkerCluster.css" />
+  <link rel="stylesheet" href="/vendor/markercluster/MarkerCluster.Default.css" />
 
   <section class="section map-section">
     <div class="container">
       <h1>Global Map</h1>
       <p>
-        Every event in the history, plotted where it happened. Filter by era or
-        person, or drag the timeline to watch the story spread across the world.
+        Every event in the history, plotted where it happened. Filter by era,
+        type, or person; events at the same site cluster together — click to
+        open them.
       </p>
     </div>
 
     <div class="map-layout container">
       <aside class="map-controls" aria-label="Map filters">
-        <div class="control">
-          <label for="era-filter">Era</label>
-          <select id="era-filter"><option value="">All eras</option></select>
-        </div>
-        <div class="control">
-          <label for="person-filter">Person</label>
-          <select id="person-filter"><option value="">Everyone</option></select>
-        </div>
-        <div class="control">
-          <label for="year-slider">
-            Up to year: <strong id="year-label">{maxYear}</strong>
-          </label>
-          <input
-            id="year-slider"
-            type="range"
-            min={minYear}
-            max={maxYear}
-            value={maxYear}
-            step="1"
-          />
-          <div class="timeline-actions">
-            <button id="play-btn" type="button">▶ Play</button>
-            <button id="reset-btn" type="button">Reset</button>
+        <details class="filters-disclosure" open>
+          <summary>Filters</summary>
+
+          <div class="control">
+            <div class="control-head">
+              <span>Eras</span>
+              <span class="control-actions">
+                <button type="button" data-all="era">All</button>
+                <button type="button" data-none="era">None</button>
+              </span>
+            </div>
+            <div class="chips" id="era-chips" role="group" aria-label="Filter by era"></div>
           </div>
-        </div>
+
+          <div class="control">
+            <div class="control-head">
+              <span>Types</span>
+              <span class="control-actions">
+                <button type="button" data-all="type">All</button>
+                <button type="button" data-none="type">None</button>
+              </span>
+            </div>
+            <div class="chips" id="type-chips" role="group" aria-label="Filter by event type"></div>
+          </div>
+
+          <div class="control">
+            <label for="person-input">Person</label>
+            <div class="combobox">
+              <input
+                id="person-input"
+                type="text"
+                role="combobox"
+                aria-expanded="false"
+                aria-controls="person-list"
+                aria-autocomplete="list"
+                autocomplete="off"
+                placeholder="Search people…"
+              />
+              <button id="person-clear" type="button" aria-label="Clear person filter" hidden>×</button>
+              <ul id="person-list" role="listbox" hidden></ul>
+            </div>
+          </div>
+
+          <button id="reset-btn" type="button" class="reset-btn">Reset filters</button>
+        </details>
+
+        <div class="legend" id="legend" aria-label="Map legend"></div>
         <p class="map-count"><span id="visible-count">0</span> events shown</p>
+        <p class="map-note">
+          Prefer a list? Browse the <a href="/history">timeline</a> or
+          <a href="/places">places</a>.
+        </p>
       </aside>
 
-      <div id="map" role="application" aria-label="Interactive map of Sikh history"></div>
+      <div class="map-wrap">
+        <div id="map" role="application" aria-label="Interactive map of Sikh history"></div>
+        <div id="map-empty" class="map-empty" hidden>
+          <div class="map-empty-card">
+            <p>No events match these filters.</p>
+            <button type="button" id="empty-reset">Reset filters</button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <script type="application/json" id="map-data" set:html={JSON.stringify(mapData)}></script>
   <script is:inline src="/vendor/leaflet/leaflet.js"></script>
+  <script is:inline src="/vendor/markercluster/leaflet.markercluster.js"></script>
   <script is:inline>
     (function () {
       var el = document.getElementById('map-data');
@@ -127,20 +182,34 @@ const mapData = { events, eras, people, minYear, maxYear };
       var data = JSON.parse(el.textContent);
       var events = data.events || [];
 
-      // Read deep-link params so place/era/person pages can open a filtered map.
+      var eraColor = {};
+      (data.eras || []).forEach(function (e) { eraColor[e.id] = e.color; });
+      var typeColor = {};
+      (data.types || []).forEach(function (t) { typeColor[t.id] = t.color; });
+      var personName = {};
+      (data.people || []).forEach(function (p) { personName[p.id] = p.name; });
+
+      // Active filter state (sets of enabled ids; all-on by default).
       var params = new URLSearchParams(window.location.search);
+      var activeEras = new Set((data.eras || []).map(function (e) { return e.id; }));
+      var activeTypes = new Set((data.types || []).map(function (t) { return t.id; }));
+      var person = params.get('person') || '';
       var placeParam = params.get('place') || '';
 
+      if (params.get('era')) {
+        activeEras = new Set(params.get('era').split(',').filter(Boolean));
+      }
+      if (params.get('type')) {
+        activeTypes = new Set(params.get('type').split(',').filter(Boolean));
+      }
+
       var map = L.map('map', { scrollWheelZoom: true }).setView([28, 74], 3);
-      L.tileLayer(
-        'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-        {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-          subdomains: 'abcd',
-          maxZoom: 19,
-        }
-      ).addTo(map);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19,
+      }).addTo(map);
 
       function esc(s) {
         return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -148,21 +217,45 @@ const mapData = { events, eras, people, minYear, maxYear };
         });
       }
 
-      // One marker per event, kept alongside its data for filtering.
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Cluster group: spiderfy identical coords; badge tinted by dominant era.
+      var cluster = L.markerClusterGroup({
+        spiderfyOnMaxZoom: true,
+        showCoverageOnHover: false,
+        spiderfyDistanceMultiplier: 1.6,
+        animate: !reduceMotion,
+        iconCreateFunction: function (c) {
+          var children = c.getAllChildMarkers();
+          var counts = {};
+          var top = null, topN = 0;
+          for (var i = 0; i < children.length; i++) {
+            var col = children[i].eraColor || '#b45309';
+            counts[col] = (counts[col] || 0) + 1;
+            if (counts[col] > topN) { topN = counts[col]; top = col; }
+          }
+          var n = children.length;
+          return L.divIcon({
+            html: '<div class="cl" style="background:' + (top || '#b45309') + '"><span>' + n + '</span></div>',
+            className: 'cluster-badge',
+            iconSize: [36, 36],
+          });
+        },
+      });
+
       var markers = events.map(function (ev) {
         var m = L.circleMarker([ev.lat, ev.lng], {
           radius: 8,
-          color: '#b45309',
+          color: '#ffffff',
           weight: 2,
-          fillColor: '#f59e0b',
-          fillOpacity: 0.85,
+          fillColor: typeColor[ev.type] || '#57534e',
+          fillOpacity: 0.95,
         });
+        m.eraColor = eraColor[ev.era] || '#b45309';
         var peopleLine = ev.people && ev.people.length
-          ? '<div class="pop-people">' +
-            ev.people.map(function (p) {
+          ? '<div class="pop-people">' + ev.people.map(function (p) {
               return '<a href="/people/' + esc(p.id) + '">' + esc(p.name) + '</a>';
-            }).join(', ') +
-            '</div>'
+            }).join(', ') + '</div>'
           : '';
         var placeLine = ev.placeId
           ? '<div class="pop-people"><a href="/places/' + esc(ev.placeId) + '">' +
@@ -173,96 +266,203 @@ const mapData = { events, eras, people, minYear, maxYear };
             '<strong>' + esc(ev.title) + '</strong>' +
             '<div class="pop-meta">' + esc(ev.year) +
               (ev.location ? ' &middot; ' + esc(ev.location) : '') + '</div>' +
-            '<p>' + esc(ev.summary) + '</p>' +
-            placeLine +
-            peopleLine +
+            '<p>' + esc(ev.summary) + '</p>' + placeLine + peopleLine +
             '<a class="pop-link" href="' + esc(ev.url) + '">Read more &rarr;</a>' +
           '</div>'
         );
         return { ev: ev, marker: m };
       });
+      map.addLayer(cluster);
 
-      var eraSel = document.getElementById('era-filter');
-      var personSel = document.getElementById('person-filter');
-      var slider = document.getElementById('year-slider');
-      var yearLabel = document.getElementById('year-label');
+      // ---- Chips ----
+      function buildChips(containerId, list, activeSet, isEra) {
+        var box = document.getElementById(containerId);
+        list.forEach(function (item) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'chip';
+          b.dataset.id = item.id;
+          b.setAttribute('aria-pressed', 'true');
+          var color = isEra ? item.color : item.color;
+          b.style.setProperty('--chip', color);
+          b.innerHTML = '<span class="chip-dot" style="background:' + color + '"></span>' +
+            esc(isEra ? item.short : item.label);
+          b.addEventListener('click', function () {
+            if (activeSet.has(item.id)) { activeSet.delete(item.id); b.setAttribute('aria-pressed', 'false'); }
+            else { activeSet.add(item.id); b.setAttribute('aria-pressed', 'true'); }
+            apply();
+          });
+          box.appendChild(b);
+        });
+      }
+      buildChips('era-chips', data.eras || [], activeEras, true);
+      buildChips('type-chips', data.types || [], activeTypes, false);
+
+      function syncChips(containerId, activeSet) {
+        var box = document.getElementById(containerId);
+        Array.prototype.forEach.call(box.querySelectorAll('.chip'), function (b) {
+          b.setAttribute('aria-pressed', activeSet.has(b.dataset.id) ? 'true' : 'false');
+        });
+      }
+      document.querySelectorAll('[data-all]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var kind = btn.dataset.all;
+          if (kind === 'era') { (data.eras || []).forEach(function (e) { activeEras.add(e.id); }); syncChips('era-chips', activeEras); }
+          else { (data.types || []).forEach(function (t) { activeTypes.add(t.id); }); syncChips('type-chips', activeTypes); }
+          apply();
+        });
+      });
+      document.querySelectorAll('[data-none]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var kind = btn.dataset.none;
+          if (kind === 'era') { activeEras.clear(); syncChips('era-chips', activeEras); }
+          else { activeTypes.clear(); syncChips('type-chips', activeTypes); }
+          apply();
+        });
+      });
+
+      // ---- Legend ----
+      (function buildLegend() {
+        var lg = document.getElementById('legend');
+        var counts = {};
+        events.forEach(function (ev) { counts[ev.type] = (counts[ev.type] || 0) + 1; });
+        (data.types || []).forEach(function (t) {
+          var row = document.createElement('div');
+          row.className = 'legend-row';
+          row.innerHTML = '<span class="chip-dot" style="background:' + t.color + '"></span>' +
+            esc(t.label) + ' <span class="legend-n">' + (counts[t.id] || 0) + '</span>';
+          lg.appendChild(row);
+        });
+      })();
+
+      // ---- Person combobox ----
+      var input = document.getElementById('person-input');
+      var listEl = document.getElementById('person-list');
+      var clearBtn = document.getElementById('person-clear');
+      var activeIndex = -1;
+      var visibleOptions = [];
+
+      if (person && personName[person]) input.value = personName[person];
+      if (person) clearBtn.hidden = false;
+
+      function closeList() {
+        listEl.hidden = true; input.setAttribute('aria-expanded', 'false');
+        activeIndex = -1;
+      }
+      function openList(filter) {
+        listEl.innerHTML = '';
+        visibleOptions = [];
+        var q = (filter || '').toLowerCase();
+        var cats = data.categoryLabels || {};
+        var order = Object.keys(cats);
+        order.forEach(function (cat) {
+          var group = (data.people || []).filter(function (p) {
+            return p.category === cat && p.name.toLowerCase().indexOf(q) !== -1;
+          });
+          if (!group.length) return;
+          var head = document.createElement('li');
+          head.className = 'combo-group'; head.textContent = cats[cat];
+          head.setAttribute('role', 'presentation');
+          listEl.appendChild(head);
+          group.forEach(function (p) {
+            var li = document.createElement('li');
+            li.className = 'combo-option'; li.textContent = p.name;
+            li.id = 'opt-' + p.id; li.setAttribute('role', 'option');
+            li.dataset.id = p.id;
+            li.addEventListener('mousedown', function (e) {
+              e.preventDefault(); choose(p.id, p.name);
+            });
+            listEl.appendChild(li);
+            visibleOptions.push(li);
+          });
+        });
+        listEl.hidden = visibleOptions.length === 0;
+        input.setAttribute('aria-expanded', visibleOptions.length ? 'true' : 'false');
+        activeIndex = -1;
+      }
+      function choose(id, name) {
+        person = id; input.value = name; clearBtn.hidden = false;
+        closeList(); apply(); fitVisible();
+      }
+      function clearPerson() {
+        person = ''; input.value = ''; clearBtn.hidden = true; closeList(); apply();
+      }
+      input.addEventListener('input', function () { openList(input.value); });
+      input.addEventListener('focus', function () { if (input.value === '' ) openList(''); });
+      input.addEventListener('blur', function () { setTimeout(closeList, 120); });
+      input.addEventListener('keydown', function (e) {
+        if (listEl.hidden && (e.key === 'ArrowDown')) { openList(input.value); return; }
+        if (e.key === 'ArrowDown') { activeIndex = Math.min(activeIndex + 1, visibleOptions.length - 1); highlight(); e.preventDefault(); }
+        else if (e.key === 'ArrowUp') { activeIndex = Math.max(activeIndex - 1, 0); highlight(); e.preventDefault(); }
+        else if (e.key === 'Enter' && activeIndex >= 0) {
+          var li = visibleOptions[activeIndex]; choose(li.dataset.id, li.textContent); e.preventDefault();
+        } else if (e.key === 'Escape') { closeList(); }
+      });
+      function highlight() {
+        visibleOptions.forEach(function (li, i) {
+          li.classList.toggle('active', i === activeIndex);
+          if (i === activeIndex) { input.setAttribute('aria-activedescendant', li.id); li.scrollIntoView({ block: 'nearest' }); }
+        });
+      }
+      clearBtn.addEventListener('click', clearPerson);
+
+      // ---- Apply filters ----
+      var emptyEl = document.getElementById('map-empty');
       var countEl = document.getElementById('visible-count');
-
-      (data.eras || []).forEach(function (e) {
-        var o = document.createElement('option');
-        o.value = e.id; o.textContent = e.title; eraSel.appendChild(o);
-      });
-      (data.people || []).forEach(function (p) {
-        var o = document.createElement('option');
-        o.value = p.id; o.textContent = p.name; personSel.appendChild(o);
-      });
-
-      // Apply any incoming deep-link filters before first render.
-      if (params.get('era')) eraSel.value = params.get('era');
-      if (params.get('person')) personSel.value = params.get('person');
-
       function apply() {
-        var era = eraSel.value;
-        var person = personSel.value;
-        var upTo = parseInt(slider.value, 10);
-        yearLabel.textContent = upTo;
         var shown = 0;
+        cluster.clearLayers();
+        var batch = [];
         markers.forEach(function (mk) {
           var ev = mk.ev;
           var ok =
-            ev.year <= upTo &&
-            (!era || ev.era === era) &&
+            activeEras.has(ev.era) &&
+            activeTypes.has(ev.type) &&
             (!placeParam || ev.placeId === placeParam) &&
             (!person || (ev.people || []).some(function (p) { return p.id === person; }));
-          if (ok) {
-            if (!map.hasLayer(mk.marker)) mk.marker.addTo(map);
-            shown++;
-          } else if (map.hasLayer(mk.marker)) {
-            map.removeLayer(mk.marker);
-          }
+          if (ok) { batch.push(mk.marker); shown++; }
         });
+        cluster.addLayers(batch);
         countEl.textContent = shown;
+        emptyEl.hidden = shown !== 0;
+        reflectUrl();
       }
 
-      eraSel.addEventListener('change', apply);
-      personSel.addEventListener('change', apply);
-      slider.addEventListener('input', apply);
-
-      // Timeline play: sweep from min year to max, revealing events over time.
-      var playBtn = document.getElementById('play-btn');
-      var resetBtn = document.getElementById('reset-btn');
-      var timer = null;
-      function stopPlay() {
-        if (timer) { clearInterval(timer); timer = null; }
-        playBtn.textContent = '▶ Play';
+      function reflectUrl() {
+        var p = new URLSearchParams();
+        if (activeEras.size && activeEras.size !== (data.eras || []).length)
+          p.set('era', Array.from(activeEras).join(','));
+        if (activeTypes.size && activeTypes.size !== (data.types || []).length)
+          p.set('type', Array.from(activeTypes).join(','));
+        if (person) p.set('person', person);
+        if (placeParam) p.set('place', placeParam);
+        var qs = p.toString();
+        history.replaceState(null, '', qs ? '?' + qs : window.location.pathname);
       }
-      playBtn.addEventListener('click', function () {
-        if (timer) { stopPlay(); return; }
-        if (parseInt(slider.value, 10) >= data.maxYear) slider.value = data.minYear;
-        playBtn.textContent = '❚❚ Pause';
-        timer = setInterval(function () {
-          var v = parseInt(slider.value, 10);
-          if (v >= data.maxYear) { stopPlay(); return; }
-          slider.value = v + Math.max(1, Math.round((data.maxYear - data.minYear) / 60));
-          if (parseInt(slider.value, 10) > data.maxYear) slider.value = data.maxYear;
-          apply();
-        }, 120);
-      });
-      resetBtn.addEventListener('click', function () {
-        stopPlay();
-        placeParam = '';
-        eraSel.value = ''; personSel.value = ''; slider.value = data.maxYear;
-        apply();
-        fitVisible();
-      });
 
       function fitVisible() {
-        var pts = markers
-          .filter(function (mk) { return map.hasLayer(mk.marker); })
-          .map(function (mk) { return [mk.ev.lat, mk.ev.lng]; });
-        if (pts.length === 1) { map.setView(pts[0], 6); }
-        else if (pts.length > 1) { map.fitBounds(pts, { padding: [40, 40] }); }
+        var pts = [];
+        markers.forEach(function (mk) {
+          var ev = mk.ev;
+          if (activeEras.has(ev.era) && activeTypes.has(ev.type) &&
+              (!placeParam || ev.placeId === placeParam) &&
+              (!person || (ev.people || []).some(function (p) { return p.id === person; }))) {
+            pts.push([ev.lat, ev.lng]);
+          }
+        });
+        if (pts.length === 1) map.setView(pts[0], 7);
+        else if (pts.length > 1) map.fitBounds(pts, { padding: [40, 40] });
       }
+
+      function resetAll() {
+        activeEras = new Set((data.eras || []).map(function (e) { return e.id; }));
+        activeTypes = new Set((data.types || []).map(function (t) { return t.id; }));
+        placeParam = ''; clearPerson();
+        syncChips('era-chips', activeEras); syncChips('type-chips', activeTypes);
+        apply(); fitVisible();
+      }
+      document.getElementById('reset-btn').addEventListener('click', resetAll);
+      document.getElementById('empty-reset').addEventListener('click', resetAll);
 
       apply();
       fitVisible();

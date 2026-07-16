@@ -1,5 +1,6 @@
 ---
 name: "Guru Tegh Bahadur Ji"
+category: guru
 born: 1621
 died: 1675
 role: "Ninth Sikh Guru, martyr"

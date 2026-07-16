@@ -10,8 +10,9 @@ export async function getStaticPaths() {
 
 const { event } = Astro.props;
 const { Content } = await render(event);
+const allEvents = await getCollection('events');
 
-// Resolve linked era, place, and people references to real entries.
+// Resolve linked era, place, and people references.
 const eras = await getCollection('eras');
 const era = eras.find((e) => e.id === event.data.era.id);
 
@@ -25,11 +26,69 @@ const people = (event.data.people ?? [])
   .map((ref) => allPeople.find((p) => p.id === ref.id))
   .filter((p) => p !== undefined);
 
-// A readable place label: the linked place name, else the free location string.
+// Linked faith topics.
+const faithTopics = await getCollection('faith');
+const linkedFaith = (event.data.faith ?? [])
+  .map((ref) => faithTopics.find((t) => t.id === ref.id))
+  .filter((t) => t !== undefined);
+
+// Related events — walk the edge both ways so it's bidirectional.
+const relatedIds = new Set((event.data.relatedEvents ?? []).map((r) => r.id));
+for (const other of allEvents) {
+  if ((other.data.relatedEvents ?? []).some((r) => r.id === event.id)) {
+    relatedIds.add(other.id);
+  }
+}
+relatedIds.delete(event.id);
+const relatedEvents = [...relatedIds]
+  .map((id) => allEvents.find((e) => e.id === id))
+  .filter((e) => e !== undefined)
+  .sort((a, b) => a.data.year - b.data.year);
+
 const placeLabel = place?.data.name ?? event.data.location;
+
+// Coordinate resolution for structured data.
+const hasOwn = typeof event.data.lat === 'number' && typeof event.data.lng === 'number';
+const lat = hasOwn ? event.data.lat : place?.data.lat;
+const lng = hasOwn ? event.data.lng : place?.data.lng;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const home = new URL('/', Astro.site).href;
+const jsonld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: event.data.title,
+    startDate: String(event.data.year),
+    description: event.data.summary,
+    url: canonical,
+    ...(place || placeLabel
+      ? {
+          location: {
+            '@type': 'Place',
+            name: placeLabel,
+            ...(typeof lat === 'number' && typeof lng === 'number'
+              ? { geo: { '@type': 'GeoCoordinates', latitude: lat, longitude: lng } }
+              : {}),
+          },
+        }
+      : {}),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: home },
+      { '@type': 'ListItem', position: 2, name: 'History', item: new URL('/history', Astro.site).href },
+      ...(era ? [{ '@type': 'ListItem', position: 3, name: era.data.title, item: new URL(`/history/${era.id}`, Astro.site).href }] : []),
+      { '@type': 'ListItem', position: era ? 4 : 3, name: event.data.title, item: canonical },
+    ],
+  },
+];
 ---
 
 <BaseLayout title={`${event.data.title} — Mission Sikhism`} description={event.data.summary}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
   <article class="section">
     <div class="container">
       <nav class="crumb" aria-label="Breadcrumb">
@@ -51,15 +110,18 @@ const placeLabel = place?.data.name ?? event.data.location;
         {placeLabel && (
           <>
             Place:{' '}
-            {place
-              ? <a href={`/places/${place.id}`}>{placeLabel}</a>
-              : placeLabel}
+            {place ? <a href={`/places/${place.id}`}>{placeLabel}</a> : placeLabel}
           </>
         )}
         {era && (
           <>
             {placeLabel ? ' · ' : ''}Era:{' '}
             <a href={`/history/${era.id}`}>{era.data.title}</a>
+          </>
+        )}
+        {place && (
+          <>
+            {' · '}<a href={`/map?place=${place.id}`}>See on the map →</a>
           </>
         )}
       </p>
@@ -74,6 +136,36 @@ const placeLabel = place?.data.name ?? event.data.location;
               </>
             ))}
           </p>
+        )
+      }
+
+      {
+        linkedFaith.length > 0 && (
+          <p>
+            The Faith: {linkedFaith.map((t, i) => (
+              <>
+                {i > 0 ? ', ' : ''}
+                <a href={`/faith/${t!.id}`}>{t!.data.title}</a>
+              </>
+            ))}
+          </p>
+        )
+      }
+
+      {
+        relatedEvents.length > 0 && (
+          <>
+            <h2>Related events</h2>
+            <ul>
+              {relatedEvents.map((e) => (
+                <li>
+                  <a href={`/events/${e!.id}`}>
+                    <strong>{e!.data.year}</strong> — {e!.data.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
         )
       }
 

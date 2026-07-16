@@ -4,6 +4,7 @@ year: 1849
 date: "1849"
 era: sikh-empire
 place: lahore
+type: other
 lat: 31.5804
 lng: 74.3287
 location: "Lahore, present-day Pakistan"

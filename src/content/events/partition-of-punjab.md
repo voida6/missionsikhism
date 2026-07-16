@@ -4,6 +4,7 @@ year: 1947
 date: "1947"
 era: modern-era
 place: wagah-attari
+type: migration
 lat: 31.6047
 lng: 74.5729
 location: "The Radcliffe Line, Punjab (Wagah–Attari border)"

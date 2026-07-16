@@ -4,6 +4,9 @@ year: 1522
 date: "c. 1522"
 era: guru-period
 place: kartarpur
+type: founding
+faith:
+  - foundations-philosophy
 lat: 32.0678
 lng: 75.048
 location: "Kartarpur, on the river Ravi, present-day Pakistan"

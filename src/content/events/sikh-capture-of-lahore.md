@@ -4,6 +4,7 @@ year: 1765
 date: "1765"
 era: misl-period
 place: lahore
+type: battle
 lat: 31.582
 lng: 74.3294
 location: "Lahore, present-day Pakistan"

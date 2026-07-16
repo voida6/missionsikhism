@@ -1,5 +1,6 @@
 ---
 name: "Banda Singh Bahadur"
+category: general
 born: 1670
 died: 1716
 role: "Military commander, first Sikh sovereign"

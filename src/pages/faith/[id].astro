@@ -10,9 +10,35 @@ export async function getStaticPaths() {
 
 const { topic } = Astro.props;
 const { Content } = await render(topic);
+
+// Events that reference this topic (the faith↔events edge).
+const events = (await getCollection('events'))
+  .filter((e) => (e.data.faith ?? []).some((r) => r.id === topic.id))
+  .sort((a, b) => a.data.year - b.data.year);
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const jsonld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: topic.data.title,
+    description: topic.data.summary,
+    url: canonical,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: 'The Faith', item: new URL('/faith', Astro.site).href },
+      { '@type': 'ListItem', position: 3, name: topic.data.title, item: canonical },
+    ],
+  },
+];
 ---
 
 <BaseLayout title={`${topic.data.title} — The Faith`} description={topic.data.summary}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
   <article class="section">
     <div class="container">
       <nav class="crumb" aria-label="Breadcrumb">
@@ -22,6 +48,24 @@ const { Content } = await render(topic);
       <h1>{topic.data.title}</h1>
       <p class="lede">{topic.data.summary}</p>
       <Content />
+
+      {
+        events.length > 0 && (
+          <>
+            <h2>In the history</h2>
+            <ul>
+              {events.map((e) => (
+                <li>
+                  <a href={`/events/${e.id}`}>
+                    <strong>{e.data.year}</strong> — {e.data.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+
       <SourceList sources={topic.data.sources} />
     </div>
   </article>

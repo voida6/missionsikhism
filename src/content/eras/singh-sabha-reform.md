@@ -1,6 +1,8 @@
 ---
 title: "Era 5 — The Singh Sabha Reform"
 order: 5
+color: "#047857"
+shortName: "Singh Sabha"
 startYear: 1849
 endYear: 1947
 summary: "Under British colonial rule, the Singh Sabha movement (from 1873) rebuilt Sikh identity, education and institutions. The period spans the Jallianwala Bagh massacre of 1919 and the Gurdwara Reform movement that placed the historic shrines under community control."

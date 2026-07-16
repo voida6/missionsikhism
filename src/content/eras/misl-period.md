@@ -1,6 +1,8 @@
 ---
 title: "Era 3 — The Misl Period"
 order: 3
+color: "#a16207"
+shortName: "Misls"
 startYear: 1748
 endYear: 1799
 summary: "A confederacy of Sikh misls resisted Mughal and Afghan power across the Punjab, survived catastrophic massacres such as the Vadda Ghallughara of 1762, and gradually took control of the region — setting the stage for a single unifying ruler."

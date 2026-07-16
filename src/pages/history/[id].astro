@@ -11,14 +11,25 @@ export async function getStaticPaths() {
 const { era } = Astro.props;
 const { Content } = await render(era);
 
-// Events belonging to this era, oldest first. Pulled from the same files
-// that drive the map — no duplication.
+// Events belonging to this era, oldest first — same files that drive the map.
 const events = (await getCollection('events'))
   .filter((e) => e.data.era.id === era.id)
   .sort((a, b) => a.data.year - b.data.year);
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: 'History', item: new URL('/history', Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: era.data.title, item: canonical },
+  ],
+};
 ---
 
 <BaseLayout title={`${era.data.title} — Mission Sikhism`} description={era.data.summary}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
   <article class="section">
     <div class="container">
       <nav class="crumb" aria-label="Breadcrumb">
@@ -32,6 +43,10 @@ const events = (await getCollection('events'))
       <p>{era.data.summary}</p>
 
       <Content />
+
+      <p class="event-meta">
+        <a href={`/map?era=${era.id}`}>See this era on the map →</a>
+      </p>
 
       {
         events.length > 0 && (

@@ -1,6 +1,8 @@
 ---
 title: "Era 1 — The Guru Period"
 order: 1
+color: "#b45309"
+shortName: "Gurus"
 startYear: 1469
 endYear: 1708
 summary: "From Guru Nanak's declaration of the oneness of God in 1469 through the lives of the ten Gurus — the founding of Sikh communities, the compilation of scripture, the building of Amritsar, two Guru martyrdoms, the creation of the Khalsa in 1699, and the vesting of eternal Guruship in the Guru Granth Sahib in 1708."

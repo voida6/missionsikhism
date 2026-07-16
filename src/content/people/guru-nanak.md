@@ -1,5 +1,6 @@
 ---
 name: "Guru Nanak Dev Ji"
+category: guru
 born: 1469
 died: 1539
 role: "First Sikh Guru, founder of the Sikh faith"

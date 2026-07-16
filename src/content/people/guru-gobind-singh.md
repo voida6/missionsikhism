@@ -1,5 +1,6 @@
 ---
 name: "Guru Gobind Singh Ji"
+category: guru
 born: 1666
 died: 1708
 role: "Tenth Sikh Guru, founder of the Khalsa"

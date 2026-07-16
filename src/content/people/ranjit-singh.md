@@ -1,5 +1,6 @@
 ---
 name: "Maharaja Ranjit Singh"
+category: ruler
 born: 1780
 died: 1839
 role: "Founder and Maharaja of the Sikh Empire"

@@ -2,30 +2,46 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// The signature feature. Every event already carries lat/lng, so the map
-// generates from the same content files as the history pages — one source of
-// truth. We serialise a compact data island here; ALL interactive logic lives
-// in the is:inline script below (kept out of the Astro compiler on purpose).
+// The signature feature. Events resolve their coordinates from their own
+// lat/lng when present, otherwise from their referenced `place` (Phase C) —
+// one source of truth shared with the history and place pages. We serialise a
+// compact data island here; ALL interactive logic lives in the is:inline
+// script below (kept out of the Astro compiler on purpose).
 const eventsRaw = await getCollection('events');
 const erasRaw = (await getCollection('eras')).sort(
   (a, b) => a.data.order - b.data.order,
 );
 const peopleRaw = await getCollection('people');
+const placesRaw = await getCollection('places');
 
 const peopleById = new Map(peopleRaw.map((p) => [p.id, p.data.name]));
 const eraById = new Map(erasRaw.map((e) => [e.id, e.data.title]));
+const placeById = new Map(
+  placesRaw.map((p) => [p.id, { name: p.data.name, lat: p.data.lat, lng: p.data.lng }]),
+);
 
 const events = eventsRaw
-  .filter((e) => typeof e.data.lat === 'number' && typeof e.data.lng === 'number')
-  .map((e) => ({
+  .map((e) => {
+    // Coordinate resolution: event coords override, else the place's coords.
+    const place = e.data.place ? placeById.get(e.data.place.id) : undefined;
+    const hasOwn =
+      typeof e.data.lat === 'number' && typeof e.data.lng === 'number';
+    const lat = hasOwn ? e.data.lat : place?.lat;
+    const lng = hasOwn ? e.data.lng : place?.lng;
+    return { e, lat, lng, place };
+  })
+  .filter((x) => typeof x.lat === 'number' && typeof x.lng === 'number')
+  .map(({ e, lat, lng, place }) => ({
     id: e.id,
     title: e.data.title,
     year: e.data.year,
     era: e.data.era.id,
     eraTitle: eraById.get(e.data.era.id) ?? '',
-    lat: e.data.lat,
-    lng: e.data.lng,
-    location: e.data.location ?? '',
+    lat,
+    lng,
+    location: e.data.location ?? place?.name ?? '',
+    placeId: e.data.place?.id ?? '',
+    placeName: place?.name ?? '',
     summary: e.data.summary,
     people: (e.data.people ?? []).map((r) => ({
       id: r.id,
@@ -111,6 +127,10 @@ const mapData = { events, eras, people, minYear, maxYear };
       var data = JSON.parse(el.textContent);
       var events = data.events || [];
 
+      // Read deep-link params so place/era/person pages can open a filtered map.
+      var params = new URLSearchParams(window.location.search);
+      var placeParam = params.get('place') || '';
+
       var map = L.map('map', { scrollWheelZoom: true }).setView([28, 74], 3);
       L.tileLayer(
         'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
@@ -144,12 +164,17 @@ const mapData = { events, eras, people, minYear, maxYear };
             }).join(', ') +
             '</div>'
           : '';
+        var placeLine = ev.placeId
+          ? '<div class="pop-people"><a href="/places/' + esc(ev.placeId) + '">' +
+            esc(ev.placeName || ev.location) + '</a></div>'
+          : '';
         m.bindPopup(
           '<div class="map-popup">' +
             '<strong>' + esc(ev.title) + '</strong>' +
             '<div class="pop-meta">' + esc(ev.year) +
               (ev.location ? ' &middot; ' + esc(ev.location) : '') + '</div>' +
             '<p>' + esc(ev.summary) + '</p>' +
+            placeLine +
             peopleLine +
             '<a class="pop-link" href="' + esc(ev.url) + '">Read more &rarr;</a>' +
           '</div>'
@@ -172,6 +197,10 @@ const mapData = { events, eras, people, minYear, maxYear };
         o.value = p.id; o.textContent = p.name; personSel.appendChild(o);
       });
 
+      // Apply any incoming deep-link filters before first render.
+      if (params.get('era')) eraSel.value = params.get('era');
+      if (params.get('person')) personSel.value = params.get('person');
+
       function apply() {
         var era = eraSel.value;
         var person = personSel.value;
@@ -183,6 +212,7 @@ const mapData = { events, eras, people, minYear, maxYear };
           var ok =
             ev.year <= upTo &&
             (!era || ev.era === era) &&
+            (!placeParam || ev.placeId === placeParam) &&
             (!person || (ev.people || []).some(function (p) { return p.id === person; }));
           if (ok) {
             if (!map.hasLayer(mk.marker)) mk.marker.addTo(map);
@@ -220,19 +250,22 @@ const mapData = { events, eras, people, minYear, maxYear };
       });
       resetBtn.addEventListener('click', function () {
         stopPlay();
+        placeParam = '';
         eraSel.value = ''; personSel.value = ''; slider.value = data.maxYear;
         apply();
-        fitAll();
+        fitVisible();
       });
 
-      function fitAll() {
-        var pts = markers.map(function (mk) { return [mk.ev.lat, mk.ev.lng]; });
-        if (pts.length === 1) { map.setView(pts[0], 5); }
+      function fitVisible() {
+        var pts = markers
+          .filter(function (mk) { return map.hasLayer(mk.marker); })
+          .map(function (mk) { return [mk.ev.lat, mk.ev.lng]; });
+        if (pts.length === 1) { map.setView(pts[0], 6); }
         else if (pts.length > 1) { map.fitBounds(pts, { padding: [40, 40] }); }
       }
 
       apply();
-      fitAll();
+      fitVisible();
     })();
   </script>
 </BaseLayout>

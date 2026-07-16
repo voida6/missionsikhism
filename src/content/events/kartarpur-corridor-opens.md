@@ -3,6 +3,7 @@ title: "Kartarpur Corridor Opens"
 year: 2019
 date: "9 November 2019"
 era: modern-era
+place: kartarpur
 lat: 32.0678
 lng: 75.048
 location: "Kartarpur, present-day Pakistan"

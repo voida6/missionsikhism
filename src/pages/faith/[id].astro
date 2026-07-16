@@ -15,7 +15,10 @@ const { Content } = await render(topic);
 <BaseLayout title={`${topic.data.title} — The Faith`} description={topic.data.summary}>
   <article class="section">
     <div class="container">
-      <p class="crumb"><a href="/faith">← The Faith</a></p>
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <a href="/faith">The Faith</a> ›
+        <span aria-current="page">{topic.data.title}</span>
+      </nav>
       <h1>{topic.data.title}</h1>
       <p class="lede">{topic.data.summary}</p>
       <Content />

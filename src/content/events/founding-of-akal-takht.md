@@ -3,6 +3,7 @@ title: "Founding of the Akal Takht"
 year: 1606
 date: "c. 1606"
 era: guru-period
+place: amritsar
 lat: 31.6203
 lng: 74.8767
 location: "Akal Takht, Amritsar, India"

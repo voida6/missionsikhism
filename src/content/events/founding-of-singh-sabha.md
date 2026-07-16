@@ -3,6 +3,7 @@ title: "Founding of the Singh Sabha"
 year: 1873
 date: "1873"
 era: singh-sabha-reform
+place: amritsar
 lat: 31.634
 lng: 74.8723
 location: "Amritsar, Punjab, India"

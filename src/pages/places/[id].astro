@@ -1,0 +1,103 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SourceList from '../../components/SourceList.astro';
+
+export async function getStaticPaths() {
+  const places = await getCollection('places');
+  return places.map((place) => ({ params: { id: place.id }, props: { place } }));
+}
+
+const { place } = Astro.props;
+const { Content } = await render(place);
+
+// Events that happened at this place, oldest first.
+const events = (await getCollection('events'))
+  .filter((e) => e.data.place?.id === place.id)
+  .sort((a, b) => a.data.year - b.data.year);
+
+// People connected to this place (through its events).
+const allPeople = await getCollection('people');
+const peopleById = new Map(allPeople.map((p) => [p.id, p.data.name]));
+const personIds = new Set();
+for (const e of events) for (const r of e.data.people ?? []) personIds.add(r.id);
+const people = [...personIds]
+  .map((id) => ({ id, name: peopleById.get(id) ?? id }))
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+// Eras represented here.
+const allEras = await getCollection('eras');
+const eraById = new Map(allEras.map((e) => [e.id, e.data.title]));
+const eraIds = [...new Set(events.map((e) => e.data.era.id))];
+const eras = eraIds
+  .map((id) => ({ id, title: eraById.get(id) ?? id }))
+  .sort((a, b) => a.title.localeCompare(b.title));
+---
+
+<BaseLayout title={`${place.data.name} — Mission Sikhism`} description={place.data.summary}>
+  <article class="section">
+    <div class="container">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <a href="/map">Map</a> ›
+        <span aria-current="page">{place.data.name}</span>
+      </nav>
+
+      <h1>{place.data.name}</h1>
+      <p class="years">
+        {place.data.region ?? ''}
+      </p>
+      <p>{place.data.summary}</p>
+
+      <Content />
+
+      <p class="event-meta">
+        <a class="pop-link" href={`/map?place=${place.id}`}>Open on the map →</a>
+      </p>
+
+      {
+        events.length > 0 && (
+          <>
+            <h2>Events here</h2>
+            <ul>
+              {events.map((e) => (
+                <li>
+                  <a href={`/events/${e.id}`}>
+                    <strong>{e.data.year}</strong> — {e.data.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+
+      {
+        people.length > 0 && (
+          <p>
+            People connected: {people.map((p, i) => (
+              <>
+                {i > 0 ? ', ' : ''}
+                <a href={`/people/${p.id}`}>{p.name}</a>
+              </>
+            ))}
+          </p>
+        )
+      }
+
+      {
+        eras.length > 0 && (
+          <p class="event-meta">
+            Eras: {eras.map((e, i) => (
+              <>
+                {i > 0 ? ' · ' : ''}
+                <a href={`/history/${e.id}`}>{e.title}</a>
+              </>
+            ))}
+          </p>
+        )
+      }
+
+      <SourceList sources={place.data.sources} />
+    </div>
+  </article>
+</BaseLayout>

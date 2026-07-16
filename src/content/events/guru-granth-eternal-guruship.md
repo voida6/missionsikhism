@@ -3,6 +3,7 @@ title: "Guru Granth Sahib Declared Eternal Guru"
 year: 1708
 date: "1708"
 era: guru-period
+place: nanded
 lat: 19.1528
 lng: 77.3189
 location: "Nanded (Takht Sri Hazur Sahib), Maharashtra, India"

@@ -3,6 +3,7 @@ title: "Jallianwala Bagh Massacre"
 year: 1919
 date: "13 April 1919"
 era: singh-sabha-reform
+place: amritsar
 lat: 31.6205
 lng: 74.8807
 location: "Jallianwala Bagh, Amritsar, India"

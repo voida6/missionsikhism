@@ -3,6 +3,7 @@ title: "Founding of Kartarpur"
 year: 1522
 date: "c. 1522"
 era: guru-period
+place: kartarpur
 lat: 32.0678
 lng: 75.048
 location: "Kartarpur, on the river Ravi, present-day Pakistan"

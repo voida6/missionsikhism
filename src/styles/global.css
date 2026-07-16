@@ -401,3 +401,102 @@ article.section .container { max-width: 48rem; }
 .culture, .about { max-width: 48rem; }
 .culture h2, .about h2 { margin-top: 2rem; font-size: 1.35rem; }
 .about h3 { margin-top: 1.5rem; font-size: 1.08rem; }
+
+/* ==========================================================================
+   Header actions + responsive navigation (Phase B)
+   ========================================================================== */
+.site-header .container { flex-wrap: nowrap; }
+.brand { order: 1; }
+.header-actions { order: 3; display: flex; align-items: center; gap: 0.35rem; }
+.nav { order: 2; }
+
+.nav-search {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.3rem; height: 2.3rem; border-radius: 50%;
+  text-decoration: none; font-size: 1.05rem; line-height: 1;
+}
+.nav-search:hover { background: var(--color-saffron-soft); }
+
+.nav-hamburger {
+  display: none; align-items: center; justify-content: center;
+  width: 2.4rem; height: 2.4rem; font-size: 1.4rem; line-height: 1;
+  cursor: pointer; border-radius: var(--radius-sm); color: var(--color-ink);
+  -webkit-user-select: none; user-select: none;
+}
+
+/* Dropdown groups (accessible <details>/<summary>) */
+.nav-group { position: relative; display: inline-block; }
+.nav-group > summary {
+  list-style: none; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  font-size: 0.95rem; font-weight: 500; color: var(--color-ink);
+  padding-block: 0.15rem; border-bottom: 2px solid transparent;
+}
+.nav-group > summary::-webkit-details-marker { display: none; }
+.nav-group > summary::after { content: "▾"; font-size: 0.7em; color: var(--color-muted); }
+.nav-group > summary:hover { color: var(--color-saffron-dark); }
+.nav-group > summary[aria-current="true"] {
+  color: var(--color-saffron-dark); font-weight: 600;
+  border-bottom-color: var(--color-saffron-dark);
+}
+.nav-menu { list-style: none; margin: 0; padding: 0; }
+.nav-menu a {
+  display: block; padding: 0.45rem 0.7rem; border-radius: var(--radius-sm);
+  text-decoration: none; color: var(--color-ink); font-size: 0.92rem;
+  border-bottom: none;
+}
+.nav-menu a:hover { background: var(--color-saffron-soft); color: var(--color-saffron-dark); }
+.nav-menu a[aria-current="page"] { color: var(--color-saffron-dark); font-weight: 600; }
+
+.nav-contribute {
+  padding: 0.35rem 0.85rem; font-size: 0.9rem; border-bottom: none;
+}
+
+/* Desktop: dropdowns become popovers; hamburger hidden. */
+@media (min-width: 761px) {
+  .nav-hamburger { display: none; }
+  .nav-group[open] > .nav-menu {
+    position: absolute; top: 100%; left: 0; z-index: 600;
+    min-width: 13rem; margin-top: 0.5rem; padding: 0.4rem;
+    background: var(--color-surface); border: 1px solid var(--color-border);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+  }
+  .nav-group:not([open]) > .nav-menu { display: none; }
+}
+
+/* Mobile: full-height slide-in panel toggled by the hidden checkbox. */
+@media (max-width: 760px) {
+  .nav-hamburger { display: inline-flex; }
+  .nav {
+    position: fixed; inset: 0; z-index: 700;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--color-surface);
+    padding: 4.75rem 1.25rem 2rem; overflow-y: auto;
+    transform: translateX(100%); transition: transform 0.2s ease;
+  }
+  #nav-toggle:checked ~ .nav { transform: translateX(0); }
+  .nav > a,
+  .nav-group > summary {
+    padding: 0.8rem 0.25rem; font-size: 1.05rem;
+    border-bottom: 1px solid var(--color-border); border-radius: 0;
+  }
+  .nav-group { display: block; width: 100%; }
+  .nav-group[open] > summary::after { transform: rotate(180deg); }
+  .nav-menu { padding: 0.25rem 0 0.5rem 0.9rem; }
+  .nav-menu a { padding: 0.6rem 0.25rem; }
+  .nav-contribute {
+    margin-top: 1.1rem; text-align: center; padding: 0.7rem 1rem;
+    border-bottom: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav { transition: none; }
+}
+/* Keep the Contribute button white-on-saffron despite the generic `.nav a` rule. */
+.nav a.nav-contribute { color: #fff; border-bottom: none; }
+.nav a.nav-contribute:hover { color: #fff; background: var(--color-saffron-dark); }
+
+/* ---------- Search page ---------- */
+.search-page { max-width: 42rem; }
+#search { margin-top: 1.5rem; }
+.search-fallback { margin-top: 1.5rem; color: var(--color-muted); font-size: 0.95rem; }

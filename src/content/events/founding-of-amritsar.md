@@ -3,6 +3,7 @@ title: "Founding of Amritsar"
 year: 1577
 date: "c. 1577 (pool inaugurated; city later named Amritsar)"
 era: guru-period
+place: amritsar
 lat: 31.634
 lng: 74.8723
 location: "Amritsar (Ramdaspur), Punjab, India"

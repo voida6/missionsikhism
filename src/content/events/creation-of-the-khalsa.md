@@ -3,6 +3,7 @@ title: "Creation of the Khalsa"
 year: 1699
 date: "Vaisakhi, 1699"
 era: guru-period
+place: anandpur
 lat: 31.2389
 lng: 76.5028
 location: "Anandpur Sahib, Punjab, India"

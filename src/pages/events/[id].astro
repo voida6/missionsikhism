@@ -11,19 +11,33 @@ export async function getStaticPaths() {
 const { event } = Astro.props;
 const { Content } = await render(event);
 
-// Resolve linked era and people references to real entries.
+// Resolve linked era, place, and people references to real entries.
 const eras = await getCollection('eras');
 const era = eras.find((e) => e.id === event.data.era.id);
+
+const places = await getCollection('places');
+const place = event.data.place
+  ? places.find((p) => p.id === event.data.place.id)
+  : undefined;
 
 const allPeople = await getCollection('people');
 const people = (event.data.people ?? [])
   .map((ref) => allPeople.find((p) => p.id === ref.id))
   .filter((p) => p !== undefined);
+
+// A readable place label: the linked place name, else the free location string.
+const placeLabel = place?.data.name ?? event.data.location;
 ---
 
 <BaseLayout title={`${event.data.title} — Mission Sikhism`} description={event.data.summary}>
   <article class="section">
     <div class="container">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <a href="/history">History</a> ›
+        {era && (<><a href={`/history/${era.id}`}>{era.data.title}</a> › </>)}
+        <span aria-current="page">{event.data.title}</span>
+      </nav>
+
       <p class="years">
         {event.data.date ?? event.data.year}
         {event.data.location ? ` · ${event.data.location}` : ''}
@@ -34,10 +48,17 @@ const people = (event.data.people ?? [])
       <Content />
 
       <p class="event-meta">
-        {event.data.location && <>Place: {event.data.location}</>}
+        {placeLabel && (
+          <>
+            Place:{' '}
+            {place
+              ? <a href={`/places/${place.id}`}>{placeLabel}</a>
+              : placeLabel}
+          </>
+        )}
         {era && (
           <>
-            {event.data.location ? ' · ' : ''}Era:{' '}
+            {placeLabel ? ' · ' : ''}Era:{' '}
             <a href={`/history/${era.id}`}>{era.data.title}</a>
           </>
         )}

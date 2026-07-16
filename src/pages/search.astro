@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Search — Mission Sikhism"
+  description="Search the full history of the Sikh faith — events, people, places, and the faith."
+>
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+
+  <section class="section">
+    <div class="container search-page">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <span aria-current="page">Search</span>
+      </nav>
+      <h1>Search</h1>
+      <p>Find any event, person, place, or topic across the whole site.</p>
+
+      <div id="search"></div>
+
+      <noscript>
+        <p class="search-fallback">
+          Search needs JavaScript. You can still browse by
+          <a href="/history">History</a>, <a href="/map">Map</a>,
+          <a href="/people">People</a>, <a href="/places">Places</a>, or
+          <a href="/faith">The Faith</a>.
+        </p>
+      </noscript>
+    </div>
+  </section>
+
+  <!-- Pagefind builds its index and UI into /pagefind/ during `npm run build`.
+       The UI initialises once the script loads; in dev there is no index yet. -->
+  <script
+    is:inline
+    src="/pagefind/pagefind-ui.js"
+    onload="new PagefindUI({ element: '#search', showSubResults: true, showImages: false });"
+  ></script>
+</BaseLayout>

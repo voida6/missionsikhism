@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const places = await getCollection('places');
+const events = await getCollection('events');
+
+// Count how many events resolve to each place (via the `place` reference).
+const countByPlace = new Map();
+for (const e of events) {
+  const id = e.data.place?.id;
+  if (id) countByPlace.set(id, (countByPlace.get(id) ?? 0) + 1);
+}
+
+// Human labels for the place `type` vocabulary, in display order.
+const typeLabels = {
+  'sacred-site': 'Sacred sites',
+  city: 'Cities',
+  battlefield: 'Battlefields',
+  fort: 'Forts',
+  institution: 'Institutions',
+  region: 'Regions',
+  other: 'Other places',
+};
+
+const grouped = Object.keys(typeLabels)
+  .map((type) => ({
+    type,
+    label: typeLabels[type],
+    items: places
+      .filter((p) => p.data.type === type)
+      .sort((a, b) => a.data.name.localeCompare(b.data.name)),
+  }))
+  .filter((g) => g.items.length > 0);
+---
+
+<BaseLayout
+  title="Places — Mission Sikhism"
+  description="Every location in Sikh history — sacred sites, cities, and battlefields — and the events that happened at each."
+>
+  <section class="section">
+    <div class="container">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <span aria-current="page">Places</span>
+      </nav>
+      <h1>Places</h1>
+      <p>
+        Every location where the history unfolded — each place gathers the
+        events that happened there. Open any place on the <a href="/map">map</a>.
+      </p>
+
+      {
+        grouped.map((group) => (
+          <>
+            <h2>{group.label}</h2>
+            <ul class="topic-list">
+              {group.items.map((p) => {
+                const n = countByPlace.get(p.id) ?? 0;
+                return (
+                  <li class="topic-card">
+                    <h3><a href={`/places/${p.id}`}>{p.data.name}</a></h3>
+                    {p.data.region && <p class="role">{p.data.region}</p>}
+                    <p>{p.data.summary}</p>
+                    <p class="years">
+                      {n} {n === 1 ? 'event' : 'events'}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

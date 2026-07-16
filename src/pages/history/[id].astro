@@ -21,6 +21,10 @@ const events = (await getCollection('events'))
 <BaseLayout title={`${era.data.title} — Mission Sikhism`} description={era.data.summary}>
   <article class="section">
     <div class="container">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <a href="/history">History</a> ›
+        <span aria-current="page">{era.data.title}</span>
+      </nav>
       <p class="years">
         {era.data.startYear}{era.data.endYear ? `–${era.data.endYear}` : '–present'}
       </p>

@@ -15,21 +15,57 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = image ? new URL(image, Astro.site).href : undefined;
 const siteName = 'Mission Sikhism';
 
-// Top nav — the six lenses/sections. Order matters: the three lenses
-// (History, Map, People) first, then evergreen context.
-const nav = [
+// Navigation is config-driven (02-NAVIGATION-IA): three flat lenses first, then
+// grouped menus. Groups render as accessible <details> dropdowns on desktop and
+// expandable sections on mobile — the same markup reused at both sizes.
+type NavItem = { label: string; href: string };
+type NavGroup = { label: string; items: NavItem[] };
+type NavEntry = NavItem | NavGroup;
+
+const nav: NavEntry[] = [
   { label: 'History', href: '/history' },
   { label: 'Map', href: '/map' },
   { label: 'People', href: '/people' },
-  { label: 'The Faith', href: '/faith' },
-  { label: 'Culture', href: '/culture' },
-  { label: 'Library', href: '/library' },
+  {
+    label: 'Learn',
+    items: [
+      { label: 'The Faith', href: '/faith' },
+      { label: 'Culture & Heritage', href: '/culture' },
+      // { label: 'Glossary', href: '/glossary' },     // enable when the collection exists
+      // { label: 'Daily Prayers', href: '/nitnem' },
+    ],
+  },
+  {
+    label: 'Sources',
+    items: [
+      { label: 'Library', href: '/library' },
+      // { label: 'Books to Read', href: '/books' },
+    ],
+  },
   { label: 'About', href: '/about' },
 ];
 
-// Mark the current section active by matching the first path segment.
+const isGroup = (e: NavEntry): e is NavGroup => 'items' in e;
+
+// Active-state: map the first path segment to the tab that owns it, so shared
+// destinations (/events, /places) borrow History and Map respectively.
 const path = Astro.url.pathname;
 const seg = '/' + (path.split('/').filter(Boolean)[0] ?? '');
+const ownerBySeg: Record<string, string> = {
+  '/history': 'History',
+  '/events': 'History',
+  '/map': 'Map',
+  '/places': 'Map',
+  '/people': 'People',
+  '/faith': 'Learn',
+  '/culture': 'Learn',
+  '/glossary': 'Learn',
+  '/nitnem': 'Learn',
+  '/library': 'Sources',
+  '/books': 'Sources',
+  '/about': 'About',
+};
+const activeTab = ownerBySeg[seg] ?? '';
 ---
 
 <!doctype html>
@@ -63,14 +99,58 @@ const seg = '/' + (path.split('/').filter(Boolean)[0] ?? '');
     <header class="site-header">
       <div class="container">
         <a class="brand" href="/">Mission Sikhism</a>
-        <nav class="nav" aria-label="Primary">
+        <input id="nav-toggle" class="nav-toggle-cb" type="checkbox" hidden />
+
+        <div class="header-actions">
+          <a class="nav-search" href="/search" aria-label="Search">
+            <span aria-hidden="true">🔍</span>
+          </a>
+          <label
+            for="nav-toggle"
+            class="nav-hamburger"
+            aria-label="Menu"
+            aria-expanded="false"
+            role="button"
+            tabindex="0"
+          >
+            <span aria-hidden="true">☰</span>
+          </label>
+        </div>
+
+        <nav class="nav" id="primary-nav" aria-label="Primary">
           {
-            nav.map((item) => (
-              <a href={item.href} aria-current={seg === item.href ? 'page' : undefined}>
-                {item.label}
-              </a>
-            ))
+            nav.map((entry) =>
+              isGroup(entry) ? (
+                <details class="nav-group">
+                  <summary aria-current={activeTab === entry.label ? 'true' : undefined}>
+                    {entry.label}
+                  </summary>
+                  <ul class="nav-menu">
+                    {entry.items.map((item) => (
+                      <li>
+                        <a
+                          href={item.href}
+                          aria-current={seg === item.href ? 'page' : undefined}
+                        >
+                          {item.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ) : (
+                <a
+                  href={entry.href}
+                  aria-current={activeTab === entry.label ? 'page' : undefined}
+                >
+                  {entry.label}
+                </a>
+              )
+            )
           }
+          <a class="btn btn-primary nav-contribute" href="/about#contribute">
+            Contribute →
+          </a>
         </nav>
       </div>
     </header>
@@ -86,12 +166,80 @@ const seg = '/' + (path.split('/').filter(Boolean)[0] ?? '');
           faith. Every fact on this site is cited.
         </p>
         <nav class="footer-nav" aria-label="Footer">
+          <a href="/history">History</a>
+          <a href="/map">Map</a>
+          <a href="/people">People</a>
+          <a href="/faith">The Faith</a>
+          <a href="/library">Library</a>
           <a href="/about">About</a>
           <a href="/about#contribute">Contribute</a>
-          <a href="/about#faq">FAQ</a>
-          <a href="/library">Library</a>
         </nav>
       </div>
     </footer>
+
+    <script is:inline>
+      (function () {
+        var toggle = document.getElementById('nav-toggle');
+        var hamburger = document.querySelector('.nav-hamburger');
+        var nav = document.getElementById('primary-nav');
+        if (!toggle || !hamburger || !nav) return;
+
+        // Mobile panel: keep aria-expanded in sync, trap focus, lock scroll.
+        function firstLink() {
+          return nav.querySelector('a, summary');
+        }
+        toggle.addEventListener('change', function () {
+          var open = toggle.checked;
+          hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+          document.body.style.overflow = open ? 'hidden' : '';
+          if (open) {
+            var f = firstLink();
+            if (f) f.focus();
+          }
+        });
+        // Let the hamburger label be toggled with Enter/Space (it is focusable).
+        hamburger.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle.checked = !toggle.checked;
+            toggle.dispatchEvent(new Event('change'));
+          }
+        });
+        function closeMenu() {
+          if (toggle.checked) {
+            toggle.checked = false;
+            toggle.dispatchEvent(new Event('change'));
+            hamburger.focus();
+          }
+        }
+        // Close the mobile panel when a link inside it is followed.
+        nav.addEventListener('click', function (e) {
+          if (e.target.closest('a') && toggle.checked) closeMenu();
+        });
+
+        // Desktop dropdowns: open on hover, close on outside-click and Esc.
+        var groups = Array.prototype.slice.call(nav.querySelectorAll('.nav-group'));
+        var hoverCapable = window.matchMedia('(hover: hover) and (min-width: 761px)');
+        groups.forEach(function (g) {
+          g.addEventListener('mouseenter', function () {
+            if (hoverCapable.matches) g.open = true;
+          });
+          g.addEventListener('mouseleave', function () {
+            if (hoverCapable.matches) g.open = false;
+          });
+        });
+        document.addEventListener('click', function (e) {
+          groups.forEach(function (g) {
+            if (g.open && !g.contains(e.target)) g.open = false;
+          });
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') {
+            groups.forEach(function (g) { g.open = false; });
+            closeMenu();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

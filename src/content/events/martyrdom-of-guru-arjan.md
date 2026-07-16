@@ -3,6 +3,7 @@ title: "Martyrdom of Guru Arjan Dev Ji"
 year: 1606
 date: "1606"
 era: guru-period
+place: lahore
 lat: 31.5804
 lng: 74.3287
 location: "Lahore, present-day Pakistan"

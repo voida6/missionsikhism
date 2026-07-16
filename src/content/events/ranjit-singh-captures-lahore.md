@@ -3,6 +3,7 @@ title: "Ranjit Singh Captures Lahore"
 year: 1799
 date: "1799"
 era: sikh-empire
+place: lahore
 lat: 31.582
 lng: 74.3294
 location: "Lahore, present-day Pakistan"

@@ -3,6 +3,7 @@ title: "Vadda Ghallughara (The Great Massacre)"
 year: 1762
 date: "5 February 1762"
 era: misl-period
+place: kup
 lat: 30.6
 lng: 75.9
 location: "Kup, near Malerkotla, Punjab, India"

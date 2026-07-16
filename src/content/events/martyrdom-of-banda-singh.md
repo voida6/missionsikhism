@@ -3,6 +3,7 @@ title: "Execution of Banda Singh Bahadur"
 year: 1716
 date: "1716"
 era: sovereignty-banda-singh
+place: delhi
 lat: 28.5245
 lng: 77.1855
 location: "Delhi, India"

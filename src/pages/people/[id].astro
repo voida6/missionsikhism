@@ -20,6 +20,10 @@ const events = (await getCollection('events'))
 <BaseLayout title={`${person.data.name} — Mission Sikhism`} description={person.data.summary}>
   <article class="section">
     <div class="container">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <a href="/people">People</a> ›
+        <span aria-current="page">{person.data.name}</span>
+      </nav>
       {
         (person.data.born || person.data.died) && (
           <p class="years">

@@ -3,6 +3,7 @@ title: "Birth of Guru Nanak Dev Ji"
 year: 1469
 date: "1469 (traditionally observed as Guru Nanak Gurpurab)"
 era: guru-period
+place: nankana-sahib
 lat: 31.4504
 lng: 73.7014
 location: "Nankana Sahib (formerly Rai Bhoi Ki Talwandi), present-day Pakistan"

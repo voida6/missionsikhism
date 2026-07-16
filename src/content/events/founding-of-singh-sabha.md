@@ -17,7 +17,3 @@ sources:
     publisher: "Cambridge University Press"
     year: 1990
 ---
-
-The Singh Sabha movement began in Amritsar in 1873 to revive Sikh identity, education and institutions under British colonial rule, reshaping modern Sikh practice.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

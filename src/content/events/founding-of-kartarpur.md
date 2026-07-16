@@ -19,7 +19,3 @@ sources:
     publisher: "Oxford University Press"
     year: 2004
 ---
-
-Guru Nanak established the first Sikh community at Kartarpur, where he settled the practices of nam (devotion), kirat (honest work) and langar (the shared kitchen) until his death in 1539.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

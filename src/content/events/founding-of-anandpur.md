@@ -15,7 +15,3 @@ sources:
     publisher: "Oxford University Press"
     year: 2004
 ---
-
-Guru Tegh Bahadur founded the town of Anandpur ('city of bliss') in the Shivalik foothills, which would become the cradle of the Khalsa a generation later.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

@@ -17,7 +17,3 @@ sources:
     publisher: "Cambridge University Press"
     year: 1990
 ---
-
-After two Anglo-Sikh wars, the British East India Company annexed the Punjab in 1849, ending the Sikh Empire a decade after Ranjit Singh's death.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

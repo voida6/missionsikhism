@@ -17,7 +17,3 @@ sources:
     publisher: "Cambridge University Press"
     year: 1990
 ---
-
-In a single day, Ahmad Shah Durrani's forces killed tens of thousands of Sikhs — many of them non-combatants — near Kup and Malerkotla, the gravest catastrophe of the misl period.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

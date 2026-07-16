@@ -4,9 +4,16 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  /** Optional absolute or root-relative image for social cards. */
+  image?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, image } = Astro.props;
+
+// Canonical + social URLs are absolute, resolved against `site` in astro.config.mjs.
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = image ? new URL(image, Astro.site).href : undefined;
+const siteName = 'Mission Sikhism';
 
 // Top nav — the six lenses/sections. Order matters: the three lenses
 // (History, Map, People) first, then evergreen context.
@@ -32,13 +39,31 @@ const seg = '/' + (path.split('/').filter(Boolean)[0] ?? '');
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#1e3a5f" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="container">
         <a class="brand" href="/">Mission Sikhism</a>
-        <nav class="nav">
+        <nav class="nav" aria-label="Primary">
           {
             nav.map((item) => (
               <a href={item.href} aria-current={seg === item.href ? 'page' : undefined}>
@@ -50,7 +75,7 @@ const seg = '/' + (path.split('/').filter(Boolean)[0] ?? '');
       </div>
     </header>
 
-    <main>
+    <main id="main">
       <slot />
     </main>
 
@@ -60,7 +85,7 @@ const seg = '/' + (path.split('/').filter(Boolean)[0] ?? '');
           Mission Sikhism — a non-profit, fully-sourced history of the Sikh
           faith. Every fact on this site is cited.
         </p>
-        <nav class="footer-nav">
+        <nav class="footer-nav" aria-label="Footer">
           <a href="/about">About</a>
           <a href="/about#contribute">Contribute</a>
           <a href="/about#faq">FAQ</a>

@@ -19,7 +19,3 @@ sources:
     publisher: "Cambridge University Press"
     year: 1990
 ---
-
-Guru Arjan, the fifth Guru, was tortured and executed under the Mughal emperor Jahangir in 1606 — the first Sikh martyrdom, a turning point toward the community's self-defence.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

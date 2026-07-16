@@ -15,7 +15,3 @@ sources:
   - title: "Encyclopaedia Britannica — Sikhism"
     url: "https://www.britannica.com/topic/Sikhism"
 ---
-
-In June 1984 the Indian Army entered the Golden Temple complex to remove armed militants; the operation caused heavy loss of life and damage to the Akal Takht, with lasting consequences for the community.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

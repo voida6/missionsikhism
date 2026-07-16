@@ -33,11 +33,12 @@ const people = (event.data.people ?? [])
 
       <Content />
 
-      <p style="color:var(--color-muted);font-size:0.9rem">
-        Coordinates: {event.data.lat}, {event.data.lng}
+      <p class="event-meta">
+        {event.data.location && <>Place: {event.data.location}</>}
         {era && (
           <>
-            {' · '}Era: <a href={`/history/${era.id}`}>{era.data.title}</a>
+            {event.data.location ? ' · ' : ''}Era:{' '}
+            <a href={`/history/${era.id}`}>{era.data.title}</a>
           </>
         )}
       </p>

@@ -17,7 +17,3 @@ sources:
   - title: "Encyclopaedia Britannica — Ranjit Singh"
     url: "https://www.britannica.com/biography/Ranjit-Singh"
 ---
-
-Ranjit Singh seized Lahore in 1799 and made it his capital, the foundation of a unified Sikh Empire that he would rule as Maharaja from 1801.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

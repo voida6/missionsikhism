@@ -21,7 +21,3 @@ sources:
   - title: "Encyclopaedia Britannica — Guru Nanak"
     url: "https://www.britannica.com/biography/Guru-Nanak"
 ---
-
-Guru Nanak Dev Ji, founder of the Sikh faith, was born in 1469 in the village of Rai Bhoi Ki Talwandi, now Nankana Sahib in his honour.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

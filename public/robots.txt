@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://missionsikhism.org/sitemap-index.xml

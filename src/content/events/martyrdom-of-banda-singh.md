@@ -19,7 +19,3 @@ sources:
     publisher: "Cambridge University Press"
     year: 1990
 ---
-
-Captured after a long siege, Banda Singh Bahadur and his companions were executed in Delhi in 1716, beginning decades of Mughal persecution of the Sikhs.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

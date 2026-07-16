@@ -36,6 +36,43 @@
 
 html { scroll-behavior: smooth; }
 
+/* Skip link — hidden until focused, then pinned top-left over the header. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  margin: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  background: var(--color-blue);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  transform: translateY(-150%);
+}
+.skip-link:focus {
+  transform: translateY(0);
+  color: #fff;
+}
+
+/* Respect users who ask for less motion: drop transitions, animations,
+   transforms and smooth scrolling. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .era-card:hover,
+  .lens-card:hover,
+  .person-card:hover,
+  .topic-card:hover { transform: none; }
+}
+
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -255,6 +292,7 @@ article.section .container { max-width: 48rem; }
 .sources cite { font-style: italic; }
 
 .muted-note { margin-top: 1.5rem; color: var(--color-muted); font-size: 0.9rem; }
+.event-meta { color: var(--color-muted); font-size: 0.9rem; }
 
 /* ---------- Library ---------- */
 .library-list { line-height: 1.8; }

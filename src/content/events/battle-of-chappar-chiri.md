@@ -17,7 +17,3 @@ sources:
   - title: "Encyclopaedia Britannica — Banda Singh Bahadur"
     url: "https://www.britannica.com/biography/Banda-Singh-Bahadur"
 ---
-
-Banda Singh Bahadur defeated the Mughal governor Wazir Khan at Chappar Chiri and captured Sirhind, establishing the first sovereign Sikh rule in the Punjab.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

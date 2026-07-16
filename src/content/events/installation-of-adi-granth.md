@@ -21,7 +21,3 @@ sources:
   - title: "Encyclopaedia Britannica — Golden Temple"
     url: "https://www.britannica.com/topic/Golden-Temple"
 ---
-
-Guru Arjan compiled the Adi Granth — the first canonical Sikh scripture — and installed it in the newly completed Harmandir Sahib at Amritsar in 1604.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

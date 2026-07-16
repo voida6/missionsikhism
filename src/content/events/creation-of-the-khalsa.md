@@ -21,7 +21,3 @@ sources:
   - title: "Encyclopaedia Britannica — Khalsa"
     url: "https://www.britannica.com/topic/Khalsa"
 ---
-
-On Vaisakhi 1699 at Anandpur, Guru Gobind Singh founded the Khalsa, initiated the first Panj Pyare (Five Beloved Ones), and gave the Sikhs their distinctive identity and code of conduct.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

@@ -19,7 +19,3 @@ sources:
     publisher: "Cambridge University Press"
     year: 1990
 ---
-
-Before his death at Nanded in 1708, Guru Gobind Singh ended the line of human Gurus and vested eternal Guruship in the Guru Granth Sahib, the Sikh scripture.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

@@ -15,7 +15,3 @@ sources:
   - title: "Encyclopaedia Britannica — Jallianwala Bagh Massacre"
     url: "https://www.britannica.com/event/Jallianwala-Bagh-Massacre"
 ---
-
-On Vaisakhi 1919, British troops fired on an unarmed crowd in the walled garden of Jallianwala Bagh in Amritsar, killing hundreds — a decisive moment for the Indian independence movement.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

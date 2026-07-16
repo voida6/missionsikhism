@@ -15,7 +15,3 @@ sources:
   - title: "Encyclopaedia Britannica — Guru Nanak"
     url: "https://www.britannica.com/biography/Guru-Nanak"
 ---
-
-The Kartarpur Corridor opened in 2019, allowing Indian pilgrims visa-free access to Gurdwara Darbar Sahib Kartarpur, where Guru Nanak spent his final years — a rare gesture across the 1947 border.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

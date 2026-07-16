@@ -19,7 +19,3 @@ sources:
     publisher: "Cambridge University Press"
     year: 1990
 ---
-
-The ninth Guru was executed in Delhi in 1675 for defending the right of Kashmiri Hindus to practise their faith — a martyrdom remembered as a defence of freedom of conscience.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

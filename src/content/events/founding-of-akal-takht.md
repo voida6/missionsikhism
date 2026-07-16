@@ -19,7 +19,3 @@ sources:
     publisher: "Cambridge University Press"
     year: 1990
 ---
-
-Guru Hargobind raised the Akal Takht — the 'throne of the timeless one' — opposite the Harmandir Sahib, embodying the doctrine of miri-piri, the union of temporal and spiritual authority.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

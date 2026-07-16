@@ -17,7 +17,3 @@ sources:
     publisher: "Cambridge University Press"
     year: 1990
 ---
-
-The Sikh misls took the great city of Lahore in 1765 and struck coin in the name of the Gurus, marking their emergence as the dominant power in the Punjab.
-
-_Draft for review — event detail to be expanded, every claim tied to a citation._

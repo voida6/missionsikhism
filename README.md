@@ -7,7 +7,8 @@ no database, no CMS, nothing to hack.
 ## The core rule: every fact is sourced
 
 Content is organised into content collections — `eras`, `places`, `events`,
-`people`, and `faith` (see `src/content.config.ts`). Every entry **must**
+`people`, `faith`, `culture`, `works`, `glossary`, and `nitnem` (see
+`src/content.config.ts`). Every entry **must**
 include a non-empty `sources` list. If a content file omits it, **the build
 fails.** The site's "every fact sourced" promise is enforced by the build, not
 by memory. Beyond `sources`, the build also enforces the controlled
@@ -23,6 +24,10 @@ src/content/
   events/   one file per event — links to a place, an era, people, a type
   people/   one file per person (grouped by category)
   faith/    one file per evergreen faith topic
+  culture/  one file per culture & heritage topic
+  works/    one file per canonical book/source (the bibliography)
+  glossary/ one file per term (with Gurmukhi + transliteration)
+  nitnem/   one file per daily prayer (bani)
 ```
 
 Each event references a `place` for its coordinates (with an optional lat/lng

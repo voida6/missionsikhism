@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SourceList from '../../components/SourceList.astro';
+import LastUpdated from '../../components/LastUpdated.astro';
 
 export async function getStaticPaths() {
   const places = await getCollection('places');
@@ -118,6 +119,8 @@ const jsonld = [
           </p>
         )
       }
+
+      <LastUpdated path={`src/content/places/${place.id}.md`} />
 
       <SourceList sources={place.data.sources} />
     </div>

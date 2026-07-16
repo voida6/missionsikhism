@@ -1,6 +1,9 @@
 ---
 name: "Guru Arjan Dev Ji"
 category: guru
+relatedPeople:
+  - guru-ram-das
+  - guru-hargobind
 born: 1563
 died: 1606
 role: "Fifth Sikh Guru, first Sikh martyr"

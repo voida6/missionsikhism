@@ -1,6 +1,9 @@
 ---
 name: "Guru Har Krishan Ji"
 category: guru
+relatedPeople:
+  - guru-har-rai
+  - guru-tegh-bahadur
 born: 1656
 died: 1664
 role: "Eighth Sikh Guru"

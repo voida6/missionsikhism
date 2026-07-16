@@ -1,6 +1,9 @@
 ---
 name: "Guru Tegh Bahadur Ji"
 category: guru
+relatedPeople:
+  - guru-har-krishan
+  - guru-gobind-singh
 born: 1621
 died: 1675
 role: "Ninth Sikh Guru, martyr"

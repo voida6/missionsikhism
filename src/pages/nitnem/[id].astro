@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SourceList from '../../components/SourceList.astro';
+import LastUpdated from '../../components/LastUpdated.astro';
+
+export async function getStaticPaths() {
+  const banis = await getCollection('nitnem');
+  return banis.map((bani) => ({ params: { id: bani.id }, props: { bani } }));
+}
+
+const { bani } = Astro.props;
+const timeLabels = { 'amrit-vela': 'Morning (Amrit Vela)', evening: 'Evening', night: 'Night', any: 'Any time' };
+---
+
+<BaseLayout title={`${bani.data.title} — Daily Prayers`} description={bani.data.summary}>
+  <article class="section">
+    <div class="container">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <a href="/nitnem">Daily Prayers</a> ›
+        <span aria-current="page">{bani.data.title}</span>
+      </nav>
+      <h1>
+        {bani.data.title}
+        {bani.data.gurmukhiTitle && <span class="gurmukhi" lang="pa"> {bani.data.gurmukhiTitle}</span>}
+      </h1>
+      <p class="years">{timeLabels[bani.data.timeOfDay]}</p>
+      <p class="lede">{bani.data.summary}</p>
+
+      <LastUpdated path={`src/content/nitnem/${bani.id}.md`} />
+      <SourceList sources={bani.data.sources} />
+    </div>
+  </article>
+</BaseLayout>

@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SourceList from '../../components/SourceList.astro';
+import LastUpdated from '../../components/LastUpdated.astro';
 
 export async function getStaticPaths() {
   const people = await getCollection('people');
@@ -14,6 +15,12 @@ const { Content } = await render(person);
 const events = (await getCollection('events'))
   .filter((e) => (e.data.people ?? []).some((ref) => ref.id === person.id))
   .sort((a, b) => a.data.year - b.data.year);
+
+// Related / succession people (Phase K).
+const allPeople = await getCollection('people');
+const relatedPeople = (person.data.relatedPeople ?? [])
+  .map((ref) => allPeople.find((p) => p.id === ref.id))
+  .filter((p) => p !== undefined);
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const jsonld = [
@@ -75,6 +82,21 @@ const jsonld = [
           </>
         )
       }
+
+      {
+        relatedPeople.length > 0 && (
+          <p>
+            Related: {relatedPeople.map((p, i) => (
+              <>
+                {i > 0 ? ', ' : ''}
+                <a href={`/people/${p!.id}`}>{p!.data.name}</a>
+              </>
+            ))}
+          </p>
+        )
+      }
+
+      <LastUpdated path={`src/content/people/${person.id}.md`} />
 
       <SourceList sources={person.data.sources} />
     </div>

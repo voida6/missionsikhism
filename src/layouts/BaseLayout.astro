@@ -31,15 +31,15 @@ const nav: NavEntry[] = [
     items: [
       { label: 'The Faith', href: '/faith' },
       { label: 'Culture & Heritage', href: '/culture' },
-      // { label: 'Glossary', href: '/glossary' },     // enable when the collection exists
-      // { label: 'Daily Prayers', href: '/nitnem' },
+      { label: 'Glossary', href: '/glossary' },
+      { label: 'Daily Prayers', href: '/nitnem' },
     ],
   },
   {
     label: 'Sources',
     items: [
       { label: 'Library', href: '/library' },
-      // { label: 'Books to Read', href: '/books' },
+      { label: 'Books to Read', href: '/books' },
     ],
   },
   { label: 'About', href: '/about' },
@@ -66,6 +66,29 @@ const ownerBySeg: Record<string, string> = {
   '/about': 'About',
 };
 const activeTab = ownerBySeg[seg] ?? '';
+
+// Site-wide structured data (Phase H): WebSite + SearchAction and Organization.
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : '';
+const siteJsonld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteName,
+    url: siteUrl + '/',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: siteUrl + '/search?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: siteName,
+    url: siteUrl + '/',
+    description: 'A non-profit, fully-sourced history of the Sikh faith (1469 to today).',
+  },
+];
 ---
 
 <!doctype html>
@@ -93,6 +116,8 @@ const activeTab = ownerBySeg[seg] ?? '';
     {ogImage && <meta name="twitter:image" content={ogImage} />}
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="Mission Sikhism — new events" href="/rss.xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(siteJsonld)} />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -173,6 +198,7 @@ const activeTab = ownerBySeg[seg] ?? '';
           <a href="/library">Library</a>
           <a href="/about">About</a>
           <a href="/about#contribute">Contribute</a>
+          <a href="/rss.xml">RSS</a>
         </nav>
       </div>
     </footer>

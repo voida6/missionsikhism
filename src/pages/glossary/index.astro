@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const terms = (await getCollection('glossary')).sort((a, b) =>
+  a.data.term.localeCompare(b.data.term)
+);
+---
+
+<BaseLayout
+  title="Glossary — Mission Sikhism"
+  description="Key Sikh terms with Gurmukhi, transliteration, and plain definitions."
+>
+  <section class="section">
+    <div class="container">
+      <h1>Glossary</h1>
+      <p>Key terms, with Gurmukhi and a plain definition. Each is cited.</p>
+      {
+        terms.length === 0 ? (
+          <p class="muted-note">Terms coming soon.</p>
+        ) : (
+          <dl class="glossary-list">
+            {terms.map((t) => (
+              <div class="glossary-item">
+                <dt>
+                  <a href={`/glossary/${t.id}`}>{t.data.term}</a>
+                  {t.data.gurmukhi && <span class="gurmukhi" lang="pa"> {t.data.gurmukhi}</span>}
+                  {t.data.transliteration && <span class="translit"> · {t.data.transliteration}</span>}
+                </dt>
+                <dd>{t.data.definition}</dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

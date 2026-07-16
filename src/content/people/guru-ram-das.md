@@ -1,6 +1,9 @@
 ---
 name: "Guru Ram Das Ji"
 category: guru
+relatedPeople:
+  - guru-amar-das
+  - guru-arjan
 born: 1534
 died: 1581
 role: "Fourth Sikh Guru, founder of Amritsar"

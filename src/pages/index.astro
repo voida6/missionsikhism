@@ -8,14 +8,17 @@ const eras = (await getCollection('eras')).sort((a, b) => a.data.order - b.data.
 const events = (await getCollection('events')).sort((a, b) => a.data.year - b.data.year);
 const people = await getCollection('people');
 const faith = await getCollection('faith');
+const places = await getCollection('places');
+const culture = await getCollection('culture');
 
 const eraCount = eras.length;
 const eventCount = events.length;
 const peopleCount = people.length;
+const placeCount = places.length;
 
 // Count unique sources across everything, mirroring the Library.
 const seen = new Set<string>();
-for (const coll of [eras, events, people, faith]) {
+for (const coll of [eras, events, people, faith, places, culture]) {
   for (const e of coll) {
     for (const s of (e.data as any).sources ?? []) {
       seen.add(`${(s.author ?? '').toLowerCase()}|${s.title.toLowerCase()}`);
@@ -60,6 +63,7 @@ const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.dat
       <div class="stat"><span class="stat-num">{eraCount}</span><span class="stat-label">eras</span></div>
       <div class="stat"><span class="stat-num">{eventCount}</span><span class="stat-label">mapped events</span></div>
       <div class="stat"><span class="stat-num">{peopleCount}</span><span class="stat-label">people</span></div>
+      <div class="stat"><span class="stat-num">{placeCount}</span><span class="stat-label">places</span></div>
       <div class="stat"><span class="stat-num">{sourceCount}</span><span class="stat-label">sources cited</span></div>
     </div>
   </section>
@@ -75,7 +79,7 @@ const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.dat
         </li>
         <li class="lens-card lens-card--map">
           <h3><a href="/map">Global Map</a></h3>
-          <p>{eventCount} events plotted where they happened — filter by era or person, or scrub the timeline.</p>
+          <p>{eventCount} events plotted where they happened — filter by era, type, or person; events at the same site cluster together.</p>
         </li>
         <li class="lens-card">
           <h3><a href="/people">People</a></h3>

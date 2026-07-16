@@ -186,4 +186,65 @@ const faith = defineCollection({
   }),
 });
 
-export const collections = { eras, places, events, people, faith };
+// Culture & Heritage (Phase G): lived, material, artistic culture. Mirrors
+// `faith` exactly so the two evergreen sections behave identically.
+const culture = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/culture' }),
+  schema: z.object({
+    title: z.string(),
+    order: z.number().default(100),
+    summary: z.string(),
+    tags: z.array(z.string()).optional(),
+    image: image.optional(),
+    sources,
+  }),
+});
+
+// Canonical bibliography (Phase I). The Library dedupes citations against these;
+// `recommended: true` produces the "Books to Read" shelf at /books.
+const works = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/works' }),
+  schema: z.object({
+    title: z.string(),
+    author: z.string().optional(),
+    publisher: z.string().optional(),
+    year: z.number().optional(),
+    url: z.string().url().optional(),
+    isbn: z.string().optional(),
+    type: z.enum(['book', 'article', 'web', 'manuscript', 'encyclopedia', 'primary', 'other']),
+    recommended: z.boolean().default(false),
+    recommendedNote: z.string().optional(),
+    summary: z.string().optional(),
+    sources: sources.optional(),
+  }),
+});
+
+// Glossary (Phase J): key terms with Gurmukhi + transliteration and see-also.
+const glossary = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/glossary' }),
+  schema: z.object({
+    term: z.string(),
+    gurmukhi: z.string().optional(),
+    transliteration: z.string().optional(),
+    partOfSpeech: z.string().optional(),
+    definition: z.string(),
+    seeAlso: z.array(reference('glossary')).optional(),
+    tags: z.array(z.string()).optional(),
+    sources,
+  }),
+});
+
+// Nitnem (Phase J): the daily prayers / banis. Chronology-free devotional content.
+const nitnem = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/nitnem' }),
+  schema: z.object({
+    title: z.string(),
+    gurmukhiTitle: z.string().optional(),
+    order: z.number().default(100),
+    timeOfDay: z.enum(['amrit-vela', 'evening', 'night', 'any']).default('any'),
+    summary: z.string(),
+    sources,
+  }),
+});
+
+export const collections = { eras, places, events, people, faith, culture, works, glossary, nitnem };

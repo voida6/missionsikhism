@@ -2,32 +2,45 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// The Library IS the citation rule turned into a feature. We walk every
-// collection, pull each entry's `sources`, and build one de-duplicated
-// bibliography — the "fully sourced" promise, made browsable. Pagefind adds
-// full-site search on top (its index is generated after the Astro build).
-const collections = ['eras', 'events', 'people', 'faith'] as const;
+// The Library is the citation rule turned into a feature. We gather every
+// source cited across the site, dedupe them, and cross-reference the canonical
+// `works` bibliography (Phase I) so each recurring source is shown once with a
+// count of how many entries cite it. Pagefind adds full-site search on top.
+const sourced = ['eras', 'places', 'events', 'people', 'faith', 'culture'] as const;
 
 type Src = {
   title: string; author?: string; publisher?: string;
   year?: number; url?: string; page?: string; note?: string;
 };
 
+const norm = (s: string) => s.trim().toLowerCase();
+
+// Count how many content entries cite each unique source (by author|title|year).
 const seen = new Map<string, Src>();
-for (const name of collections) {
+const citeCount = new Map<string, number>();
+for (const name of sourced) {
   const entries = await getCollection(name as any);
   for (const entry of entries) {
     for (const s of (entry.data.sources ?? []) as Src[]) {
-      // De-dupe on author + title + year (page numbers vary per citation).
-      const key = `${(s.author ?? '').toLowerCase()}|${s.title.toLowerCase()}|${s.year ?? ''}`;
+      const key = `${norm(s.author ?? '')}|${norm(s.title)}|${s.year ?? ''}`;
       if (!seen.has(key)) seen.set(key, s);
+      citeCount.set(norm(s.title), (citeCount.get(norm(s.title)) ?? 0) + 1);
     }
   }
 }
 
-// Sort by author (surname-ish), then title.
-const sortKey = (s: Src) => (s.author ?? s.title).toLowerCase();
-const library = [...seen.values()].sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
+const works = (await getCollection('works')).sort((a, b) =>
+  (a.data.author ?? a.data.title).localeCompare(b.data.author ?? b.data.title)
+);
+const workTitles = new Set(works.map((w) => norm(w.data.title)));
+
+// Sources that are NOT already represented by a canonical work.
+const sortKey = (s: Src) => norm(s.author ?? s.title);
+const otherSources = [...seen.values()]
+  .filter((s) => !workTitles.has(norm(s.title)))
+  .sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
+
+const totalUnique = works.length + otherSources.length;
 ---
 
 <BaseLayout
@@ -40,32 +53,61 @@ const library = [...seen.values()].sort((a, b) => sortKey(a).localeCompare(sortK
       <h1>Library</h1>
       <p>
         Every claim on this site is tied to a citation, enforced at build time.
-        Search the whole site below — every era, event, person, and topic — or
-        browse the {library.length} unique
-        source{library.length === 1 ? '' : 's'} gathered into one bibliography.
+        Search the whole site below, or browse the {totalUnique} unique
+        source{totalUnique === 1 ? '' : 's'} — the canonical works we lean on
+        most, then everything else cited across the site. Looking for where to
+        start? See <a href="/books">Books to Read</a>.
       </p>
 
       <div id="search" class="pf-search"></div>
 
-      <h2 class="library-heading">Bibliography</h2>
+      <h2 class="library-heading">Canonical works</h2>
       <ol class="library-list">
         {
-          library.map((s) => (
-            <li>
-              {s.author && <span>{s.author}. </span>}
-              {s.url ? (
-                <a href={s.url} rel="noopener noreferrer" target="_blank"><cite>{s.title}</cite></a>
-              ) : (
-                <cite>{s.title}</cite>
-              )}
-              {s.publisher && <span>. {s.publisher}</span>}
-              {s.year && <span> ({s.year})</span>}
-              {s.note && <span> — {s.note}</span>}
-              <span>.</span>
-            </li>
-          ))
+          works.map((w) => {
+            const n = citeCount.get(norm(w.data.title)) ?? 0;
+            return (
+              <li>
+                {w.data.author && <span>{w.data.author}. </span>}
+                {w.data.url ? (
+                  <a href={w.data.url} rel="noopener noreferrer" target="_blank"><cite>{w.data.title}</cite></a>
+                ) : (
+                  <cite>{w.data.title}</cite>
+                )}
+                {w.data.publisher && <span>. {w.data.publisher}</span>}
+                {w.data.year && <span> ({w.data.year})</span>}
+                {n > 0 && <span class="cite-count"> · cited by {n} {n === 1 ? 'entry' : 'entries'}</span>}
+                {w.data.recommended && <span class="cite-count"> · <a href="/books">recommended</a></span>}
+                <span>.</span>
+              </li>
+            );
+          })
         }
       </ol>
+
+      {
+        otherSources.length > 0 && (
+          <>
+            <h2 class="library-heading">Other sources cited</h2>
+            <ol class="library-list">
+              {otherSources.map((s) => (
+                <li>
+                  {s.author && <span>{s.author}. </span>}
+                  {s.url ? (
+                    <a href={s.url} rel="noopener noreferrer" target="_blank"><cite>{s.title}</cite></a>
+                  ) : (
+                    <cite>{s.title}</cite>
+                  )}
+                  {s.publisher && <span>. {s.publisher}</span>}
+                  {s.year && <span> ({s.year})</span>}
+                  {s.note && <span> — {s.note}</span>}
+                  <span>.</span>
+                </li>
+              ))}
+            </ol>
+          </>
+        )
+      }
     </div>
   </section>
 
@@ -73,18 +115,12 @@ const library = [...seen.values()].sort((a, b) => sortKey(a).localeCompare(sortK
   <script is:inline>
     window.addEventListener('DOMContentLoaded', function () {
       if (window.PagefindUI) {
-        new PagefindUI({
-          element: '#search',
-          showSubResults: true,
-          showImages: false,
-          resetStyles: false,
-        });
+        new PagefindUI({ element: '#search', showSubResults: true, showImages: false, resetStyles: false });
       }
     });
   </script>
 
   <style is:global>
-    /* Theme Pagefind's default UI to the saffron palette. */
     .pf-search {
       --pagefind-ui-primary: var(--color-saffron-dark);
       --pagefind-ui-text: var(--color-ink);
@@ -95,6 +131,7 @@ const library = [...seen.values()].sort((a, b) => sortKey(a).localeCompare(sortK
       --pagefind-ui-font: var(--font-body);
       margin-bottom: 2.25rem;
     }
-    .library-heading { font-size: 1.35rem; margin: 0 0 1rem; }
+    .library-heading { font-size: 1.35rem; margin: 1.5rem 0 1rem; }
+    .cite-count { color: var(--color-muted); font-size: 0.9em; }
   </style>
 </BaseLayout>

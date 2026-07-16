@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Evergreen: lived, material and artistic culture. Mirrors The Faith.
+const topics = (await getCollection('culture')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<BaseLayout
+  title="Culture & Heritage — Mission Sikhism"
+  description="The lived culture of the Sikh world — its music, kitchens, language, art and global reach, each topic sourced."
+>
+  <section class="section">
+    <div class="container">
+      <h1>Culture &amp; Heritage</h1>
+      <p>
+        Beyond belief and history lies a living culture — the sound, language,
+        hospitality and craft through which Sikhi is practised day to day, in the
+        Punjab and across a global diaspora. Like everything here, each topic is
+        cited.
+      </p>
+      {
+        topics.length === 0 ? (
+          <p class="muted-note">Topics coming soon.</p>
+        ) : (
+          <ul class="topic-list">
+            {topics.map((t) => (
+              <li class="topic-card">
+                <h3><a href={`/culture/${t.id}`}>{t.data.title}</a></h3>
+                <p>{t.data.summary}</p>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

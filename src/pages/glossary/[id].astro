@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SourceList from '../../components/SourceList.astro';
+import LastUpdated from '../../components/LastUpdated.astro';
+
+export async function getStaticPaths() {
+  const terms = await getCollection('glossary');
+  return terms.map((term) => ({ params: { id: term.id }, props: { term } }));
+}
+
+const { term } = Astro.props;
+const all = await getCollection('glossary');
+const seeAlso = (term.data.seeAlso ?? [])
+  .map((ref) => all.find((t) => t.id === ref.id))
+  .filter((t) => t !== undefined);
+---
+
+<BaseLayout title={`${term.data.term} — Glossary`} description={term.data.definition}>
+  <article class="section">
+    <div class="container">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <a href="/glossary">Glossary</a> ›
+        <span aria-current="page">{term.data.term}</span>
+      </nav>
+      <h1>
+        {term.data.term}
+        {term.data.gurmukhi && <span class="gurmukhi" lang="pa"> {term.data.gurmukhi}</span>}
+      </h1>
+      {
+        (term.data.transliteration || term.data.partOfSpeech) && (
+          <p class="years">
+            {[term.data.transliteration, term.data.partOfSpeech].filter(Boolean).join(' · ')}
+          </p>
+        )
+      }
+      <p class="lede">{term.data.definition}</p>
+
+      {
+        seeAlso.length > 0 && (
+          <p>
+            See also: {seeAlso.map((t, i) => (
+              <>
+                {i > 0 ? ', ' : ''}
+                <a href={`/glossary/${t!.id}`}>{t!.data.term}</a>
+              </>
+            ))}
+          </p>
+        )
+      }
+
+      <LastUpdated path={`src/content/glossary/${term.id}.md`} />
+      <SourceList sources={term.data.sources} />
+    </div>
+  </article>
+</BaseLayout>

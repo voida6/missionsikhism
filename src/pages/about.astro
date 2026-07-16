@@ -1,5 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Contributor wall (Phase K): names drawn from the Git history at build time.
+// Guarded so a missing/unavailable git history never breaks the build.
+let contributors: { name: string; count: number }[] = [];
+try {
+  const { execFileSync } = await import('node:child_process');
+  const out = execFileSync('git', ['shortlog', '-sn', '--all', '--no-merges'], {
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'ignore'],
+  });
+  contributors = out
+    .trim()
+    .split('\n')
+    .map((line) => {
+      const m = line.trim().match(/^(\d+)\s+(.+)$/);
+      return m ? { count: Number(m[1]), name: m[2] } : null;
+    })
+    .filter((c): c is { name: string; count: number } => c !== null);
+} catch {
+  contributors = [];
+}
 ---
 
 <BaseLayout
@@ -78,6 +99,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         The site is intended as a free educational resource. Full licensing
         details will be published here.
       </p>
+
+      <h2 id="contributors">Contributors</h2>
+      <p>
+        This is a volunteer effort. Everyone whose work is recorded in the
+        project's history is credited here.
+      </p>
+      {
+        contributors.length > 0 ? (
+          <ul class="contributors">
+            {contributors.map((c) => (
+              <li>
+                <span class="contributor-name">{c.name}</span>
+                <span class="contributor-count">{c.count} {c.count === 1 ? 'edit' : 'edits'}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted-note">Contributor list will appear here once the site's history is published.</p>
+        )
+      }
     </div>
   </section>
 </BaseLayout>

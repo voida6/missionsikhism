@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Books to Read (Phase I): the recommended shelf, drawn from `works`.
+const books = (await getCollection('works'))
+  .filter((w) => w.data.recommended)
+  .sort((a, b) => (a.data.author ?? a.data.title).localeCompare(b.data.author ?? b.data.title));
+---
+
+<BaseLayout
+  title="Books to Read — Mission Sikhism"
+  description="A short, recommended shelf for reading further into Sikh history and faith."
+>
+  <section class="section">
+    <div class="container">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <a href="/library">Library</a> ›
+        <span aria-current="page">Books to Read</span>
+      </nav>
+      <h1>Books to Read</h1>
+      <p>
+        A short shelf to read further — the works we lean on most, chosen for
+        being reliable and accessible. Every one is also cited across the site.
+      </p>
+      {
+        books.length === 0 ? (
+          <p class="muted-note">Recommendations coming soon.</p>
+        ) : (
+          <ul class="topic-list">
+            {books.map((w) => (
+              <li class="topic-card">
+                <h3>
+                  {w.data.url ? (
+                    <a href={w.data.url} rel="noopener noreferrer" target="_blank">{w.data.title}</a>
+                  ) : (
+                    w.data.title
+                  )}
+                </h3>
+                {w.data.author && <p class="role">{w.data.author}</p>}
+                {w.data.recommendedNote && <p>{w.data.recommendedNote}</p>}
+                <p class="years">
+                  {[w.data.publisher, w.data.year].filter(Boolean).join(' · ')}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

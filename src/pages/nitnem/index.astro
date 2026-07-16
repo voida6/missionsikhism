@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const banis = (await getCollection('nitnem')).sort((a, b) => a.data.order - b.data.order);
+const timeLabels = { 'amrit-vela': 'Morning (Amrit Vela)', evening: 'Evening', night: 'Night', any: 'Any time' };
+---
+
+<BaseLayout
+  title="Daily Prayers (Nitnem) — Mission Sikhism"
+  description="The nitnem — the daily prayers of a Sikh — with a short, sourced note on each."
+>
+  <section class="section">
+    <div class="container">
+      <h1>Daily Prayers (Nitnem)</h1>
+      <p>
+        Nitnem is the set of prayers a Sikh reads each day. A short, sourced note
+        on each — the banis themselves are read from the Guru Granth Sahib and the
+        Dasam Granth.
+      </p>
+      {
+        banis.length === 0 ? (
+          <p class="muted-note">Prayers coming soon.</p>
+        ) : (
+          <ul class="topic-list">
+            {banis.map((b) => (
+              <li class="topic-card">
+                <h3>
+                  <a href={`/nitnem/${b.id}`}>{b.data.title}</a>
+                  {b.data.gurmukhiTitle && <span class="gurmukhi" lang="pa"> {b.data.gurmukhiTitle}</span>}
+                </h3>
+                <p class="role">{timeLabels[b.data.timeOfDay]}</p>
+                <p>{b.data.summary}</p>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

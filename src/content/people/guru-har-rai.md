@@ -1,6 +1,9 @@
 ---
 name: "Guru Har Rai Ji"
 category: guru
+relatedPeople:
+  - guru-hargobind
+  - guru-har-krishan
 born: 1630
 died: 1661
 role: "Seventh Sikh Guru"

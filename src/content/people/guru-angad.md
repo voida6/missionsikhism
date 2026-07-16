@@ -1,6 +1,9 @@
 ---
 name: "Guru Angad Dev Ji"
 category: guru
+relatedPeople:
+  - guru-nanak
+  - guru-amar-das
 born: 1504
 died: 1552
 role: "Second Sikh Guru"

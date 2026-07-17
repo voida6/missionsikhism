@@ -9,16 +9,19 @@ const eras = (await getCollection('eras')).sort(
 
 <BaseLayout
   title="History — Mission Sikhism"
-  description="The history of the Sikh faith across six eras, 1469 to today."
+  description={`The history of the Sikh faith across ${eras.length} eras, 1469 to today.`}
 >
   <section class="section">
     <div class="container">
+      <span class="kicker">The story</span>
       <h1>History</h1>
-      <p>The story of the Sikh faith, from 1469 to today, across six eras.</p>
+      <p class="lede">
+        The story of the Sikh faith, from 1469 to today, across {eras.length} eras.
+      </p>
       <ul class="era-list">
         {
           eras.map((era) => (
-            <li class="era-card">
+            <li class="era-card" style={`--era: ${era.data.color}`}>
               <h3>
                 <a href={`/history/${era.id}`}>{era.data.title}</a>
               </h3>

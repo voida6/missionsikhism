@@ -13,8 +13,9 @@ const terms = (await getCollection('glossary')).sort((a, b) =>
 >
   <section class="section">
     <div class="container">
+      <span class="kicker">The language</span>
       <h1>Glossary</h1>
-      <p>Key terms, with Gurmukhi and a plain definition. Each is cited.</p>
+      <p class="lede">Key terms, with Gurmukhi and a plain definition. Each is cited.</p>
       {
         terms.length === 0 ? (
           <p class="muted-note">Terms coming soon.</p>

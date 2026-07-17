@@ -33,7 +33,6 @@ const featuredEvents = featuredSlugs
   .map((slug) => events.find((e) => e.id === slug))
   .filter((e): e is (typeof events)[number] => Boolean(e));
 
-const firstEra = eras[0];
 const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.data.year ?? new Date().getFullYear()}`;
 ---
 
@@ -41,14 +40,18 @@ const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.dat
   title="Mission Sikhism — A Sourced History of the Sikh Faith"
   description="A non-profit, fully-sourced history of the Sikh faith, from 1469 to today. Every fact is cited."
 >
+  <!-- Hero -->
   <section class="hero">
     <div class="container">
       <span class="badge">Every fact sourced</span>
-      <h1>The history of the Sikh faith, 1469 to today</h1>
+      <h1>
+        The history of the Sikh faith,<br />
+        <span class="accent">1469 to today</span>
+      </h1>
       <p>
-        A non-profit, community-built history — explore it by time, by place, or
-        by the people who shaped it. Every claim is tied to a citation, enforced
-        at build time.
+        A non-profit, community-built history — explore it by time, by place,
+        or by the people who shaped it. Every claim is tied to a citation,
+        enforced at build time.
       </p>
       <p class="hero-actions">
         <a class="btn btn-primary" href="/history">Start with the history</a>
@@ -58,7 +61,7 @@ const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.dat
   </section>
 
   <!-- The promise, backed by live numbers -->
-  <section class="section stat-band">
+  <section class="stat-band" aria-label="Site statistics">
     <div class="container stat-row">
       <div class="stat"><span class="stat-num">{eraCount}</span><span class="stat-label">eras</span></div>
       <div class="stat"><span class="stat-num">{eventCount}</span><span class="stat-label">mapped events</span></div>
@@ -68,22 +71,76 @@ const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.dat
     </div>
   </section>
 
+  <!-- The whole story, era by era -->
+  <section class="section">
+    <div class="container">
+      <span class="kicker">The story</span>
+      <div class="section-head-row">
+        <h2 class="section-title">{eraCount} eras, {span}</h2>
+        <a class="section-link" href="/history">Read the full history →</a>
+      </div>
+      <p class="section-sub">
+        From Guru Nanak's birth to the global community of today — each era in
+        its own colour, the same colours you'll find on the map.
+      </p>
+      <div class="timeline-band">
+        <ol class="timeline-rail">
+          {
+            eras.map((era) => (
+              <li class="timeline-era" style={`--era: ${era.data.color}`}>
+                <span class="years">
+                  {era.data.startYear}
+                  {era.data.endYear ? `–${era.data.endYear}` : '–present'}
+                </span>
+                <h3><a href={`/history/${era.id}`}>{era.data.title}</a></h3>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
   <!-- Three lenses onto the same events -->
   <section class="section">
     <div class="container">
-      <h2>Three ways in</h2>
+      <span class="kicker">Three ways in</span>
+      <h2 class="section-title">One history, three lenses</h2>
+      <p class="section-sub">
+        The same sourced events, organised by time, by place, and by the people
+        who lived them.
+      </p>
       <ul class="lens-grid">
         <li class="lens-card">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v5l3.5 2" />
+            </svg>
+          </span>
           <h3><a href="/history">History</a></h3>
-          <p>The story across {eraCount} eras, {span}.</p>
-        </li>
-        <li class="lens-card lens-card--map">
-          <h3><a href="/map">Global Map</a></h3>
-          <p>{eventCount} events plotted where they happened — filter by era, type, or person; events at the same site cluster together.</p>
+          <p>The story across {eraCount} eras, {span} — told era by era, event by event.</p>
         </li>
         <li class="lens-card">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21s-7-5.1-7-11a7 7 0 0 1 14 0c0 5.9-7 11-7 11Z" />
+              <circle cx="12" cy="10" r="2.6" />
+            </svg>
+          </span>
+          <h3><a href="/map">Global Map</a></h3>
+          <p>{eventCount} events plotted where they happened — filter by era, type, or person.</p>
+        </li>
+        <li class="lens-card">
+          <span class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="8" r="3.5" />
+              <path d="M2.5 20c.8-3.2 3.4-5 6.5-5s5.7 1.8 6.5 5" />
+              <path d="M16 4.7a3.5 3.5 0 0 1 0 6.6M18.5 15.2c1.6.7 2.7 2 3 4.8" />
+            </svg>
+          </span>
           <h3><a href="/people">People</a></h3>
-          <p>{peopleCount} figures — the Gurus and those who shaped the faith.</p>
+          <p>{peopleCount} figures — the Gurus and those who shaped the faith across five centuries.</p>
         </li>
       </ul>
     </div>
@@ -92,13 +149,17 @@ const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.dat
   <!-- Featured moments -->
   <section class="section">
     <div class="container">
-      <h2>Moments in the story</h2>
+      <span class="kicker">Featured</span>
+      <div class="section-head-row">
+        <h2 class="section-title">Moments in the story</h2>
+        <a class="section-link" href="/map">See them all on the map →</a>
+      </div>
       <ul class="lens-grid">
         {
           featuredEvents.map((e) => (
             <li class="lens-card">
+              <span class="event-year">{e.data.year}</span>
               <h3><a href={`/events/${e.id}`}>{e.data.title}</a></h3>
-              <p class="years">{e.data.year}</p>
               <p>{e.data.summary}</p>
             </li>
           ))
@@ -107,27 +168,51 @@ const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.dat
     </div>
   </section>
 
-  <!-- Featured era + explore evergreen -->
-  {
-    firstEra && (
-      <section class="section">
-        <div class="container">
-          <h2>Begin at the beginning</h2>
-          <div class="era-card">
-            <h3><a href={`/history/${firstEra.id}`}>{firstEra.data.title}</a></h3>
-            <p class="years">
-              {firstEra.data.startYear}
-              {firstEra.data.endYear ? `–${firstEra.data.endYear}` : '–present'}
-            </p>
-            <p>{firstEra.data.summary}</p>
-          </div>
-          <p class="muted-note">
-            Or explore <a href="/faith">The Faith</a>,
-            <a href="/culture"> Culture &amp; Heritage</a>, or search everything in
-            the <a href="/library">Library</a>.
-          </p>
-        </div>
-      </section>
-    )
-  }
+  <!-- Evergreen: learn the faith itself -->
+  <section class="section">
+    <div class="container">
+      <span class="kicker">Beyond the timeline</span>
+      <h2 class="section-title">Understand the faith itself</h2>
+      <p class="section-sub">
+        History is half the picture. The beliefs, culture, language, and daily
+        practice of Sikhi — each topic sourced like everything else.
+      </p>
+      <ul class="lens-grid">
+        <li class="topic-card">
+          <h3><a href="/faith">The Faith</a></h3>
+          <p>Core beliefs, practices, and values — from One God to the Rehat Maryada.</p>
+        </li>
+        <li class="topic-card">
+          <h3><a href="/culture">Culture &amp; Heritage</a></h3>
+          <p>Sacred music, langar, language and script, and a global community.</p>
+        </li>
+        <li class="topic-card">
+          <h3><a href="/glossary">Glossary</a></h3>
+          <p>Key terms with Gurmukhi, transliteration, and plain definitions.</p>
+        </li>
+        <li class="topic-card">
+          <h3><a href="/nitnem">Daily Prayers</a></h3>
+          <p>The nitnem — the banis a Sikh reads each day, with a sourced note on each.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contribute -->
+  <section class="cta-band">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Help build this history</h2>
+        <p>
+          Spotted an inaccuracy? Know a stronger source, or an event not yet
+          documented? This project grows as research grows — every suggestion
+          needs only one thing: a citation.
+        </p>
+        <p class="hero-actions">
+          <a class="btn btn-primary" href="/about#contribute">How to contribute</a>
+          <a class="btn" href="/library">Browse the sources</a>
+        </p>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

@@ -96,8 +96,9 @@ const mapData = { events, eras, types, people, categoryLabels };
 
   <section class="section map-section">
     <div class="container">
+      <span class="kicker">Where it happened</span>
       <h1>Global Map</h1>
-      <p>
+      <p class="lede">
         Every event in the history, plotted where it happened. Filter by era,
         type, or person; events at the same site cluster together — click to
         open them.
@@ -204,12 +205,26 @@ const mapData = { events, eras, types, people, categoryLabels };
       }
 
       var map = L.map('map', { scrollWheelZoom: true }).setView([28, 74], 3);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+
+      // Tiles follow the site theme: CARTO light_all / dark_all.
+      var tileOpts = {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         maxZoom: 19,
-      }).addTo(map);
+      };
+      function tileUrl(theme) {
+        return 'https://{s}.basemaps.cartocdn.com/' +
+          (theme === 'dark' ? 'dark_all' : 'light_all') + '/{z}/{x}/{y}{r}.png';
+      }
+      var currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      var tiles = L.tileLayer(tileUrl(currentTheme), tileOpts).addTo(map);
+      document.addEventListener('themechange', function (e) {
+        var t = (e.detail && e.detail.theme) || 'light';
+        if (t === currentTheme) return;
+        currentTheme = t;
+        tiles.setUrl(tileUrl(t));
+      });
 
       function esc(s) {
         return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -283,7 +298,7 @@ const mapData = { events, eras, types, people, categoryLabels };
           b.className = 'chip';
           b.dataset.id = item.id;
           b.setAttribute('aria-pressed', 'true');
-          var color = isEra ? item.color : item.color;
+          var color = item.color;
           b.style.setProperty('--chip', color);
           b.innerHTML = '<span class="chip-dot" style="background:' + color + '"></span>' +
             esc(isEra ? item.short : item.label);

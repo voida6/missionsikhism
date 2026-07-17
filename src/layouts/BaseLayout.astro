@@ -89,6 +89,8 @@ const siteJsonld = [
     description: 'A non-profit, fully-sourced history of the Sikh faith (1469 to today).',
   },
 ];
+
+const year = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -99,7 +101,19 @@ const siteJsonld = [
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#1e3a5f" />
+    <meta name="theme-color" content="#faf8f3" />
+
+    <!-- Theme: applied before first paint to avoid a flash of the wrong mode. -->
+    <script is:inline>
+      (function () {
+        var t;
+        try { t = localStorage.getItem('theme'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -123,24 +137,12 @@ const siteJsonld = [
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="container">
-        <a class="brand" href="/">Mission Sikhism</a>
-        <input id="nav-toggle" class="nav-toggle-cb" type="checkbox" hidden />
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">☬</span>
+          Mission Sikhism
+        </a>
 
-        <div class="header-actions">
-          <a class="nav-search" href="/search" aria-label="Search">
-            <span aria-hidden="true">🔍</span>
-          </a>
-          <label
-            for="nav-toggle"
-            class="nav-hamburger"
-            aria-label="Menu"
-            aria-expanded="false"
-            role="button"
-            tabindex="0"
-          >
-            <span aria-hidden="true">☰</span>
-          </label>
-        </div>
+        <input id="nav-toggle" class="nav-toggle-cb" type="checkbox" hidden />
 
         <nav class="nav" id="primary-nav" aria-label="Primary">
           {
@@ -173,10 +175,38 @@ const siteJsonld = [
               )
             )
           }
-          <a class="btn btn-primary nav-contribute" href="/about#contribute">
-            Contribute →
-          </a>
+          <a class="nav-contribute" href="/about#contribute">Contribute</a>
         </nav>
+
+        <label class="nav-backdrop" for="nav-toggle" aria-hidden="true"></label>
+
+        <div class="header-actions">
+          <a class="icon-btn" href="/search" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+          </a>
+          <button class="icon-btn theme-toggle" type="button" aria-label="Switch theme">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
+            </svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.5" />
+              <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6" />
+            </svg>
+          </button>
+          <label
+            for="nav-toggle"
+            class="nav-hamburger"
+            aria-label="Menu"
+            aria-expanded="false"
+            role="button"
+            tabindex="0"
+          >
+            <span class="bars" aria-hidden="true"></span>
+          </label>
+        </div>
       </div>
     </header>
 
@@ -186,37 +216,88 @@ const siteJsonld = [
 
     <footer class="site-footer">
       <div class="container">
-        <p>
-          Mission Sikhism — a non-profit, fully-sourced history of the Sikh
-          faith. Every fact on this site is cited.
-        </p>
-        <nav class="footer-nav" aria-label="Footer">
-          <a href="/history">History</a>
-          <a href="/map">Map</a>
-          <a href="/people">People</a>
-          <a href="/faith">The Faith</a>
-          <a href="/library">Library</a>
-          <a href="/about">About</a>
-          <a href="/about#contribute">Contribute</a>
-          <a href="/rss.xml">RSS</a>
-        </nav>
+        <div class="footer-grid">
+          <div class="footer-col footer-about">
+            <a class="footer-brand" href="/">Mission Sikhism</a>
+            <p>
+              A non-profit, community-built history of the Sikh faith, 1469 to
+              today. Every fact on this site is tied to a citation — enforced at
+              build time, offered freely in the spirit of <em>sarbat da bhala</em>.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <ul>
+              <li><a href="/history">History</a></li>
+              <li><a href="/map">Global Map</a></li>
+              <li><a href="/people">People</a></li>
+              <li><a href="/places">Places</a></li>
+              <li><a href="/search">Search</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Learn</h4>
+            <ul>
+              <li><a href="/faith">The Faith</a></li>
+              <li><a href="/culture">Culture &amp; Heritage</a></li>
+              <li><a href="/glossary">Glossary</a></li>
+              <li><a href="/nitnem">Daily Prayers</a></li>
+              <li><a href="/library">Library</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© {year} Mission Sikhism · Every fact sourced</span>
+          <span>
+            <a href="/about#contribute">Contribute</a> · <a href="/rss.xml">RSS</a>
+          </span>
+        </div>
       </div>
     </footer>
 
     <script is:inline>
       (function () {
+        // ---- Theme toggle ----
+        var toggleBtn = document.querySelector('.theme-toggle');
+        var themeMeta = document.querySelector('meta[name="theme-color"]');
+        function applyTheme(t, persist) {
+          document.documentElement.setAttribute('data-theme', t);
+          if (themeMeta) themeMeta.setAttribute('content', t === 'dark' ? '#0e1013' : '#faf8f3');
+          if (persist) {
+            try { localStorage.setItem('theme', t); } catch (e) {}
+          }
+          document.dispatchEvent(new CustomEvent('themechange', { detail: { theme: t } }));
+        }
+        // Sync the meta colour with whatever the pre-paint script chose.
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light', false);
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', function () {
+            var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            applyTheme(next, true);
+          });
+        }
+        // Follow OS changes unless the visitor has picked a theme explicitly.
+        try {
+          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+            var stored = null;
+            try { stored = localStorage.getItem('theme'); } catch (err) {}
+            if (stored !== 'light' && stored !== 'dark') applyTheme(e.matches ? 'dark' : 'light', false);
+          });
+        } catch (e) {}
+
+        // ---- Mobile nav ----
         var toggle = document.getElementById('nav-toggle');
         var hamburger = document.querySelector('.nav-hamburger');
         var nav = document.getElementById('primary-nav');
         if (!toggle || !hamburger || !nav) return;
 
-        // Mobile panel: keep aria-expanded in sync, trap focus, lock scroll.
         function firstLink() {
           return nav.querySelector('a, summary');
         }
         toggle.addEventListener('change', function () {
           var open = toggle.checked;
           hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+          hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Menu');
           document.body.style.overflow = open ? 'hidden' : '';
           if (open) {
             var f = firstLink();
@@ -245,7 +326,7 @@ const siteJsonld = [
 
         // Desktop dropdowns: open on hover, close on outside-click and Esc.
         var groups = Array.prototype.slice.call(nav.querySelectorAll('.nav-group'));
-        var hoverCapable = window.matchMedia('(hover: hover) and (min-width: 761px)');
+        var hoverCapable = window.matchMedia('(hover: hover) and (min-width: 861px)');
         groups.forEach(function (g) {
           g.addEventListener('mouseenter', function () {
             if (hoverCapable.matches) g.open = true;

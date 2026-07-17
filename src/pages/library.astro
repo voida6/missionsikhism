@@ -50,8 +50,9 @@ const totalUnique = works.length + otherSources.length;
   <link is:inline rel="stylesheet" href="/pagefind/pagefind-ui.css" />
   <section class="section">
     <div class="container">
+      <span class="kicker">Every fact sourced</span>
       <h1>Library</h1>
-      <p>
+      <p class="lede">
         Every claim on this site is tied to a citation, enforced at build time.
         Search the whole site below, or browse the {totalUnique} unique
         source{totalUnique === 1 ? '' : 's'} — the canonical works we lean on
@@ -120,18 +121,8 @@ const totalUnique = works.length + otherSources.length;
     });
   </script>
 
+  <!-- Pagefind theming (light + dark) lives in global.css under `.pf-search`. -->
   <style is:global>
-    .pf-search {
-      --pagefind-ui-primary: var(--color-saffron-dark);
-      --pagefind-ui-text: var(--color-ink);
-      --pagefind-ui-background: var(--color-surface);
-      --pagefind-ui-border: var(--color-border-strong);
-      --pagefind-ui-tag: var(--color-saffron-soft);
-      --pagefind-ui-border-radius: 10px;
-      --pagefind-ui-font: var(--font-body);
-      margin-bottom: 2.25rem;
-    }
-    .library-heading { font-size: 1.35rem; margin: 1.5rem 0 1rem; }
-    .cite-count { color: var(--color-muted); font-size: 0.9em; }
+    .pf-search { margin-bottom: 2.25rem; }
   </style>
 </BaseLayout>

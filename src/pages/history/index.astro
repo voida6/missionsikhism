@@ -2,9 +2,11 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const eras = (await getCollection('eras')).sort(
-  (a, b) => a.data.order - b.data.order,
-);
+// The contents page of the chronicle: six chapters, each listing its entries
+// with dotted leaders, like a well-set table of contents.
+const eras = (await getCollection('eras')).sort((a, b) => a.data.order - b.data.order);
+const events = (await getCollection('events')).sort((a, b) => a.data.year - b.data.year);
+const eventsByEra = (eraId: string) => events.filter((e) => e.data.era.id === eraId);
 ---
 
 <BaseLayout
@@ -12,28 +14,49 @@ const eras = (await getCollection('eras')).sort(
   description={`The history of the Sikh faith across ${eras.length} eras, 1469 to today.`}
 >
   <section class="section">
-    <div class="container">
+    <div class="container toc-page">
       <span class="kicker">The story</span>
-      <h1>History</h1>
+      <h1>Contents</h1>
       <p class="lede">
-        The story of the Sikh faith, from 1469 to today, across {eras.length} eras.
+        The chronicle of the Sikh faith in {eras.length} chapters, 1469 to today —
+        {events.length} entries, every one cited. Start anywhere; each entry turns
+        to the next.
       </p>
-      <ul class="era-list">
+
+      <ol class="toc">
         {
-          eras.map((era) => (
-            <li class="era-card" style={`--era: ${era.data.color}`}>
-              <h3>
-                <a href={`/history/${era.id}`}>{era.data.title}</a>
-              </h3>
-              <p class="years">
-                {era.data.startYear}
-                {era.data.endYear ? `–${era.data.endYear}` : '–present'}
-              </p>
-              <p>{era.data.summary}</p>
-            </li>
-          ))
+          eras.map((era) => {
+            const chapterEvents = eventsByEra(era.id);
+            return (
+              <li class="toc-chapter" style={`--era: ${era.data.color}`}>
+                <div class="toc-head">
+                  <span class="toc-vol">Vol. {era.data.order}</span>
+                  <h2>
+                    <a href={`/history/${era.id}`}>{era.data.title.replace(/^Era \d+ — /, '')}</a>
+                  </h2>
+                  <span class="years">
+                    {era.data.startYear}{era.data.endYear ? `–${era.data.endYear}` : '–present'}
+                  </span>
+                </div>
+                <p class="toc-summary">{era.data.summary}</p>
+                {chapterEvents.length > 0 && (
+                  <ol class="toc-events">
+                    {chapterEvents.map((e) => (
+                      <li>
+                        <a href={`/events/${e.id}`}>
+                          <span class="toc-title">{e.data.title}</span>
+                          <span class="toc-dots" aria-hidden="true" />
+                          <span class="toc-year">{e.data.year}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                )}
+              </li>
+            );
+          })
         }
-      </ul>
+      </ol>
     </div>
   </section>
 </BaseLayout>

@@ -247,4 +247,32 @@ const nitnem = defineCollection({
   }),
 });
 
-export const collections = { eras, places, events, people, faith, culture, works, glossary, nitnem };
+// Reading paths: the librarian's shelf. A path is a short, ordered, curated
+// sequence through existing entries — it adds no facts of its own (every step
+// resolves to an already-sourced entry), so `sources` stays optional here.
+const paths = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/paths' }),
+  schema: z.object({
+    title: z.string(),
+    order: z.number().default(100),
+    tagline: z.string(), // one line for the shelf card, e.g. "Ten lives, 1469–1708"
+    summary: z.string(),
+    steps: z
+      .array(
+        z
+          .object({
+            event: reference('events').optional(),
+            person: reference('people').optional(),
+            era: reference('eras').optional(),
+            note: z.string().optional(), // why this step is on the path
+          })
+          .refine((s) => s.event || s.person || s.era, {
+            message: 'A step must reference an event, person, or era.',
+          })
+      )
+      .min(2),
+    sources: sources.optional(),
+  }),
+});
+
+export const collections = { eras, places, events, people, faith, culture, works, glossary, nitnem, paths };

@@ -1,0 +1,80 @@
+---
+import { getCollection } from 'astro:content';
+
+/**
+ * The chronicle ribbon: the full span of the story (1469 → today) drawn as
+ * era-coloured chapters. Reused across entry pages:
+ *  - events mark a single year (`markYear`) with ticks for every other entry
+ *  - people overlay a lifetime band (`bandStart`–`bandEnd`)
+ *  - eras highlight their own chapter (`highlightEra`)
+ */
+interface Props {
+  markYear?: number;
+  bandStart?: number;
+  bandEnd?: number;
+  highlightEra?: string;
+  caption?: string;
+  showTicks?: boolean;
+}
+
+const { markYear, bandStart, bandEnd, highlightEra, caption, showTicks = false } = Astro.props;
+
+const eras = (await getCollection('eras')).sort((a, b) => a.data.order - b.data.order);
+const events = (await getCollection('events')).sort((a, b) => a.data.year - b.data.year);
+
+const currentYear = new Date().getFullYear();
+const start = eras[0]?.data.startYear ?? 1469;
+const end = Math.max(currentYear, ...events.map((e) => e.data.year));
+const pct = (y: number) => Math.min(100, Math.max(0, ((y - start) / (end - start)) * 100));
+
+const segs = eras.map((e) => ({
+  id: e.id,
+  title: e.data.title,
+  color: e.data.color,
+  start: e.data.startYear,
+  end: e.data.endYear ?? end,
+}));
+
+const ticks = showTicks ? events.filter((e) => e.data.year !== markYear).map((e) => e.data.year) : [];
+
+const band =
+  typeof bandStart === 'number' && typeof bandEnd === 'number'
+    ? { left: pct(bandStart), width: Math.max(pct(bandEnd) - pct(bandStart), 0.6) }
+    : undefined;
+---
+
+<div class="chronicle" aria-label="Position in the chronicle">
+  <div class="era-ribbon" data-highlight={highlightEra ? '' : undefined}>
+    {
+      segs.map((s) => (
+        <a
+          class:list={[
+            'ribbon-seg',
+            { 'is-current': highlightEra === s.id, 'is-dim': Boolean(highlightEra) && highlightEra !== s.id },
+          ]}
+          href={`/history/${s.id}`}
+          title={`${s.title} · ${s.start}–${s.end}`}
+          style={`--era-c: ${s.color}; flex-grow: ${s.end - s.start};`}
+        />
+      ))
+    }
+    {ticks.map((y) => (
+      <span class="ribbon-tick" style={`left: ${pct(y).toFixed(2)}%`} aria-hidden="true" />
+    ))}
+    {band && (
+      <span
+        class="ribbon-band"
+        style={`left: ${band.left.toFixed(2)}%; width: ${band.width.toFixed(2)}%`}
+        aria-hidden="true"
+      />
+    )}
+    {typeof markYear === 'number' && (
+      <span class="ribbon-here" style={`left: ${pct(markYear).toFixed(2)}%`} aria-hidden="true" />
+    )}
+  </div>
+  <div class="chronicle-caption">
+    <span>{start}</span>
+    {caption && <span class="caption-mid">{caption}</span>}
+    <span>Today</span>
+  </div>
+</div>

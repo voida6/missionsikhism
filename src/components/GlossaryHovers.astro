@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+
+/**
+ * Glossary hover-cards: any link to /glossary/<term> inside the page's main
+ * content shows a small card with the term, its Gurmukhi, transliteration, and
+ * definition on hover or keyboard focus. Desktop enhancement only — on touch
+ * devices the link simply navigates to the glossary as before.
+ */
+const glossary = await getCollection('glossary');
+const terms = Object.fromEntries(
+  glossary.map((g) => [
+    g.id,
+    {
+      term: g.data.term,
+      gurmukhi: g.data.gurmukhi ?? '',
+      translit: g.data.transliteration ?? '',
+      def: g.data.definition,
+    },
+  ])
+);
+---
+
+<script type="application/json" id="glossary-data" set:html={JSON.stringify(terms)} />
+<div id="gloss-pop" class="gloss-pop" role="tooltip" hidden></div>
+
+<script is:inline>
+  (function () {
+    // Hover-capable pointers only; touch users navigate to the glossary page.
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    var dataEl = document.getElementById('glossary-data');
+    var pop = document.getElementById('gloss-pop');
+    if (!dataEl || !pop) return;
+    var terms;
+    try { terms = JSON.parse(dataEl.textContent); } catch (e) { return; }
+
+    var hideTimer = null;
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function show(link, id) {
+      var t = terms[id];
+      if (!t) return;
+      clearTimeout(hideTimer);
+      pop.innerHTML =
+        '<span class="gloss-term">' + esc(t.term) + '</span>' +
+        (t.gurmukhi ? '<span class="gloss-gurmukhi">' + esc(t.gurmukhi) + '</span>' : '') +
+        (t.translit ? '<span class="gloss-translit">' + esc(t.translit) + '</span>' : '') +
+        '<p class="gloss-def">' + esc(t.def) + '</p>' +
+        '<a class="gloss-link" href="/glossary/' + esc(id) + '">Glossary entry →</a>';
+      pop.hidden = false;
+      var r = link.getBoundingClientRect();
+      var pw = pop.offsetWidth;
+      var left = Math.max(8, Math.min(r.left + r.width / 2 - pw / 2, window.innerWidth - pw - 8));
+      var top = r.bottom + 8;
+      if (top + pop.offsetHeight > window.innerHeight - 8) top = r.top - pop.offsetHeight - 8;
+      pop.style.left = left + 'px';
+      pop.style.top = top + 'px';
+    }
+    function scheduleHide() {
+      hideTimer = setTimeout(function () { pop.hidden = true; }, 150);
+    }
+    pop.addEventListener('mouseenter', function () { clearTimeout(hideTimer); });
+    pop.addEventListener('mouseleave', scheduleHide);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') pop.hidden = true;
+    });
+    window.addEventListener('scroll', function () { pop.hidden = true; }, { passive: true });
+
+    var links = document.querySelectorAll('main a[href^="/glossary/"]');
+    Array.prototype.forEach.call(links, function (link) {
+      var id = link.getAttribute('href').split('/').filter(Boolean).pop();
+      if (!id || !terms[id]) return;
+      link.addEventListener('mouseenter', function () { show(link, id); });
+      link.addEventListener('mouseleave', scheduleHide);
+      link.addEventListener('focus', function () { show(link, id); });
+      link.addEventListener('blur', scheduleHide);
+    });
+  })();
+</script>

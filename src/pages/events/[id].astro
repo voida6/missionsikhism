@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SourceList from '../../components/SourceList.astro';
 import LastUpdated from '../../components/LastUpdated.astro';
+import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
+import { correctionUrl } from '../../site.config';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -48,6 +50,15 @@ const relatedEvents = [...relatedIds]
 
 const placeLabel = place?.data.name ?? event.data.location;
 
+// The chronicle: every event is a page in one continuous story. Work out
+// where this entry sits in it, and which entries come before and after.
+const chronology = allEvents
+  .slice()
+  .sort((a, b) => a.data.year - b.data.year || a.data.title.localeCompare(b.data.title));
+const chronIndex = chronology.findIndex((e) => e.id === event.id);
+const prevEvent = chronIndex > 0 ? chronology[chronIndex - 1] : undefined;
+const nextEvent = chronIndex < chronology.length - 1 ? chronology[chronIndex + 1] : undefined;
+
 // Coordinate resolution for structured data.
 const hasOwn = typeof event.data.lat === 'number' && typeof event.data.lng === 'number';
 const lat = hasOwn ? event.data.lat : place?.data.lat;
@@ -90,7 +101,7 @@ const jsonld = [
 
 <BaseLayout title={`${event.data.title} — Mission Sikhism`} description={event.data.summary}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
-  <article class="section">
+  <article class="section reading-page" style={era?.data.color ? `--era: ${era.data.color}` : undefined}>
     <div class="container">
       <nav class="crumb" aria-label="Breadcrumb">
         <a href="/">Home</a> › <a href="/history">History</a> ›
@@ -98,81 +109,139 @@ const jsonld = [
         <span aria-current="page">{event.data.title}</span>
       </nav>
 
-      <p class="years">
-        {event.data.date ?? event.data.year}
-        {event.data.location ? ` · ${event.data.location}` : ''}
-      </p>
-      <h1>{event.data.title}</h1>
-      <p>{event.data.summary}</p>
+      <!-- Where this entry sits in the 550-year chronicle -->
+      <ChronicleRibbon
+        markYear={event.data.year}
+        showTicks
+        caption={`Entry ${chronIndex + 1} of ${chronology.length} in the chronicle · ${event.data.year}`}
+      />
 
-      <Content />
-
-      <p class="event-meta">
-        {placeLabel && (
-          <>
-            Place:{' '}
-            {place ? <a href={`/places/${place.id}`}>{placeLabel}</a> : placeLabel}
-          </>
-        )}
-        {era && (
-          <>
-            {placeLabel ? ' · ' : ''}Era:{' '}
-            <a href={`/history/${era.id}`}>{era.data.title}</a>
-          </>
-        )}
-        {place && (
-          <>
-            {' · '}<a href={`/map?place=${place.id}`}>See on the map →</a>
-          </>
-        )}
-      </p>
-
-      {
-        people.length > 0 && (
-          <p>
-            People: {people.map((p, i) => (
-              <>
-                {i > 0 ? ', ' : ''}
-                <a href={`/people/${p!.id}`}>{p!.data.name}</a>
-              </>
-            ))}
+      <div class="reading-layout">
+        <div class="reading-main">
+          {era && (
+            <a class="entry-era-label" href={`/history/${era.id}`}>
+              {era.data.shortName ?? era.data.title}
+            </a>
+          )}
+          <h1>{event.data.title}</h1>
+          <p class="entry-dateline">
+            {event.data.date ?? event.data.year}
+            {event.data.location ? ` · ${event.data.location}` : ''}
           </p>
-        )
-      }
+          <p class="entry-lede">{event.data.summary}</p>
 
-      {
-        linkedFaith.length > 0 && (
-          <p>
-            The Faith: {linkedFaith.map((t, i) => (
+          <div class="entry-body">
+            <Content />
+          </div>
+
+          <div class="entry-end" aria-hidden="true"><span>☬</span></div>
+
+          {
+            relatedEvents.length > 0 && (
               <>
-                {i > 0 ? ', ' : ''}
-                <a href={`/faith/${t!.id}`}>{t!.data.title}</a>
+                <h2>Cross-references</h2>
+                <ul class="xref-list">
+                  {relatedEvents.map((e) => (
+                    <li>
+                      <a href={`/events/${e!.id}`}>
+                        <span class="xref-year">{e!.data.year}</span>
+                        {e!.data.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </>
-            ))}
-          </p>
-        )
-      }
+            )
+          }
 
-      {
-        relatedEvents.length > 0 && (
-          <>
-            <h2>Related events</h2>
-            <ul>
-              {relatedEvents.map((e) => (
-                <li>
-                  <a href={`/events/${e!.id}`}>
-                    <strong>{e!.data.year}</strong> — {e!.data.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </>
-        )
-      }
+          <!-- Turn the page: read the chronicle in order -->
+          <nav class="page-turn" aria-label="Previous and next in time">
+            {
+              prevEvent ? (
+                <a class="turn prev" href={`/events/${prevEvent.id}`}>
+                  <span class="turn-label">← Earlier</span>
+                  <span class="turn-year">{prevEvent.data.year}</span>
+                  <span class="turn-title">{prevEvent.data.title}</span>
+                </a>
+              ) : (
+                <span />
+              )
+            }
+            {
+              nextEvent ? (
+                <a class="turn next" href={`/events/${nextEvent.id}`}>
+                  <span class="turn-label">Later →</span>
+                  <span class="turn-year">{nextEvent.data.year}</span>
+                  <span class="turn-title">{nextEvent.data.title}</span>
+                </a>
+              ) : (
+                <span />
+              )
+            }
+          </nav>
 
-      <LastUpdated path={`src/content/events/${event.id}.md`} />
+          <LastUpdated path={`src/content/events/${event.id}.md`} />
+        </div>
 
-      <SourceList sources={event.data.sources} />
+        <aside class="reading-aside">
+          <div class="catalog-card">
+            <div class="card-head">Catalog card</div>
+            <dl>
+              <dt>Date</dt>
+              <dd>{event.data.date ?? event.data.year}</dd>
+              {placeLabel && (
+                <>
+                  <dt>Place</dt>
+                  <dd>{place ? <a href={`/places/${place.id}`}>{placeLabel}</a> : placeLabel}</dd>
+                </>
+              )}
+              {era && (
+                <>
+                  <dt>Era</dt>
+                  <dd><a href={`/history/${era.id}`}>{era.data.title}</a></dd>
+                </>
+              )}
+              {people.length > 0 && (
+                <>
+                  <dt>People</dt>
+                  <dd>
+                    {people.map((p, i) => (
+                      <>
+                        {i > 0 ? ', ' : ''}
+                        <a href={`/people/${p!.id}`}>{p!.data.name}</a>
+                      </>
+                    ))}
+                  </dd>
+                </>
+              )}
+              {linkedFaith.length > 0 && (
+                <>
+                  <dt>The Faith</dt>
+                  <dd>
+                    {linkedFaith.map((t, i) => (
+                      <>
+                        {i > 0 ? ', ' : ''}
+                        <a href={`/faith/${t!.id}`}>{t!.data.title}</a>
+                      </>
+                    ))}
+                  </dd>
+                </>
+              )}
+            </dl>
+            {place && (
+              <a class="card-map-link" href={`/map?place=${place.id}`}>See on the map →</a>
+            )}
+            <a
+              class="card-map-link"
+              href={correctionUrl(event.data.title, `src/content/events/${event.id}.md`)}
+              rel="noopener noreferrer"
+              target="_blank"
+            >Suggest a correction →</a>
+          </div>
+
+          <SourceList sources={event.data.sources} />
+        </aside>
+      </div>
     </div>
   </article>
 </BaseLayout>

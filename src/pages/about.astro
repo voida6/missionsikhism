@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { REPO_URL, REPO_BRANCH, reportUrl, newEntryUrl } from '../site.config';
 
 // Contributor wall (Phase K): names drawn from the Git history at build time.
 // Guarded so a missing/unavailable git history never breaks the build.
@@ -71,6 +72,27 @@ try {
         verifiable source — a book with its author and page, or a link — so a
         maintainer can check and credit it before it goes live. Contributions
         without a source cannot be published, however well-intentioned.
+      </p>
+
+      <p class="hero-actions">
+        <a class="btn btn-primary" href={reportUrl()} rel="noopener noreferrer" target="_blank">
+          Report an inaccuracy
+        </a>
+        <a class="btn" href={newEntryUrl()} rel="noopener noreferrer" target="_blank">
+          Propose a new entry
+        </a>
+        <a class="btn" href={`${REPO_URL}/tree/${REPO_BRANCH}/src/content`} rel="noopener noreferrer" target="_blank">
+          Edit the files directly
+        </a>
+      </p>
+
+      <p>
+        All three routes go through <a href={REPO_URL} rel="noopener noreferrer" target="_blank">the project's
+        GitHub repository</a> — a free account is all you need. If you're reading a
+        specific entry, the fastest path is the <em>“Suggest a correction”</em> link
+        on its catalog card, which opens a pre-filled form for that entry. Content
+        lives as plain Markdown files, so editing directly is just changing text;
+        a maintainer reviews every change before it is published.
       </p>
 
       <h2 id="faq">Frequently asked questions</h2>

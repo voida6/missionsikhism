@@ -3,6 +3,11 @@ title: "Era 6 — The Modern Era"
 order: 6
 color: "#6b21a8"
 shortName: "Modern"
+image:
+  src: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Gurdwara_Darbar_Sahib_Kartarpur_b.jpg/1400px-Gurdwara_Darbar_Sahib_Kartarpur_b.jpg"
+  alt: "Gurdwara Darbar Sahib at Kartarpur, where Guru Nanak spent his final years."
+  credit: "Gurdwara Darbar Sahib Kartarpur, photo by Shahzaib Damn Cruze, CC BY-SA 4.0, via Wikimedia Commons"
+  creditUrl: "https://commons.wikimedia.org/wiki/File:Gurdwara_Darbar_Sahib_Kartarpur_b.jpg"
 startYear: 1947
 summary: "From the Partition of Punjab in 1947, through the events of 1984, to a global Sikh diaspora contributing across every field. The story remains open and ongoing."
 sources:

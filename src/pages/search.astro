@@ -18,6 +18,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p class="lede">Find any event, person, place, or topic across the whole site.</p>
 
       <div id="search"></div>
+      <p class="search-fallback" id="search-missing" hidden>
+        The search index hasn't been built yet — run <code>npm run build</code>
+        once, then reload. Meanwhile you can browse by
+        <a href="/history">History</a>, <a href="/map">Map</a>,
+        <a href="/people">People</a>, or <a href="/faith">The Faith</a>.
+      </p>
 
       <noscript>
         <p class="search-fallback">
@@ -35,6 +41,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <script
     is:inline
     src="/pagefind/pagefind-ui.js"
-    onload="new PagefindUI({ element: '#search', showSubResults: true, showImages: false });"
+    onload="var ui = new PagefindUI({ element: '#search', showSubResults: true, showImages: false }); var q = new URLSearchParams(location.search).get('q'); if (q) ui.triggerSearch(q);"
+    onerror="document.getElementById('search-missing').hidden = false;"
   ></script>
 </BaseLayout>

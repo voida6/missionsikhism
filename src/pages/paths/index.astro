@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// The librarian's shelf: short, curated routes through the collection.
+const paths = (await getCollection('paths')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Reading Paths — Mission Sikhism"
+  description="Curated routes through Sikh history — short, ordered sequences of sourced entries, chosen like a librarian's recommended shelf."
+>
+  <section class="section">
+    <div class="container">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <span aria-current="page">Reading Paths</span>
+      </nav>
+      <span class="kicker">The librarian's shelf</span>
+      <h1>Reading Paths</h1>
+      <p class="lede">
+        Don't know where to begin? Each path is a short, ordered route through
+        the collection — a handful of entries chosen to tell one story well.
+        Every entry on a path is sourced, like everything else here.
+      </p>
+
+      <ul class="path-shelf">
+        {
+          paths.map((p) => (
+            <li class="path-card">
+              <span class="path-count">{p.data.steps.length} stops</span>
+              <h2><a href={`/paths/${p.id}`}>{p.data.title}</a></h2>
+              <p class="path-tagline">{p.data.tagline}</p>
+              <p>{p.data.summary}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

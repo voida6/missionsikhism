@@ -2,7 +2,12 @@
 title: "Era 2 — Sovereignty & Banda Singh"
 order: 2
 color: "#b91c1c"
-shortName: "Banda Singh"
+shortName: "Sovereignty"
+image:
+  src: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Painting_of_Banda_Singh_Bahadur_being_blessed_with_five_arrows_by_Guru_Gobind_Singh%2C_by_Gian_Singh_Naqqash%2C_ca.1930.jpg"
+  alt: "A painting of Banda Singh Bahadur receiving five arrows in blessing from Guru Gobind Singh."
+  credit: "Banda Singh Bahadur blessed with five arrows, by Gian Singh Naqqash (ca. 1930). Public domain, via Wikimedia Commons"
+  creditUrl: "https://commons.wikimedia.org/wiki/File:Painting_of_Banda_Singh_Bahadur_being_blessed_with_five_arrows_by_Guru_Gobind_Singh,_by_Gian_Singh_Naqqash,_ca.1930.jpg"
 startYear: 1708
 endYear: 1748
 summary: "The first sovereign Sikh state. Banda Singh Bahadur carried Guru Gobind Singh's authority into the Punjab, defeated the Mughal governor at Sirhind in 1710, struck coins and issued land reforms, and was executed in 1716 — followed by decades of persecution and regrouping."

@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SourceList from '../../components/SourceList.astro';
 import LastUpdated from '../../components/LastUpdated.astro';
+import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
+import { correctionUrl } from '../../site.config';
 
 export async function getStaticPaths() {
   const eras = await getCollection('eras');
@@ -16,6 +18,15 @@ const { Content } = await render(era);
 const events = (await getCollection('events'))
   .filter((e) => e.data.era.id === era.id)
   .sort((a, b) => a.data.year - b.data.year);
+
+// Previous / next chapter for the page-turn.
+const allEras = (await getCollection('eras')).sort((a, b) => a.data.order - b.data.order);
+const eraIndex = allEras.findIndex((e) => e.id === era.id);
+const prevEra = eraIndex > 0 ? allEras[eraIndex - 1] : undefined;
+const nextEra = eraIndex < allEras.length - 1 ? allEras[eraIndex + 1] : undefined;
+
+const yearsLabel = `${era.data.startYear}${era.data.endYear ? `–${era.data.endYear}` : '–present'}`;
+const chapterTitle = era.data.title.replace(/^Era \d+ — /, '');
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const jsonld = {
@@ -31,44 +42,123 @@ const jsonld = {
 
 <BaseLayout title={`${era.data.title} — Mission Sikhism`} description={era.data.summary}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
-  <article class="section">
+  <article class="section reading-page" style={`--era: ${era.data.color}`}>
     <div class="container">
       <nav class="crumb" aria-label="Breadcrumb">
         <a href="/">Home</a> › <a href="/history">History</a> ›
         <span aria-current="page">{era.data.title}</span>
       </nav>
-      <p class="years">
-        {era.data.startYear}{era.data.endYear ? `–${era.data.endYear}` : '–present'}
-      </p>
-      <h1>{era.data.title}</h1>
-      <p>{era.data.summary}</p>
 
-      <Content />
+      <ChronicleRibbon
+        highlightEra={era.id}
+        caption={`Chapter ${era.data.order} of ${allEras.length} · ${yearsLabel}`}
+      />
 
-      <p class="event-meta">
-        <a href={`/map?era=${era.id}`}>See this era on the map →</a>
-      </p>
+      <div class="reading-layout">
+        <div class="reading-main">
+          <span class="entry-era-label">Chapter {era.data.order}</span>
+          <h1>{chapterTitle}</h1>
+          <p class="entry-dateline">{yearsLabel}</p>
+          {
+            era.data.image && (
+              <figure class="entry-figure">
+                <img src={era.data.image.src} alt={era.data.image.alt} loading="lazy" />
+                {era.data.image.credit && (
+                  <figcaption>
+                    {era.data.image.creditUrl ? (
+                      <a href={era.data.image.creditUrl} rel="noopener noreferrer" target="_blank">
+                        {era.data.image.credit}
+                      </a>
+                    ) : (
+                      era.data.image.credit
+                    )}
+                  </figcaption>
+                )}
+              </figure>
+            )
+          }
+          <p class="entry-lede">{era.data.summary}</p>
 
-      {
-        events.length > 0 && (
-          <>
-            <h2>Events in this era</h2>
-            <ul>
-              {events.map((e) => (
-                <li>
-                  <a href={`/events/${e.id}`}>
-                    <strong>{e.data.year}</strong> — {e.data.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </>
-        )
-      }
+          <div class="entry-body">
+            <Content />
+          </div>
 
-      <LastUpdated path={`src/content/eras/${era.id}.md`} />
+          <div class="entry-end" aria-hidden="true"><span>☬</span></div>
 
-      <SourceList sources={era.data.sources} />
+          {
+            events.length > 0 && (
+              <>
+                <h2>In this chapter</h2>
+                <ol class="toc-events">
+                  {events.map((e) => (
+                    <li>
+                      <a href={`/events/${e.id}`}>
+                        <span class="toc-title">{e.data.title}</span>
+                        <span class="toc-dots" aria-hidden="true" />
+                        <span class="toc-year">{e.data.year}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </>
+            )
+          }
+
+          <nav class="page-turn" aria-label="Previous and next chapter">
+            {
+              prevEra ? (
+                <a class="turn prev" href={`/history/${prevEra.id}`}>
+                  <span class="turn-label">← Previous chapter</span>
+                  <span class="turn-year">
+                    {prevEra.data.startYear}{prevEra.data.endYear ? `–${prevEra.data.endYear}` : '–present'}
+                  </span>
+                  <span class="turn-title">{prevEra.data.title.replace(/^Era \d+ — /, '')}</span>
+                </a>
+              ) : (
+                <span />
+              )
+            }
+            {
+              nextEra ? (
+                <a class="turn next" href={`/history/${nextEra.id}`}>
+                  <span class="turn-label">Next chapter →</span>
+                  <span class="turn-year">
+                    {nextEra.data.startYear}{nextEra.data.endYear ? `–${nextEra.data.endYear}` : '–present'}
+                  </span>
+                  <span class="turn-title">{nextEra.data.title.replace(/^Era \d+ — /, '')}</span>
+                </a>
+              ) : (
+                <span />
+              )
+            }
+          </nav>
+
+          <LastUpdated path={`src/content/eras/${era.id}.md`} />
+        </div>
+
+        <aside class="reading-aside">
+          <div class="catalog-card">
+            <div class="card-head">Catalog card</div>
+            <dl>
+              <dt>Years</dt>
+              <dd>{yearsLabel}</dd>
+              <dt>Chapter</dt>
+              <dd>{era.data.order} of {allEras.length}</dd>
+              <dt>Entries</dt>
+              <dd>{events.length}</dd>
+            </dl>
+            <a class="card-map-link" href={`/map?era=${era.id}`}>See this era on the map →</a>
+            <a
+              class="card-map-link"
+              href={correctionUrl(era.data.title, `src/content/eras/${era.id}.md`)}
+              rel="noopener noreferrer"
+              target="_blank"
+            >Suggest a correction →</a>
+          </div>
+
+          <SourceList sources={era.data.sources} />
+        </aside>
+      </div>
     </div>
   </article>
 </BaseLayout>

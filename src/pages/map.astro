@@ -59,12 +59,15 @@ const events = eventsRaw
   }))
   .sort((a, b) => a.year - b.year);
 
+const currentYear = new Date().getFullYear();
 const eras = erasRaw.map((e) => ({
   id: e.id,
   title: e.data.title,
   short: e.data.shortName ?? e.data.title,
   color: e.data.color,
   order: e.data.order,
+  start: e.data.startYear,
+  end: e.data.endYear ?? currentYear,
 }));
 
 // Only surface type chips/legend entries for types that actually occur.
@@ -97,11 +100,34 @@ const mapData = { events, eras, types, people, categoryLabels };
   <section class="section map-section">
     <div class="container">
       <span class="kicker">Where it happened</span>
-      <h1>Global Map</h1>
+      <h1>The Atlas</h1>
       <p class="lede">
-        Every event in the history, plotted where it happened. Filter by era,
-        type, or person; events at the same site cluster together — click to
-        open them.
+        Every event in the history, plotted where it happened. Pick a chapter
+        below to see its era on the map, or filter by type and person; events
+        at the same site cluster together.
+      </p>
+
+      <!-- Chapter bar: the six eras as a clickable ribbon of time -->
+      <div class="era-ribbon map-ribbon" role="group" aria-label="Filter by era">
+        {
+          eras.map((era) => (
+            <button
+              type="button"
+              class="ribbon-seg"
+              data-era={era.id}
+              aria-pressed="true"
+              title={`${era.title} · ${era.start}–${era.end}`}
+              style={`--era-c: ${era.color}; flex-grow: ${era.end - era.start};`}
+            >
+              <span class="ribbon-label">{era.short}</span>
+            </button>
+          ))
+        }
+      </div>
+
+      <p class="place-banner" id="place-banner" hidden>
+        <span id="place-banner-text"></span>
+        <button type="button" id="place-clear">Show all ×</button>
       </p>
     </div>
 
@@ -109,17 +135,6 @@ const mapData = { events, eras, types, people, categoryLabels };
       <aside class="map-controls" aria-label="Map filters">
         <details class="filters-disclosure" open>
           <summary>Filters</summary>
-
-          <div class="control">
-            <div class="control-head">
-              <span>Eras</span>
-              <span class="control-actions">
-                <button type="button" data-all="era">All</button>
-                <button type="button" data-none="era">None</button>
-              </span>
-            </div>
-            <div class="chips" id="era-chips" role="group" aria-label="Filter by era"></div>
-          </div>
 
           <div class="control">
             <div class="control-head">
@@ -171,6 +186,7 @@ const mapData = { events, eras, types, people, categoryLabels };
         </div>
       </div>
     </div>
+
   </section>
 
   <script type="application/json" id="map-data" set:html={JSON.stringify(mapData)}></script>
@@ -292,6 +308,7 @@ const mapData = { events, eras, types, people, categoryLabels };
       // ---- Chips ----
       function buildChips(containerId, list, activeSet, isEra) {
         var box = document.getElementById(containerId);
+        if (!box) return;
         list.forEach(function (item) {
           var b = document.createElement('button');
           b.type = 'button';
@@ -310,11 +327,15 @@ const mapData = { events, eras, types, people, categoryLabels };
           box.appendChild(b);
         });
       }
-      buildChips('era-chips', data.eras || [], activeEras, true);
+      // Era filtering lives in the chapter ribbon above the map; the sidebar
+      // only builds type chips.
       buildChips('type-chips', data.types || [], activeTypes, false);
+      // Reflect any ?type= arrival state on the freshly built chips.
+      syncChips('type-chips', activeTypes);
 
       function syncChips(containerId, activeSet) {
         var box = document.getElementById(containerId);
+        if (!box) return;
         Array.prototype.forEach.call(box.querySelectorAll('.chip'), function (b) {
           b.setAttribute('aria-pressed', activeSet.has(b.dataset.id) ? 'true' : 'false');
         });
@@ -421,6 +442,48 @@ const mapData = { events, eras, types, people, categoryLabels };
       }
       clearBtn.addEventListener('click', clearPerson);
 
+      // ---- The chapter ribbon (era filter above the map) ----
+      var ribbonSegs = Array.prototype.slice.call(document.querySelectorAll('.map-ribbon .ribbon-seg'));
+      function syncRibbon() {
+        ribbonSegs.forEach(function (seg) {
+          seg.setAttribute('aria-pressed', activeEras.has(seg.dataset.era) ? 'true' : 'false');
+        });
+      }
+      ribbonSegs.forEach(function (seg) {
+        seg.addEventListener('click', function () {
+          var id = seg.dataset.era;
+          var solo = activeEras.size === 1 && activeEras.has(id);
+          activeEras.clear();
+          if (solo) {
+            // Clicking the lone active chapter restores the whole book.
+            (data.eras || []).forEach(function (e) { activeEras.add(e.id); });
+          } else {
+            activeEras.add(id);
+          }
+          syncChips('era-chips', activeEras);
+          apply();
+          fitVisible();
+        });
+      });
+
+      // ---- The place banner (arriving via "See on the map" from an entry) ----
+      var banner = document.getElementById('place-banner');
+      var bannerText = document.getElementById('place-banner-text');
+      function syncBanner() {
+        if (!placeParam) { banner.hidden = true; return; }
+        var name = placeParam;
+        for (var i = 0; i < events.length; i++) {
+          if (events[i].placeId === placeParam) { name = events[i].placeName || events[i].location || placeParam; break; }
+        }
+        bannerText.textContent = 'Showing events at ' + name;
+        banner.hidden = false;
+      }
+      document.getElementById('place-clear').addEventListener('click', function () {
+        placeParam = '';
+        apply();
+        fitVisible();
+      });
+
       // ---- Apply filters ----
       var emptyEl = document.getElementById('map-empty');
       var countEl = document.getElementById('visible-count');
@@ -440,6 +503,8 @@ const mapData = { events, eras, types, people, categoryLabels };
         cluster.addLayers(batch);
         countEl.textContent = shown;
         emptyEl.hidden = shown !== 0;
+        syncRibbon();
+        syncBanner();
         reflectUrl();
       }
 
@@ -465,13 +530,19 @@ const mapData = { events, eras, types, people, categoryLabels };
             pts.push([ev.lat, ev.lng]);
           }
         });
-        if (pts.length === 1) map.setView(pts[0], 7);
-        else if (pts.length > 1) map.fitBounds(pts, { padding: [40, 40] });
+        // Cap the zoom: several events often share one place, and fitBounds on
+        // identical points would otherwise dive to street level.
+        if (pts.length === 1) map.setView(pts[0], 6);
+        else if (pts.length > 1) map.fitBounds(pts, { padding: [40, 40], maxZoom: 8 });
       }
 
       function resetAll() {
-        activeEras = new Set((data.eras || []).map(function (e) { return e.id; }));
-        activeTypes = new Set((data.types || []).map(function (t) { return t.id; }));
+        // Mutate the existing sets — the chip handlers hold references to them,
+        // so replacing the sets would silently disconnect the chips.
+        activeEras.clear();
+        (data.eras || []).forEach(function (e) { activeEras.add(e.id); });
+        activeTypes.clear();
+        (data.types || []).forEach(function (t) { activeTypes.add(t.id); });
         placeParam = ''; clearPerson();
         syncChips('era-chips', activeEras); syncChips('type-chips', activeTypes);
         apply(); fitVisible();

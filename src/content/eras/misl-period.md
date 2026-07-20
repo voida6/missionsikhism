@@ -3,6 +3,11 @@ title: "Era 3 — The Misl Period"
 order: 3
 color: "#a16207"
 shortName: "Misls"
+image:
+  src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Painting_of_three_seated_Sikh_sardars%2C_Nahar_Singh%2C_Karam_Singh%2C_and_Lehna_Singh%2C_circa_late_18th_century.jpg/1400px-Painting_of_three_seated_Sikh_sardars%2C_Nahar_Singh%2C_Karam_Singh%2C_and_Lehna_Singh%2C_circa_late_18th_century.jpg"
+  alt: "A late 18th-century painting of three seated Sikh sardars of the misl period."
+  credit: "Three seated Sikh sardars, by Purkhu of Kangra (late 18th century). Public domain, via Wikimedia Commons"
+  creditUrl: "https://commons.wikimedia.org/wiki/File:Painting_of_three_seated_Sikh_sardars,_Nahar_Singh,_Karam_Singh,_and_Lehna_Singh,_circa_late_18th_century.jpg"
 startYear: 1748
 endYear: 1799
 summary: "A confederacy of Sikh misls resisted Mughal and Afghan power across the Punjab, survived catastrophic massacres such as the Vadda Ghallughara of 1762, and gradually took control of the region — setting the stage for a single unifying ruler."

@@ -3,6 +3,11 @@ title: "Era 1 — The Guru Period"
 order: 1
 color: "#b45309"
 shortName: "Gurus"
+image:
+  src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Guru_Nanak_with_Bhai_Mardana_with_rabab.jpg/1400px-Guru_Nanak_with_Bhai_Mardana_with_rabab.jpg"
+  alt: "A painting of Guru Nanak seated beneath a tree with Bhai Mardana playing the rabab."
+  credit: "Guru Nanak with Bhai Mardana (artist unknown). Public domain, via Wikimedia Commons"
+  creditUrl: "https://commons.wikimedia.org/wiki/File:Guru_Nanak_with_Bhai_Mardana_with_rabab.jpg"
 startYear: 1469
 endYear: 1708
 summary: "From Guru Nanak's declaration of the oneness of God in 1469 through the lives of the ten Gurus — the founding of Sikh communities, the compilation of scripture, the building of Amritsar, two Guru martyrdoms, the creation of the Khalsa in 1699, and the vesting of eternal Guruship in the Guru Granth Sahib in 1708."

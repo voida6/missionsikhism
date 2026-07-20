@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const paths = await getCollection('paths');
+  return paths.map((path) => ({ params: { id: path.id }, props: { path } }));
+}
+
+const { path } = Astro.props;
+
+const events = await getCollection('events');
+const people = await getCollection('people');
+const eras = await getCollection('eras');
+
+// Resolve each step to its entry (title, year line, summary, url).
+const steps = path.data.steps.map((s) => {
+  if (s.event) {
+    const e = events.find((x) => x.id === s.event!.id);
+    return e && {
+      title: e.data.title,
+      when: String(e.data.year),
+      summary: e.data.summary,
+      url: `/events/${e.id}`,
+      note: s.note,
+    };
+  }
+  if (s.person) {
+    const p = people.find((x) => x.id === s.person!.id);
+    return p && {
+      title: p.data.name,
+      when: `${p.data.born ?? '?'}–${p.data.died ?? 'present'}`,
+      summary: p.data.summary,
+      url: `/people/${p.id}`,
+      note: s.note,
+    };
+  }
+  if (s.era) {
+    const e = eras.find((x) => x.id === s.era!.id);
+    return e && {
+      title: e.data.title,
+      when: `${e.data.startYear}–${e.data.endYear ?? 'present'}`,
+      summary: e.data.summary,
+      url: `/history/${e.id}`,
+      note: s.note,
+    };
+  }
+  return undefined;
+}).filter((s): s is NonNullable<typeof s> => Boolean(s));
+
+const first = steps[0];
+---
+
+<BaseLayout
+  title={`${path.data.title} — Reading Paths — Mission Sikhism`}
+  description={path.data.summary}
+>
+  <section class="section">
+    <div class="container path-page">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <a href="/paths">Reading Paths</a> ›
+        <span aria-current="page">{path.data.title}</span>
+      </nav>
+      <span class="kicker">A reading path</span>
+      <h1>{path.data.title}</h1>
+      <p class="entry-dateline">{path.data.tagline} · {steps.length} stops</p>
+      <p class="entry-lede">{path.data.summary}</p>
+
+      {first && (
+        <p class="hero-actions">
+          <a class="btn btn-primary" href={first.url}>Begin the path →</a>
+        </p>
+      )}
+
+      <ol class="path-steps">
+        {
+          steps.map((s, i) => (
+            <li class="path-step">
+              <span class="step-n" aria-hidden="true">{i + 1}</span>
+              <div class="step-body">
+                <div class="step-head">
+                  <h2><a href={s.url}>{s.title}</a></h2>
+                  <span class="years">{s.when}</span>
+                </div>
+                {s.note && <p class="step-note">{s.note}</p>}
+                <p class="step-summary">{s.summary}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+</BaseLayout>

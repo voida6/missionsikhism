@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SourceList from '../../components/SourceList.astro';
 import LastUpdated from '../../components/LastUpdated.astro';
+import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
+import { correctionUrl } from '../../site.config';
 
 export async function getStaticPaths() {
   const people = await getCollection('people');
@@ -21,6 +23,21 @@ const allPeople = await getCollection('people');
 const relatedPeople = (person.data.relatedPeople ?? [])
   .map((ref) => allPeople.find((p) => p.id === ref.id))
   .filter((p) => p !== undefined);
+
+const categoryLabels: Record<string, string> = {
+  guru: 'Guru',
+  martyr: 'Martyr',
+  general: 'General / Commander',
+  ruler: 'Ruler',
+  reformer: 'Reformer',
+  scholar: 'Scholar',
+  saint: 'Saint',
+  'modern-figure': 'Modern figure',
+  other: 'Figure',
+};
+
+const hasLifespan = typeof person.data.born === 'number' && typeof person.data.died === 'number';
+const yearsLabel = `${person.data.born ?? '?'}–${person.data.died ?? 'present'}`;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const jsonld = [
@@ -47,58 +64,106 @@ const jsonld = [
 
 <BaseLayout title={`${person.data.name} — Mission Sikhism`} description={person.data.summary}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
-  <article class="section">
+  <article class="section reading-page">
     <div class="container">
       <nav class="crumb" aria-label="Breadcrumb">
         <a href="/">Home</a> › <a href="/people">People</a> ›
         <span aria-current="page">{person.data.name}</span>
       </nav>
+
       {
-        (person.data.born || person.data.died) && (
-          <p class="years">
-            {person.data.born ?? '?'}–{person.data.died ?? 'present'}
+        hasLifespan && (
+          <ChronicleRibbon
+            bandStart={person.data.born}
+            bandEnd={person.data.died}
+            caption={`The lifetime of ${person.data.name} · ${yearsLabel}`}
+          />
+        )
+      }
+
+      <div class="reading-layout">
+        <div class="reading-main">
+          <span class="entry-era-label">{categoryLabels[person.data.category] ?? 'Figure'}</span>
+          <h1>{person.data.name}</h1>
+          <p class="entry-dateline">
+            {yearsLabel}
+            {person.data.role ? ` · ${person.data.role}` : ''}
           </p>
-        )
-      }
-      <h1>{person.data.name}</h1>
-      {person.data.role && <p><em>{person.data.role}</em></p>}
-      <p>{person.data.summary}</p>
+          <p class="entry-lede">{person.data.summary}</p>
 
-      <Content />
+          <div class="entry-body">
+            <Content />
+          </div>
 
-      {
-        events.length > 0 && (
-          <>
-            <h2>Appears in</h2>
-            <ul>
-              {events.map((e) => (
-                <li>
-                  <a href={`/events/${e.id}`}>
-                    <strong>{e.data.year}</strong> — {e.data.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </>
-        )
-      }
+          <div class="entry-end" aria-hidden="true"><span>☬</span></div>
 
-      {
-        relatedPeople.length > 0 && (
-          <p>
-            Related: {relatedPeople.map((p, i) => (
+          {
+            events.length > 0 && (
               <>
-                {i > 0 ? ', ' : ''}
-                <a href={`/people/${p!.id}`}>{p!.data.name}</a>
+                <h2>In the chronicle</h2>
+                <ul class="xref-list">
+                  {events.map((e) => (
+                    <li>
+                      <a href={`/events/${e.id}`}>
+                        <span class="xref-year">{e.data.year}</span>
+                        {e.data.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </>
-            ))}
-          </p>
-        )
-      }
+            )
+          }
 
-      <LastUpdated path={`src/content/people/${person.id}.md`} />
+          <LastUpdated path={`src/content/people/${person.id}.md`} />
+        </div>
 
-      <SourceList sources={person.data.sources} />
+        <aside class="reading-aside">
+          <div class="catalog-card">
+            <div class="card-head">Catalog card</div>
+            <dl>
+              {person.data.born && (
+                <>
+                  <dt>Born</dt>
+                  <dd>{person.data.born}{person.data.birthPlace ? `, ${person.data.birthPlace}` : ''}</dd>
+                </>
+              )}
+              {person.data.died && (
+                <>
+                  <dt>Died</dt>
+                  <dd>{person.data.died}{person.data.deathPlace ? `, ${person.data.deathPlace}` : ''}</dd>
+                </>
+              )}
+              <dt>Category</dt>
+              <dd>{categoryLabels[person.data.category] ?? 'Figure'}</dd>
+              {relatedPeople.length > 0 && (
+                <>
+                  <dt>See also</dt>
+                  <dd>
+                    {relatedPeople.map((p, i) => (
+                      <>
+                        {i > 0 ? ', ' : ''}
+                        <a href={`/people/${p!.id}`}>{p!.data.name}</a>
+                      </>
+                    ))}
+                  </dd>
+                </>
+              )}
+            </dl>
+            {events.length > 0 && (
+              <a class="card-map-link" href={`/map?person=${person.id}`}>See their events on the map →</a>
+            )}
+            <a
+              class="card-map-link"
+              href={correctionUrl(person.data.name, `src/content/people/${person.id}.md`)}
+              rel="noopener noreferrer"
+              target="_blank"
+            >Suggest a correction →</a>
+          </div>
+
+          <SourceList sources={person.data.sources} />
+        </aside>
+      </div>
     </div>
   </article>
 </BaseLayout>

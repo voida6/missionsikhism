@@ -2,8 +2,10 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-// The WHO lens, sectioned by category (Phase D). Within a section, sort by
-// birth year where known, then name so undated figures stay in stable order.
+// The WHO lens. The ten Gurus render as a compact gallery (one line each, in
+// succession order) so the rest of the index — martyrs, generals, rulers —
+// is visible without a long scroll. Within a section, sort by birth year
+// where known, then name so undated figures stay in stable order.
 const people = await getCollection('people');
 
 const categoryLabels = {
@@ -32,6 +34,9 @@ const groups = Object.keys(categoryLabels)
     items: people.filter((p) => p.data.category === cat).sort(byBirthThenName),
   }))
   .filter((g) => g.items.length > 0);
+
+const gurus = groups.find((g) => g.cat === 'guru')?.items ?? [];
+const otherGroups = groups.filter((g) => g.cat !== 'guru');
 ---
 
 <BaseLayout
@@ -48,21 +53,49 @@ const groups = Object.keys(categoryLabels)
         the <a href="/map">map</a> and in the <a href="/history">timeline</a>.
       </p>
 
+      <!-- Jump straight to any section of the index -->
+      <nav class="cat-jump" aria-label="Sections">
+        {groups.map((g) => <a href={`#${g.cat}`}>{g.label}</a>)}
+      </nav>
+
       {
-        groups.map((group) => (
+        gurus.length > 0 && (
           <>
-            <h2>{group.label}</h2>
+            <h2 id="guru">The Ten Gurus</h2>
+            <p class="section-sub">In order of succession, 1469–1708.</p>
+            <ol class="guru-gallery">
+              {gurus.map((p, i) => (
+                <li>
+                  <a class="guru-tile" href={`/people/${p.id}`}>
+                    <span class="guru-n" aria-hidden="true">{i + 1}</span>
+                    <span class="guru-body">
+                      <span class="guru-name">{p.data.name}</span>
+                      <span class="years">
+                        {p.data.born ?? '?'}{p.data.died ? `–${p.data.died}` : ''}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </>
+        )
+      }
+
+      {
+        otherGroups.map((group) => (
+          <>
+            <h2 id={group.cat}>{group.label}</h2>
             <ul class="people-list">
               {group.items.map((p) => (
                 <li class="person-card">
-                  <h3><a href={`/people/${p.id}`}>{p.data.name}</a></h3>
-                  <p class="pill" data-cat={p.data.category}>
-                    {categoryLabels[p.data.category]}
-                  </p>
+                  <div class="person-head">
+                    <h3><a href={`/people/${p.id}`}>{p.data.name}</a></h3>
+                    <span class="years">
+                      {p.data.born ?? '?'}{p.data.died ? `–${p.data.died}` : ''}
+                    </span>
+                  </div>
                   {p.data.role && <p class="role">{p.data.role}</p>}
-                  <p class="years">
-                    {p.data.born ?? '?'}{p.data.died ? `–${p.data.died}` : ''}
-                  </p>
                   <p>{p.data.summary}</p>
                 </li>
               ))}

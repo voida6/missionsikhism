@@ -3,6 +3,11 @@ title: "Era 4 — The Sikh Empire"
 order: 4
 color: "#1e3a5f"
 shortName: "Empire"
+image:
+  src: "https://upload.wikimedia.org/wikipedia/commons/a/a2/An_equestrian_portrait_of_Maharaja_Ranjit_Singh%2C_accompanied_by_retinue_and_large_fan.jpg"
+  alt: "An equestrian portrait of Maharaja Ranjit Singh accompanied by his retinue."
+  credit: "Equestrian portrait of Maharaja Ranjit Singh (artist unknown). Public domain, via Wikimedia Commons"
+  creditUrl: "https://commons.wikimedia.org/wiki/File:An_equestrian_portrait_of_Maharaja_Ranjit_Singh,_accompanied_by_retinue_and_large_fan.jpg"
 startYear: 1799
 endYear: 1849
 summary: "Maharaja Ranjit Singh unified the misls into a powerful, secular kingdom centred on Lahore, ruling from 1799 until his death in 1839. After two Anglo-Sikh wars the empire fell to British annexation in 1849."

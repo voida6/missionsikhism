@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import GlossaryHovers from '../components/GlossaryHovers.astro';
 
 interface Props {
   title: string;
@@ -29,6 +30,7 @@ const nav: NavEntry[] = [
   {
     label: 'Learn',
     items: [
+      { label: 'Reading Paths', href: '/paths' },
       { label: 'The Faith', href: '/faith' },
       { label: 'Culture & Heritage', href: '/culture' },
       { label: 'Glossary', href: '/glossary' },
@@ -57,6 +59,7 @@ const ownerBySeg: Record<string, string> = {
   '/map': 'Map',
   '/places': 'Map',
   '/people': 'People',
+  '/paths': 'Learn',
   '/faith': 'Learn',
   '/culture': 'Learn',
   '/glossary': 'Learn',
@@ -101,7 +104,7 @@ const year = new Date().getFullYear();
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#faf8f3" />
+    <meta name="theme-color" content="#f7f2e7" />
 
     <!-- Theme: applied before first paint to avoid a flash of the wrong mode. -->
     <script is:inline>
@@ -214,6 +217,8 @@ const year = new Date().getFullYear();
       <slot />
     </main>
 
+    <GlossaryHovers />
+
     <footer class="site-footer">
       <div class="container">
         <div class="footer-grid">
@@ -221,8 +226,8 @@ const year = new Date().getFullYear();
             <a class="footer-brand" href="/">Mission Sikhism</a>
             <p>
               A non-profit, community-built history of the Sikh faith, 1469 to
-              today. Every fact on this site is tied to a citation — enforced at
-              build time, offered freely in the spirit of <em>sarbat da bhala</em>.
+              today. Every fact on this site is tied to a citation, offered
+              freely in the spirit of <em>sarbat da bhala</em>.
             </p>
           </div>
           <div class="footer-col">
@@ -262,7 +267,7 @@ const year = new Date().getFullYear();
         var themeMeta = document.querySelector('meta[name="theme-color"]');
         function applyTheme(t, persist) {
           document.documentElement.setAttribute('data-theme', t);
-          if (themeMeta) themeMeta.setAttribute('content', t === 'dark' ? '#0e1013' : '#faf8f3');
+          if (themeMeta) themeMeta.setAttribute('content', t === 'dark' ? '#14110c' : '#f7f2e7');
           if (persist) {
             try { localStorage.setItem('theme', t); } catch (e) {}
           }

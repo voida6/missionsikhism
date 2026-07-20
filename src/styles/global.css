@@ -1,8 +1,9 @@
 /* ==========================================================================
-   Mission Sikhism — design system v2
-   Modern, warm, high-contrast. Saffron accent on a paper (light) or
-   near-black (dark) ground. Dependency-free; themed via CSS custom
-   properties on html[data-theme].
+   Mission Sikhism — design system v3 · "The Reading Room"
+   A library, not an app: warm paper, serif text, quiet geometry.
+   Saffron + deep blue appear as accents (era colours, links, ornaments),
+   never as wallpaper. Dependency-free; themed via CSS custom properties
+   on html[data-theme].
    ========================================================================== */
 
 /* ---------- Tokens: light (default) ---------- */
@@ -11,25 +12,25 @@
 
   /* Saffron (Nishan Sahib) — the accent */
   --accent: #d97706;
-  --accent-strong: #b45309;
-  --accent-soft: #faeeda;
-  --accent-glow: rgba(217, 119, 6, 0.22);
+  --accent-strong: #a8500a;
+  --accent-soft: #f7ecd9;
+  --accent-glow: rgba(217, 119, 6, 0.18);
 
   /* Deep Sikh blue — secondary */
   --blue: #1e3a5f;
   --blue-strong: #14273f;
-  --blue-soft: #edf2f8;
+  --blue-soft: #ecf1f7;
 
-  /* Ground + text */
-  --bg: #faf8f3;
-  --surface: #ffffff;
-  --surface-2: #f3efe6;
-  --ink: #1b1e26;
-  --ink-2: #494f5d;
-  --muted: #6c7280;
-  --border: #e8e2d4;
-  --border-strong: #d5cdba;
-  --link: #22558c;
+  /* Ground + text — warm paper and ink */
+  --bg: #f7f2e7;
+  --surface: #fdfaf2;
+  --surface-2: #f0e9d9;
+  --ink: #24211a;
+  --ink-2: #4e483c;
+  --muted: #7a7263;
+  --border: #e2d9c4;
+  --border-strong: #cfc4a9;
+  --link: #1f4e87;
 
   /* Hero + footer keep their own deep-blue world in both themes */
   --hero-bg-a: #1e3a5f;
@@ -37,16 +38,19 @@
   --hero-ink: #f4f7fb;
   --hero-ink-2: #c9d6e6;
 
-  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Serif carries the reading; sans is reserved for wayfinding UI. */
+  --font-body: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, Cambria, "Times New Roman", serif;
   --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, Cambria, "Times New Roman", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-gurmukhi: "Raavi", "Noto Sans Gurmukhi", "Gurmukhi MN", "Arial Unicode MS", sans-serif;
 
   --maxw: 74rem;
-  --radius: 14px;
-  --radius-sm: 8px;
+  --radius: 8px;
+  --radius-sm: 5px;
   --radius-pill: 999px;
-  --shadow-sm: 0 1px 2px rgba(20, 22, 30, 0.05);
-  --shadow: 0 6px 20px rgba(20, 22, 30, 0.07);
-  --shadow-lift: 0 14px 34px rgba(20, 22, 30, 0.13);
+  --shadow-sm: 0 1px 2px rgba(46, 40, 25, 0.06);
+  --shadow: 0 4px 14px rgba(46, 40, 25, 0.08);
+  --shadow-lift: 0 10px 26px rgba(46, 40, 25, 0.12);
 }
 
 /* ---------- Tokens: dark ---------- */
@@ -62,14 +66,15 @@ html[data-theme="dark"] {
   --blue-strong: #0f1b2b;
   --blue-soft: rgba(143, 179, 218, 0.12);
 
-  --bg: #0e1013;
-  --surface: #171a20;
-  --surface-2: #1e222a;
-  --ink: #e9e7e1;
-  --ink-2: #b6bbc6;
-  --muted: #8d939f;
-  --border: #262b35;
-  --border-strong: #39404e;
+  /* The reading room after dark: warm lamplight, not blue-black. */
+  --bg: #14110c;
+  --surface: #1c1812;
+  --surface-2: #241f17;
+  --ink: #ece5d4;
+  --ink-2: #beb5a0;
+  --muted: #948b77;
+  --border: #322b1f;
+  --border-strong: #4a4130;
   --link: #93bce8;
 
   --hero-bg-a: #14243a;
@@ -93,14 +98,14 @@ html[data-theme="dark"] {
     --blue: #8fb3da;
     --blue-strong: #0f1b2b;
     --blue-soft: rgba(143, 179, 218, 0.12);
-    --bg: #0e1013;
-    --surface: #171a20;
-    --surface-2: #1e222a;
-    --ink: #e9e7e1;
-    --ink-2: #b6bbc6;
-    --muted: #8d939f;
-    --border: #262b35;
-    --border-strong: #39404e;
+    --bg: #14110c;
+    --surface: #1c1812;
+    --surface-2: #241f17;
+    --ink: #ece5d4;
+    --ink-2: #beb5a0;
+    --muted: #948b77;
+    --border: #322b1f;
+    --border-strong: #4a4130;
     --link: #93bce8;
     --hero-bg-a: #14243a;
     --hero-bg-b: #0b1420;
@@ -132,8 +137,8 @@ body {
   font-family: var(--font-body);
   color: var(--ink);
   background: var(--bg);
-  line-height: 1.7;
-  font-size: 1rem;
+  line-height: 1.75;
+  font-size: 1.02rem;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   transition: background-color 0.25s ease, color 0.25s ease;
@@ -159,6 +164,20 @@ a:hover { color: var(--accent-strong); }
 }
 
 img { max-width: 100%; height: auto; }
+
+/* Wayfinding UI stays sans-serif — the shelves are labelled, the books are set
+   in serif. */
+.nav, .nav-menu, .btn, .badge, .chip, .pill, .stat-label, .crumb,
+.event-year, .icon-btn, .nav-contribute, .reset-btn, .control,
+.control-head, .combobox input, .map-count, .map-note, .legend-row,
+.years {
+  font-family: var(--font-ui);
+}
+
+.gurmukhi-display {
+  font-family: var(--font-gurmukhi);
+  font-weight: 400;
+}
 
 .container { max-width: var(--maxw); margin-inline: auto; padding-inline: 1.5rem; }
 
@@ -397,6 +416,16 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
     border-radius: var(--radius);
     box-shadow: var(--shadow-lift);
   }
+  /* Invisible bridge across the gap between the trigger and the menu, so the
+     cursor can travel down without leaving the group (which would close it). */
+  .nav-group[open] > .nav-menu::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -0.55rem;
+    height: 0.55rem;
+  }
   .nav-group:not([open]) > .nav-menu { display: none; }
 }
 
@@ -576,7 +605,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 /* Kicker — small saffron overline above section titles */
 .kicker {
   display: block;
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -818,7 +847,7 @@ article.section li { margin-block: 0.25rem; }
   letter-spacing: 0.1em;
   font-size: 0.72rem;
   color: var(--accent-strong);
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-weight: 700;
 }
 .sources h4::before {
@@ -876,7 +905,7 @@ html[data-theme="dark"] .site-footer {
 .footer-brand:hover { color: #fff; }
 .site-footer p { margin: 0; max-width: 34rem; line-height: 1.7; }
 .footer-col h4 {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -921,19 +950,20 @@ html[data-theme="dark"] .site-footer {
   z-index: 0;
   background: var(--surface-2);
 }
+/* The filter card never scrolls internally: it holds only type chips, the
+   person box, and the legend, and simply stops being sticky if it is taller
+   than the viewport. */
 .map-controls {
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.25rem;
+  padding: 1.1rem 1.25rem;
   background: var(--surface);
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 0.9rem;
   position: sticky;
-  top: 5rem;
-  max-height: calc(100vh - 6rem);
-  overflow-y: auto;
+  top: 4.5rem;
 }
 .map-wrap { position: relative; }
 
@@ -1080,7 +1110,7 @@ html[data-theme="dark"] .leaflet-control-attribution a { color: var(--blue); }
 
 @media (max-width: 860px) {
   .map-layout { grid-template-columns: 1fr; }
-  .map-controls { position: static; max-height: none; }
+  .map-controls { position: static; }
   #map { height: 62vh; }
   .filters-disclosure > summary { padding: 0.5rem 0; }
 }
@@ -1105,7 +1135,7 @@ html[data-theme="dark"] .leaflet-control-attribution a { color: var(--blue); }
   --pagefind-ui-border-width: 1px;
   --pagefind-ui-border-radius: 10px;
   --pagefind-ui-image-border-radius: 8px;
-  --pagefind-ui-font: var(--font-body);
+  --pagefind-ui-font: var(--font-ui);
 }
 .pagefind-ui__result-link { color: var(--link) !important; }
 .pagefind-ui__result-excerpt mark { background: var(--accent-soft); color: var(--accent-strong); border-radius: 3px; padding: 0 2px; }
@@ -1145,3 +1175,1055 @@ html[data-theme="dark"] .pill[data-cat="martyr"] { color: #f28b8b; }
 
 .cite-count { color: var(--muted); font-size: 0.9em; }
 .library-heading { font-size: 1.35rem; margin: 2rem 0 1rem; }
+
+/* ==========================================================================
+   The Reading Room — catalog homepage
+   ========================================================================== */
+.catalog-hero {
+  padding-block: 4.5rem 3.25rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(640px 300px at 50% -80px, var(--accent-glow), transparent 70%),
+    var(--bg);
+}
+.catalog-hero .ik-onkar {
+  font-family: var(--font-gurmukhi);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--accent-strong);
+  margin: 0 0 1rem;
+}
+.catalog-hero h1 {
+  font-size: clamp(2.1rem, 5.2vw, 3.3rem);
+  letter-spacing: -0.015em;
+  margin: 0 auto 0.9rem;
+  max-width: 24ch;
+}
+.catalog-hero .lede {
+  max-width: 40rem;
+  margin: 0 auto;
+  color: var(--ink-2);
+}
+.catalog-hero .lede a { color: inherit; }
+
+/* Ornamental rule — a thin line with a khanda at its centre */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  justify-content: center;
+  color: var(--accent-strong);
+  margin: 1.6rem auto 0;
+  max-width: 22rem;
+}
+.ornament::before,
+.ornament::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-strong));
+}
+.ornament::after { background: linear-gradient(90deg, var(--border-strong), transparent); }
+.ornament span { font-size: 0.95rem; line-height: 1; }
+
+/* The catalog search — the front desk */
+.catalog-search {
+  display: flex;
+  max-width: 36rem;
+  margin: 2.1rem auto 0;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.catalog-search:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.catalog-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  padding: 0.85rem 1.1rem;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  color: var(--ink);
+}
+.catalog-search input:focus { outline: none; }
+.catalog-search input::placeholder { color: var(--muted); }
+.catalog-search button {
+  border: none;
+  cursor: pointer;
+  background: var(--blue);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-weight: 650;
+  font-size: 0.95rem;
+  padding: 0 1.4rem;
+  transition: background 0.15s ease;
+}
+.catalog-search button:hover { background: var(--blue-strong); }
+
+/* "New here? Start with —" the librarian's shelf */
+.start-here {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: 1.4rem;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+}
+.start-here .start-label { color: var(--muted); margin-right: 0.15rem; }
+.start-here a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.95rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.start-here a:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+/* Colophon strip — the promise in one quiet line */
+.colophon-band {
+  padding-block: 1.1rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.colophon-band {
+  padding-block: 1.35rem;
+}
+.colophon-band p {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+}
+.colophon-band strong {
+  color: var(--accent-strong);
+  font-weight: 700;
+  font-size: 1.15em;
+  font-variant-numeric: tabular-nums;
+}
+.colophon-band a { color: inherit; text-decoration: none; }
+.colophon-band a:hover { color: var(--accent-strong); }
+
+/* The bookshelf — six eras as spines on a shelf */
+.bookshelf {
+  display: flex;
+  gap: 0.7rem;
+  align-items: stretch;
+  margin-top: 1.75rem;
+  padding: 0 0.25rem 0;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
+}
+.book-spine {
+  position: relative;
+  flex: 1 0 8.5rem;
+  min-height: 15rem;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: 0;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.book-spine:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lift);
+  color: var(--ink);
+}
+@media (prefers-reduced-motion: reduce) { .book-spine:hover { transform: none; } }
+.book-spine::before {
+  content: "";
+  display: block;
+  height: 0.55rem;
+  border-radius: 5px 5px 0 0;
+  background: var(--era, var(--accent));
+}
+.book-spine .spine-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.9rem 0.85rem 0.9rem;
+}
+.book-spine .spine-order {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--era, var(--accent-strong));
+}
+.book-spine h3 {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+.book-spine .spine-years {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--border);
+}
+
+/* Reading-table excerpts — featured entries as open pages */
+.excerpt-list {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.excerpt-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.5rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.16s ease, border-color 0.16s ease;
+}
+.excerpt-card:hover { box-shadow: var(--shadow); border-color: var(--border-strong); }
+.excerpt-card .excerpt-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: var(--muted);
+  margin-bottom: 0.55rem;
+}
+.excerpt-card .excerpt-meta .yr {
+  color: var(--accent-strong);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+.excerpt-card h3 { margin: 0 0 0.45rem; font-size: 1.16rem; }
+.excerpt-card h3 a { color: var(--ink); text-decoration: none; }
+.excerpt-card h3 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.excerpt-card h3 a:hover { color: var(--accent-strong); }
+.excerpt-card p { margin: 0; color: var(--ink-2); font-size: 0.96rem; flex: 1; }
+.excerpt-card .excerpt-src {
+  margin-top: 0.9rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed var(--border);
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* People index — a wrapped line of names, like a book's index */
+.name-index {
+  list-style: none;
+  margin: 1.4rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.55rem;
+}
+.name-index a {
+  display: inline-block;
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.name-index a:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-strong); }
+.name-index .index-more a { border-style: dashed; color: var(--link); font-family: var(--font-ui); font-size: 0.88rem; font-weight: 600; }
+
+/* Card-catalog drawers — the browse grid */
+.drawer-grid {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+.drawer {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 1.05rem 1.15rem 1rem;
+  box-shadow: inset 0 -3px 0 var(--surface-2), var(--shadow-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.drawer:hover { border-color: var(--accent); box-shadow: inset 0 -3px 0 var(--accent-soft), var(--shadow); }
+.drawer .drawer-pull {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.4rem;
+}
+.drawer .drawer-pull::before {
+  content: "";
+  width: 1.35rem;
+  height: 0.5rem;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+  box-shadow: var(--shadow-sm);
+}
+.drawer h3 {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.drawer h3 a { color: inherit; text-decoration: none; }
+.drawer h3 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.drawer h3 a:hover { color: var(--accent-strong); }
+.drawer p { margin: 0; font-size: 0.92rem; color: var(--ink-2); }
+.drawer .drawer-count {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+/* Quiet contribute band, in keeping with the paper world */
+.contribute-band {
+  margin-block: 3.5rem 0;
+  padding-block: 3rem;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.contribute-band .inner {
+  max-width: 44rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.contribute-band h2 { margin: 0 0 0.6rem; font-size: clamp(1.35rem, 3vw, 1.75rem); }
+.contribute-band p { color: var(--ink-2); margin: 0 0 1.4rem; }
+
+/* ==========================================================================
+   The Reading Room — entry pages (events etc.)
+   ========================================================================== */
+.reading-page .container { max-width: 71rem; }
+.reading-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+  margin-top: 0.5rem;
+}
+@media (min-width: 900px) {
+  .reading-layout { grid-template-columns: minmax(0, 1fr) 17.5rem; gap: 4.5rem; }
+  .reading-aside { position: sticky; top: 4.5rem; }
+}
+
+.reading-main { max-width: 48rem; }
+.entry-era-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--era, var(--accent-strong));
+  text-decoration: none;
+  margin-bottom: 0.6rem;
+}
+.entry-era-label::before {
+  content: "";
+  width: 1.5rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--era, var(--accent));
+}
+.entry-era-label:hover { color: var(--era, var(--accent-strong)); text-decoration: underline; }
+
+.reading-main h1 { font-size: clamp(1.9rem, 4.2vw, 2.7rem); margin: 0 0 0.55rem; letter-spacing: -0.015em; }
+.entry-dateline {
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin: 0 0 1.2rem;
+  font-variant-numeric: tabular-nums;
+}
+.entry-lede {
+  font-size: 1.16rem;
+  line-height: 1.65;
+  color: var(--ink-2);
+  border-left: 3px solid var(--era, var(--accent));
+  padding-left: 1.05rem;
+  margin: 0 0 1.6rem;
+}
+.reading-main h2 { margin-top: 2.2rem; font-size: 1.38rem; }
+.reading-main > .entry-body > p:first-of-type::first-letter,
+.reading-main .entry-body > h2:first-child + p::first-letter {
+  font-size: 3.1em;
+  float: left;
+  line-height: 0.82;
+  padding: 0.08em 0.12em 0 0;
+  color: var(--era, var(--accent-strong));
+  font-weight: 700;
+}
+
+/* End-of-entry ornament */
+.entry-end {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 2.4rem 0 0;
+  color: var(--accent-strong);
+}
+.entry-end::before,
+.entry-end::after { content: ""; flex: 1; height: 1px; background: var(--border-strong); }
+.entry-end span { font-size: 0.9rem; line-height: 1; }
+
+/* The catalog card — an index card of the entry's connections */
+.catalog-card {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  font-size: 0.92rem;
+}
+.catalog-card .card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.catalog-card .card-head::before {
+  content: "";
+  width: 0.55rem; height: 0.55rem;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+}
+.catalog-card dl { margin: 0; padding: 0.85rem 1rem 0.95rem; }
+.catalog-card dt {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.7rem;
+}
+.catalog-card dt:first-child { margin-top: 0; }
+.catalog-card dd { margin: 0.12rem 0 0; color: var(--ink); line-height: 1.55; }
+.catalog-card dd a { color: var(--link); text-decoration: none; }
+.catalog-card dd a:hover { color: var(--accent-strong); text-decoration: underline; }
+.catalog-card .card-map-link {
+  display: block;
+  padding: 0.65rem 1rem;
+  border-top: 1px dashed var(--border);
+  font-family: var(--font-ui);
+  font-size: 0.84rem;
+  font-weight: 650;
+  color: var(--link);
+  text-decoration: none;
+}
+.catalog-card .card-map-link:hover { color: var(--accent-strong); background: var(--accent-soft); }
+
+/* Sources, restyled as the card behind the book */
+.reading-aside .sources { margin-top: 1.25rem; }
+.sources .sources-note {
+  margin: 0 0 0.7rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Related entries as small cross-reference cards */
+.xref-list {
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+.xref-list li { display: flex; }
+.xref-list a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  flex: 1;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.xref-list a:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
+.xref-list .xref-year {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+  font-variant-numeric: tabular-nums;
+  flex: none;
+}
+
+/* ==========================================================================
+   The chronicle — one continuous story across every entry
+   ========================================================================== */
+/* Era ribbon: the 1469→present span as coloured chapters. Shared by the Atlas
+   (buttons that filter) and entry pages (links that show "you are here"). */
+.era-ribbon {
+  position: relative;
+  display: flex;
+  gap: 2px;
+  height: 1.5rem;
+  border-radius: var(--radius-pill);
+  overflow: visible;
+  margin-top: 1.5rem;
+}
+.era-ribbon .ribbon-seg {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: var(--era-c, var(--accent));
+  opacity: 0.85;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.era-ribbon .ribbon-seg:first-child { border-radius: var(--radius-pill) 0 0 var(--radius-pill); }
+.era-ribbon .ribbon-seg:last-child { border-radius: 0 var(--radius-pill) var(--radius-pill) 0; }
+.era-ribbon .ribbon-seg:hover { opacity: 1; }
+.era-ribbon .ribbon-seg[aria-pressed="false"] { opacity: 0.18; }
+.era-ribbon .ribbon-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+}
+/* Hide labels on segments too narrow to hold them */
+@media (max-width: 700px) {
+  .era-ribbon .ribbon-label { display: none; }
+  .era-ribbon { height: 1rem; }
+}
+
+/* Entry pages: thinner ribbon, tick per entry, a "you are here" mark */
+.chronicle { margin: 1.1rem 0 2rem; }
+.chronicle .era-ribbon { height: 0.65rem; margin-top: 0; }
+.chronicle .ribbon-seg { cursor: pointer; }
+.chronicle .ribbon-tick {
+  position: absolute;
+  top: 15%;
+  bottom: 15%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+}
+.chronicle .ribbon-here {
+  position: absolute;
+  top: 50%;
+  width: 0.95rem;
+  height: 0.95rem;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: var(--ink);
+  border: 2px solid var(--bg);
+  box-shadow: var(--shadow-sm);
+  pointer-events: none;
+}
+.chronicle-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.chronicle-caption .caption-mid {
+  text-align: center;
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
+/* Page-turn: previous / next leaves of the chronicle */
+.page-turn {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-top: 2.2rem;
+}
+.page-turn .turn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.page-turn .turn:hover { border-color: var(--accent); background: var(--accent-soft); }
+.page-turn .turn.next { text-align: right; align-items: flex-end; }
+.page-turn .turn-label {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.page-turn .turn-year {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+  font-variant-numeric: tabular-nums;
+}
+.page-turn .turn-title { font-size: 0.98rem; line-height: 1.35; }
+@media (max-width: 560px) {
+  .page-turn { grid-template-columns: 1fr; }
+  .page-turn .turn.next { text-align: left; align-items: flex-start; }
+}
+
+/* ==========================================================================
+   The Atlas — map page extras
+   ========================================================================== */
+/* Quiet one-line note when arriving filtered to a place */
+.place-banner {
+  margin: 0.75rem 0 0;
+  font-family: var(--font-ui);
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+.place-banner button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--link);
+}
+.place-banner button:hover { color: var(--accent-strong); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ==========================================================================
+   People index
+   ========================================================================== */
+.cat-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 1.4rem 0 0.5rem;
+  font-family: var(--font-ui);
+}
+.cat-jump a {
+  padding: 0.32rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.cat-jump a:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-strong); }
+
+/* The ten Gurus as a compact gallery — one line each, numbered in succession */
+.guru-gallery {
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+}
+.guru-gallery li { display: flex; }
+.guru-tile {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex: 1;
+  min-width: 0;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.guru-tile:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
+.guru-tile .guru-n {
+  flex: none;
+  width: 1.9rem;
+  height: 1.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.guru-tile:hover .guru-n { background: var(--surface); }
+.guru-tile .guru-body { display: flex; flex-direction: column; min-width: 0; }
+.guru-tile .guru-name {
+  font-weight: 650;
+  font-size: 0.97rem;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.guru-tile .years { font-size: 0.78rem; }
+
+/* ==========================================================================
+   Contents page (/history) — a book's table of contents
+   ========================================================================== */
+.toc-page { max-width: 52rem; }
+.toc { list-style: none; margin: 2rem 0 0; padding: 0; }
+.toc-chapter {
+  padding: 1.75rem 0 2rem;
+  border-top: 1px solid var(--border);
+}
+.toc-chapter:first-child { border-top: none; padding-top: 0.5rem; }
+.toc-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+.toc-vol {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--era, var(--accent-strong));
+  border-left: 3px solid var(--era, var(--accent));
+  padding-left: 0.5rem;
+}
+.toc-head h2 { margin: 0; font-size: 1.45rem; flex: 1; min-width: 12rem; }
+.toc-head h2 a { color: var(--ink); text-decoration: none; }
+.toc-head h2 a:hover { color: var(--era, var(--accent-strong)); }
+.toc-summary { color: var(--ink-2); margin: 0.5rem 0 0.9rem; font-size: 0.98rem; }
+
+/* Entry lines with dotted leaders, shared with era pages ("In this chapter") */
+.toc-events { list-style: none; margin: 0; padding: 0; }
+.toc-events li { margin: 0; }
+.toc-events a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.32rem 0.2rem;
+  text-decoration: none;
+  color: var(--ink);
+  border-radius: 4px;
+}
+.toc-events a:hover { background: var(--accent-soft); color: var(--accent-strong); }
+.toc-events .toc-title { flex: none; max-width: 75%; }
+.toc-events .toc-dots {
+  flex: 1;
+  min-width: 1.5rem;
+  border-bottom: 1px dotted var(--border-strong);
+  transform: translateY(-0.28em);
+}
+.toc-events .toc-year {
+  flex: none;
+  font-family: var(--font-ui);
+  font-size: 0.84rem;
+  font-weight: 650;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.reading-main .toc-events { margin-top: 1rem; }
+
+/* Chapter-opening figure with a credit line set like a citation */
+.entry-figure { margin: 0.4rem 0 1.5rem; }
+.entry-figure img {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+.entry-figure figcaption {
+  margin-top: 0.45rem;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.entry-figure figcaption a { color: var(--muted); }
+.entry-figure figcaption a:hover { color: var(--accent-strong); }
+
+/* Ribbon extras: era highlighting and lifetime bands */
+.era-ribbon .ribbon-seg.is-dim { opacity: 0.2; }
+.era-ribbon .ribbon-seg.is-current { opacity: 1; }
+.era-ribbon .ribbon-seg.is-dim:hover { opacity: 0.55; }
+.chronicle .ribbon-band {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  border: 1.5px solid var(--ink);
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Reading paths — the librarian's shelf
+   ========================================================================== */
+.path-shelf {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+}
+.path-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 1.5rem 1.55rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.16s ease, border-color 0.16s ease;
+}
+.path-card:hover { box-shadow: var(--shadow); border-color: var(--border-strong); }
+.path-card .path-count {
+  align-self: flex-start;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  margin-bottom: 0.5rem;
+}
+.path-card h2 { margin: 0 0 0.2rem; font-size: 1.25rem; }
+.path-card h2 a { color: var(--ink); text-decoration: none; }
+.path-card h2 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.path-card h2 a:hover { color: var(--accent-strong); }
+.path-card .path-tagline {
+  font-family: var(--font-ui);
+  font-size: 0.86rem;
+  color: var(--muted);
+  margin: 0 0 0.6rem;
+}
+.path-card p:last-child { margin: 0; color: var(--ink-2); font-size: 0.96rem; }
+
+.path-page { max-width: 48rem; }
+.path-page .entry-lede { border-left-color: var(--accent); }
+.path-steps {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+}
+.path-step {
+  position: relative;
+  display: flex;
+  gap: 1.1rem;
+  padding: 1.2rem 0 1.4rem;
+}
+/* The thread that binds the stops together */
+.path-step::before {
+  content: "";
+  position: absolute;
+  left: 1.05rem;
+  top: 3.4rem;
+  bottom: -0.2rem;
+  width: 2px;
+  background: var(--border);
+}
+.path-step:last-child::before { display: none; }
+.path-step .step-n {
+  flex: none;
+  width: 2.15rem;
+  height: 2.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  border: 1px solid var(--border-strong);
+  color: var(--accent-strong);
+  font-family: var(--font-display);
+  font-weight: 700;
+  z-index: 1;
+}
+.path-step .step-body { min-width: 0; flex: 1; }
+.path-step .step-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+.path-step .step-head h2 { margin: 0; font-size: 1.18rem; }
+.path-step .step-head h2 a { color: var(--ink); text-decoration: none; }
+.path-step .step-head h2 a:hover { color: var(--accent-strong); }
+.path-step .step-note {
+  margin: 0.25rem 0 0.35rem;
+  color: var(--accent-strong);
+  font-size: 0.92rem;
+  font-style: italic;
+}
+.path-step .step-summary { margin: 0; color: var(--ink-2); font-size: 0.96rem; }
+
+/* ==========================================================================
+   Glossary hover-cards
+   ========================================================================== */
+.gloss-pop {
+  position: fixed;
+  z-index: 1300;
+  max-width: 20rem;
+  padding: 0.9rem 1.05rem;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lift);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.gloss-pop .gloss-term {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.02rem;
+  margin-right: 0.5rem;
+}
+.gloss-pop .gloss-gurmukhi {
+  font-family: var(--font-gurmukhi);
+  color: var(--accent-strong);
+  margin-right: 0.4rem;
+}
+.gloss-pop .gloss-translit { color: var(--muted); font-style: italic; font-size: 0.88em; }
+.gloss-pop .gloss-def { margin: 0.4rem 0 0.45rem; color: var(--ink-2); }
+.gloss-pop .gloss-link {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   Mobile pass — phone-first adjustments across the reading room
+   ========================================================================== */
+@media (max-width: 640px) {
+  .container { padding-inline: 1.1rem; }
+  .section { padding-block: 2.5rem; }
+  .catalog-hero { padding-block: 3rem 2.4rem; }
+  .catalog-hero .ik-onkar { font-size: 2.1rem; }
+  .catalog-search input { padding: 0.75rem 0.9rem; font-size: 0.95rem; }
+  .start-here { font-size: 0.85rem; }
+  .colophon-band p { font-size: 0.9rem; }
+
+  /* Bookshelf: shorter spines, comfortable swipe */
+  .book-spine { flex-basis: 7.5rem; min-height: 12rem; }
+  .book-spine h3 { font-size: 0.95rem; }
+
+  /* Reading pages: tighter vertical rhythm, ribbon stays legible */
+  .reading-layout { gap: 1.6rem; }
+  .reading-main h1 { font-size: 1.75rem; }
+  .entry-lede { font-size: 1.06rem; }
+  .chronicle { margin-bottom: 1.4rem; }
+  .chronicle-caption { flex-wrap: wrap; justify-content: center; row-gap: 0.1rem; }
+  .chronicle-caption > span:first-child,
+  .chronicle-caption > span:last-child { display: none; }
+
+  /* TOC: let long titles wrap instead of squeezing the dots */
+  .toc-events .toc-title { max-width: none; flex: 1; }
+  .toc-events .toc-dots { display: none; }
+  .toc-head h2 { font-size: 1.25rem; }
+
+  /* Atlas */
+  #map { height: 55vh; min-height: 380px; }
+
+  /* Paths */
+  .path-step { gap: 0.85rem; padding: 1rem 0 1.1rem; }
+  .path-step .step-head { flex-direction: column; gap: 0.1rem; }
+}
+
+/* Non-guru cards: name and years on one line, role beneath, then the summary */
+.person-card .person-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+.person-card .person-head h3 { margin: 0; }
+.person-card .person-head .years { flex: none; }
+.person-card .role { margin-top: 0.2rem; }
+.person-card p:not(.role):not(.years) { margin-bottom: 0; color: var(--ink-2); font-size: 0.96rem; }

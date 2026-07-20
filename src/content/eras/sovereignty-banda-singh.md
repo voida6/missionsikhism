@@ -31,4 +31,3 @@ Mughal reprisal was severe. Banda Singh was captured and [executed in Delhi in 1
 
 Yet the community held together. Meeting as the Sarbat Khalsa at Amritsar, the Sikhs organised their scattered fighting bands; on Vaisakhi 1748 these were brought together as the Dal Khalsa — the seed of the misl confederacy that would dominate the Punjab in the years ahead.
 
-_Draft for review — narrative migrated and rewritten from scratch; every claim above is tied to a source in the list below, and dates were verified before publishing._

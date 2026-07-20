@@ -28,4 +28,3 @@ Guru Amar Das put the principle into practice: he appointed women to lead congre
 
 With the founding of the Khalsa in 1699, women took the name **Kaur** ("princess"), holding their own standing rather than one derived from a husband. Sikh history remembers women such as **Mai Bhago**, who led Sikh soldiers in battle. Women and men share equally in prayer, service and the reading of scripture.
 
-_Draft for review — rewritten from scratch for this site; doctrinal details were checked against the sources listed below before publishing._

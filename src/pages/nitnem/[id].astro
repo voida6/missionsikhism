@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SourceList from '../../components/SourceList.astro';
 import LastUpdated from '../../components/LastUpdated.astro';
@@ -10,6 +10,7 @@ export async function getStaticPaths() {
 }
 
 const { bani } = Astro.props;
+const { Content } = await render(bani);
 const timeLabels = { 'amrit-vela': 'Morning (Amrit Vela)', evening: 'Evening', night: 'Night', any: 'Any time' };
 ---
 
@@ -26,6 +27,8 @@ const timeLabels = { 'amrit-vela': 'Morning (Amrit Vela)', evening: 'Evening', n
       </h1>
       <p class="years">{timeLabels[bani.data.timeOfDay]}</p>
       <p class="lede">{bani.data.summary}</p>
+
+      <Content />
 
       <LastUpdated path={`src/content/nitnem/${bani.id}.md`} />
       <SourceList sources={bani.data.sources} />

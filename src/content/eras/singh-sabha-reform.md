@@ -31,4 +31,3 @@ Colonial rule also brought tragedy. On Vaisakhi 1919, British troops fired on an
 
 Sikhs also moved to free the historic shrines from hereditary custodians. They formed the Shiromani Gurdwara Parbandhak Committee (SGPC) in 1920 to manage the gurdwaras; through a campaign of peaceful *morchas* — and despite bloodshed such as the Nankana Sahib massacre of 20 February 1921 — the struggle culminated in the Sikh Gurdwaras Act of 1925, which placed the shrines under elected community control.
 
-_Draft for review — narrative migrated and rewritten from scratch; every claim above is tied to a source in the list below, and dates were verified before publishing._

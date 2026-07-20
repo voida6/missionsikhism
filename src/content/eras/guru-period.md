@@ -39,4 +39,3 @@ In response, Guru Hargobind took up temporal as well as spiritual authority — 
 
 Guru Gobind Singh [created the Khalsa](/events/creation-of-the-khalsa) at Anandpur on Vaisakhi 1699, giving the community its distinctive identity and code. Before his death at Nanded in 1708 he ended the line of human Gurus, [vesting eternal Guruship in the Guru Granth Sahib](/events/guru-granth-eternal-guruship).
 
-_Draft for review — narrative migrated and rewritten from scratch; every claim above is tied to a source in the list below, and dates were verified before publishing._

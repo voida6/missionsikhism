@@ -23,4 +23,3 @@ That one God is described as without form, without gender, beyond time, self-exi
 
 The Mool Mantar continues: **Satnam** — truth is the Name — and names God as fearless, without enmity, and beyond birth. These few words open every recitation of the scripture and frame the whole of Sikh devotion.
 
-_Draft for review — rewritten from scratch for this site; doctrinal details were checked against the sources listed below before publishing._

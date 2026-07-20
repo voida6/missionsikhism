@@ -29,4 +29,3 @@ The cost of survival was heavy. During Ahmad Shah Durrani's repeated invasions t
 
 By the century's close the misls held the Punjab, but remained divided among rival sardars — an opening that a single leader would soon seize.
 
-_Draft for review — narrative migrated and rewritten from scratch; every claim above is tied to a source in the list below, and dates were verified before publishing._

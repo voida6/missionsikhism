@@ -25,4 +25,3 @@ Guru Arjan [compiled the first edition — the Adi Granth — in 1604](/events/i
 
 The scripture runs to 1,430 *angs* (pages). It gathers the hymns of the Sikh Gurus alongside those of Hindu and Muslim saints — the *bhagats*, among them Kabir, Sheikh Farid, Namdev and Ravidas — an inclusion striking for its time. The compositions are written in the Gurmukhi script and arranged by *raag*, the musical measure to which they are sung.
 
-_Draft for review — rewritten from scratch for this site; doctrinal details were checked against the sources listed below before publishing._

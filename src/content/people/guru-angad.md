@@ -19,8 +19,14 @@ sources:
     year: 1990
 ---
 
-## About
+## From Lehna to Angad
 
-Guru Angad Dev Ji — Second Sikh Guru. Successor to Guru Nanak, who standardised and popularised the Gurmukhi script in which Sikh scripture is written, and organised the early community and its langar.
+Born in 1504 at Matte di Sarai in central Punjab, Lehna was a devout worshipper of the goddess Durga until, in middle life, he heard Guru Nanak's hymns and travelled to [Kartarpur](/places/kartarpur) to meet their author. He stayed to become the community's most self-effacing servant; the tradition's stories of his testing all turn on obedience the Guru's own sons would not give. Nanak renamed him Angad — "of my own limb" — and installed him as Guru in 1539.
 
-_Draft for review — biography to be expanded, every claim cited._
+## The script of the scripture
+
+From his seat at Khadur Sahib, Guru Angad gave the community durable institutions. He standardised the Gurmukhi script — "from the Guru's mouth" — in which [the scripture](/faith/guru-granth-sahib) and [the language of Sikh life](/culture/language-and-script) have been written since, collected Guru Nanak's hymns, and added his own shloks, which the Granth preserves. Schools for children, wrestling grounds for the young, and a [langar](/glossary/langar) famously kept by his wife Mata Khivi — remembered by name in the scripture itself — made Khadur a working model of Nanak's Kartarpur.
+
+## Passing the light
+
+Following his teacher's precedent, he passed over his sons and installed the aged, tireless [Amar Das](/people/guru-amar-das) as third Guru in 1552 — the succession by merit now a settled principle of [the Guru period](/history/guru-period).

@@ -23,4 +23,3 @@ An initiated (*Amritdhari*) Sikh keeps the five articles of faith, the **Panj Ka
 
 The code names four cardinal prohibitions (*bajjar kurahits*): cutting the hair, eating *kutha* meat (ritually slaughtered), adultery, and the use of tobacco or other intoxicants.
 
-_Draft for review — rewritten from scratch for this site; doctrinal details were checked against the sources listed below before publishing._

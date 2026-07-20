@@ -19,8 +19,14 @@ sources:
     year: 1990
 ---
 
-## About
+## The sword's name, the hermit's life
 
-Guru Tegh Bahadur Ji — Ninth Sikh Guru, martyr. Who founded the town of Anandpur and was executed in Delhi in 1675 for defending the right of Kashmiri Hindus to practise their religion — a martyrdom for freedom of conscience.
+Youngest son of [Guru Hargobind](/people/guru-hargobind), he fought as a youth in the battle of Kartarpur in 1635 — earning, tradition holds, the name Tegh Bahadur, "brave of the sword" — then withdrew into two decades of meditation at Bakala. When the dying child Guru [pointed the community there in 1664](/people/guru-har-krishan), impostors set up shop; the tradition of the merchant Makhan Shah, who found the true Guru among them, is a favourite of the sakhis. He became ninth Guru that year.
 
-_Draft for review — biography to be expanded, every claim cited._
+## Travels and a new town
+
+His Guruship was itinerant: long journeys through the eastern country as far as Bengal and Assam, congregations revived, wells sunk in a drought-stricken countryside. In [1665 he founded Anandpur](/events/founding-of-anandpur) in the Shivalik foothills — refuge, capital and, in his son's time, [cradle of the Khalsa](/events/creation-of-the-khalsa). His hundred and fifteen hymns, austere and consoling on mortality and detachment, entered [the scripture](/faith/guru-granth-sahib) at Damdama.
+
+## Hind di Chadar
+
+In 1675, answering the appeal of Kashmiri Brahmins facing forced conversion, he staked his life on their freedom of conscience and [was beheaded at Chandni Chowk in Delhi](/events/martyrdom-of-guru-tegh-bahadur). Remembered as *Hind di Chadar* — the shield of India — he died defending a faith not his own; his nine-year-old son became [Guru Gobind Singh](/people/guru-gobind-singh).

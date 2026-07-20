@@ -35,4 +35,3 @@ The Sikh marriage, **Anand Karaj** ("ceremony of bliss"), was introduced by Guru
 
 At death, **Antam Sanskar** is observed with prayers and, normally, cremation, closing with the evening hymn *Kirtan Sohila* — a quiet acceptance of God's will.
 
-_Draft for review — rewritten from scratch for this site; doctrinal details were checked against the sources listed below before publishing._

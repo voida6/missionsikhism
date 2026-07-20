@@ -19,8 +19,14 @@ sources:
     year: 1990
 ---
 
-## About
+## A disciple at sixty
 
-Guru Amar Das Ji — Third Sikh Guru. Who strengthened the institution of langar, opposed practices such as sati and purdah, and established a network of preaching districts (manjis) to spread the teachings.
+Amar Das came to the faith late: a devout pilgrim in his sixties when he first heard Guru Nanak's hymns sung by Bibi Amro, Guru Angad's daughter, and sought out her father at Khadur. For a decade he served the second Guru with legendary humility — carrying water for the Guru's bath from the river before dawn — and in 1552, at seventy-three, was installed as third Guru over the claims of the Guru's sons.
 
-_Draft for review — biography to be expanded, every claim cited._
+## Goindval
+
+From Goindval on the Beas he built the faith's first great institutions of scale. The stepped well (*baoli*) he sank there, with its eighty-four steps, gave the community its first pilgrimage centre of its own. He made the [langar](/glossary/langar) the gate to his presence — *pehle pangat, phir sangat*: first eat together, then meet the Guru — a rule the tradition records even the emperor Akbar honouring, seated on the floor among commoners. He preached against sati, purdah and caste distinction, gathered the community at Vaisakhi and Diwali, and organised the growing faith into twenty-two *manjis* — preaching districts, women among their leaders.
+
+## The hymn of bliss
+
+His composition Anand Sahib — the song of bliss — is recited at every Sikh ceremony [to this day](/faith/ceremonies-and-rites). Before his death in 1574 he installed his son-in-law [Ram Das](/people/guru-ram-das), the builder of [Amritsar](/places/amritsar), as fourth Guru.

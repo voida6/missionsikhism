@@ -33,4 +33,3 @@ His kingdom was notably secular for its age: Hindus, Muslims and Sikhs alike ser
 
 Without him the empire fractured. Two Anglo-Sikh Wars followed — the first in 1845–46, the second in 1848–49 — and after the British victory at Gujrat the Punjab was [annexed on 29 March 1849](/events/british-annexation-of-punjab), and the boy Maharaja Duleep Singh deposed.
 
-_Draft for review — narrative migrated and rewritten from scratch; every claim above is tied to a source in the list below, and dates were verified before publishing._

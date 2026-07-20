@@ -30,4 +30,3 @@ Sikhi rejects distinctions of caste, birth and gender before God. The institutio
 
 Guru Hargobind expressed the principle of **miri-piri** — that spiritual and temporal life are inseparable. A Sikh is called to inner devotion and to just, engaged action in the world alike.
 
-_Draft for review — rewritten from scratch for this site; doctrinal details were checked against the sources listed below before publishing._

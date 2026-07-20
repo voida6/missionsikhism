@@ -28,4 +28,3 @@ Coinciding with Diwali, **Bandi Chhor Divas** — the "day of liberation" — re
 
 Established by Guru Gobind Singh at Anandpur in 1701, **Hola Mohalla** falls the day after Holi and is marked by displays of martial skill, mock battles and poetry — a festival of discipline and courage.
 
-_Draft for review — rewritten from scratch for this site; doctrinal details were checked against the sources listed below before publishing._

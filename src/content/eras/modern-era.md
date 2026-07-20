@@ -26,4 +26,3 @@ In independent India the Punjabi Suba movement sought a Punjabi-speaking state, 
 
 Today Sikhs form a global community — a diaspora across six continents, contributing in every field — while remaining bound to the Punjab. The opening of the [Kartarpur Corridor](/events/kartarpur-corridor-opens) in 2019 restored, for many, a path to one of the faith's most cherished sites. The story remains open.
 
-_Draft for review — narrative migrated and rewritten from scratch; every claim above is tied to a source in the list below, and dates were verified before publishing._

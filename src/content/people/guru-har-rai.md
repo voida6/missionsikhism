@@ -1,6 +1,7 @@
 ---
 name: "Guru Har Rai Ji"
 category: guru
+guruNumber: 7
 relatedPeople:
   - guru-hargobind
   - guru-har-krishan

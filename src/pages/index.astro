@@ -13,6 +13,10 @@ const culture = await getCollection('culture');
 const glossary = await getCollection('glossary');
 const nitnem = await getCollection('nitnem');
 
+// How many entries sit under each era. The spine cards print this so a volume
+// says how much is actually in it — and so they fill out as the chronicle does.
+const entriesInEra = (eraId: string) => events.filter((e) => e.data.era.id === eraId).length;
+
 const eraCount = eras.length;
 const eventCount = events.length;
 const peopleCount = people.length;
@@ -36,9 +40,10 @@ const featuredEvents = featuredSlugs
   .filter((e): e is (typeof events)[number] => Boolean(e));
 
 // The index of people: the Gurus in order, then everyone else.
+// Order of Guruship, not order of birth — the two differ twice over.
 const gurus = people
   .filter((p) => p.data.category === 'guru')
-  .sort((a, b) => (a.data.born ?? 0) - (b.data.born ?? 0));
+  .sort((a, b) => (a.data.guruNumber ?? 99) - (b.data.guruNumber ?? 99));
 
 const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.data.year ?? new Date().getFullYear()}`;
 ---
@@ -53,7 +58,7 @@ const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.dat
       <p class="ik-onkar" aria-hidden="true">ੴ</p>
       <h1>A library of Sikh history</h1>
       <p class="lede">
-        Non-profit and community-built — the history of the Sikh faith,
+        Non-profit and community-built — the history of the Sikh faith,{' '}
         {span}, where every fact is tied to a citation.
       </p>
 
@@ -108,6 +113,9 @@ const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.dat
                   <span class="spine-order">Vol. {era.data.order}</span>
                   <h3>{era.data.title.replace(/^Era \d+ — /, '')}</h3>
                 </div>
+                <span class="spine-count">
+                  {entriesInEra(era.id)} {entriesInEra(era.id) === 1 ? 'entry' : 'entries'}
+                </span>
                 <span class="spine-years">
                   {era.data.startYear}{era.data.endYear ? `–${era.data.endYear}` : '–present'}
                 </span>
@@ -119,17 +127,18 @@ const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.dat
     </div>
   </section>
 
-  <!-- Featured entries: three good first reads -->
+  {/* A sample of the writing, not a second on-ramp — the reading paths in the
+      hero already handle "where do I start?", and saying it twice made the page
+      feel like it was still introducing itself halfway down. */}
   <section class="section">
     <div class="container">
-      <span class="kicker">Featured entries</span>
+      <span class="kicker">From the chronicle</span>
       <div class="section-head-row">
-        <h2 class="section-title">Three good places to begin</h2>
+        <h2 class="section-title">Three entries, three centuries apart</h2>
         <a class="section-link" href="/map">See every event on the map →</a>
       </div>
       <p class="section-sub">
-        A defining moment from the beginning, the middle, and the living memory
-        of the story — each one a doorway into its era.
+        A sense of how entries read: what happened, where, and the works it rests on.
       </p>
       <ul class="excerpt-list">
         {

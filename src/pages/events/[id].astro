@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SourceList from '../../components/SourceList.astro';
 import LastUpdated from '../../components/LastUpdated.astro';
 import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
-import { correctionUrl } from '../../site.config';
+import { correctionEmail } from '../../site.config';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -99,7 +99,11 @@ const jsonld = [
 ];
 ---
 
-<BaseLayout title={`${event.data.title} — Mission Sikhism`} description={event.data.summary}>
+<BaseLayout
+  title={`${event.data.title} — Mission Sikhism`}
+  description={event.data.summary}
+  image={era ? `/og/era-${era.id}.png` : undefined}
+>
   <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
   <article class="section reading-page" style={era?.data.color ? `--era: ${era.data.color}` : undefined}>
     <div class="container">
@@ -233,9 +237,7 @@ const jsonld = [
             )}
             <a
               class="card-map-link"
-              href={correctionUrl(event.data.title, `src/content/events/${event.id}.md`)}
-              rel="noopener noreferrer"
-              target="_blank"
+              href={correctionEmail(event.data.title)}
             >Suggest a correction →</a>
           </div>
 

@@ -1,6 +1,7 @@
 ---
 name: "Guru Ram Das Ji"
 category: guru
+guruNumber: 4
 relatedPeople:
   - guru-amar-das
   - guru-arjan

@@ -1,6 +1,7 @@
 ---
 name: "Guru Tegh Bahadur Ji"
 category: guru
+guruNumber: 9
 relatedPeople:
   - guru-har-krishan
   - guru-gobind-singh

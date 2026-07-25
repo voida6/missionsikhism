@@ -45,6 +45,19 @@
   --font-gurmukhi: "Raavi", "Noto Sans Gurmukhi", "Gurmukhi MN", "Arial Unicode MS", sans-serif;
 
   --maxw: 74rem;
+
+  /* Reading measure. Prose is capped by line length, not by the window: a line
+     much past ~75 characters makes the eye lose its place on the return sweep.
+     --measure is the text column on entry pages (which also carry a catalog
+     card alongside); --measure-solo is for single-column long-form pages,
+     which can afford a touch more width with nothing beside them.
+     --shell-reading = measure + gutter + aside + the container's own padding. */
+  --measure: 40rem;
+  --measure-solo: 42rem;
+  --aside-w: 17.5rem;
+  --reading-gutter: 4.5rem;
+  --shell-reading: 65rem;
+  --shell-solo: 45rem;
   --radius: 8px;
   --radius-sm: 5px;
   --radius-pill: 999px;
@@ -820,7 +833,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 .crumb a:hover { color: var(--accent-strong); }
 
 .lede { font-size: 1.15rem; color: var(--ink-2); line-height: 1.6; }
-article.section .container { max-width: 47rem; }
+article.section .container { max-width: var(--shell-solo); }
 article.section h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); margin: 0.25rem 0 0.9rem; }
 article.section h2 { margin-top: 2.3rem; font-size: 1.4rem; }
 article.section li { margin-block: 0.25rem; }
@@ -862,11 +875,11 @@ article.section li { margin-block: 0.25rem; }
 .last-updated { margin-top: 1.75rem; color: var(--muted); font-size: 0.82rem; }
 
 /* Library */
-.library-list { line-height: 1.85; color: var(--ink-2); }
+.library-list { line-height: 1.85; color: var(--ink-2); max-width: 46rem; }
 .library-list cite { font-style: italic; color: var(--ink); }
 
 /* Long-form readability */
-.culture, .about { max-width: 47rem; }
+.culture, .about { max-width: var(--shell-solo); }
 .culture h2, .about h2 { margin-top: 2.3rem; font-size: 1.4rem; }
 .about h3 { margin-top: 1.6rem; font-size: 1.1rem; }
 
@@ -1340,7 +1353,7 @@ html[data-theme="dark"] .pill[data-cat="martyr"] { color: #f28b8b; }
 .book-spine {
   position: relative;
   flex: 1 0 8.5rem;
-  min-height: 15rem;
+  min-height: 13rem;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
@@ -1388,6 +1401,15 @@ html[data-theme="dark"] .pill[data-cat="martyr"] { color: #f28b8b; }
   font-size: 1.02rem;
   line-height: 1.3;
   font-weight: 700;
+}
+/* Sits in what used to be dead space between the title and the years, and it
+   earns its place: the count is real and grows as entries are added. */
+.book-spine .spine-count {
+  margin-top: auto;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }
 .book-spine .spine-years {
   font-family: var(--font-ui);
@@ -1543,7 +1565,11 @@ html[data-theme="dark"] .pill[data-cat="martyr"] { color: #f28b8b; }
 /* ==========================================================================
    The Reading Room — entry pages (events etc.)
    ========================================================================== */
-.reading-page .container { max-width: 71rem; }
+/* NOTE: this selector must out-rank `article.section .container` above, which
+   caps generic article pages at the solo shell. Matching its specificity and
+   sitting later in the file is enough — a bare `.reading-page .container` lost
+   this fight silently and squeezed every entry into a 41-character column. */
+article.reading-page .container { max-width: var(--shell-reading); }
 .reading-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -1552,11 +1578,15 @@ html[data-theme="dark"] .pill[data-cat="martyr"] { color: #f28b8b; }
   margin-top: 0.5rem;
 }
 @media (min-width: 900px) {
-  .reading-layout { grid-template-columns: minmax(0, 1fr) 17.5rem; gap: 4.5rem; }
+  .reading-layout {
+    grid-template-columns: minmax(0, var(--measure)) var(--aside-w);
+    gap: var(--reading-gutter);
+    justify-content: space-between;
+  }
   .reading-aside { position: sticky; top: 4.5rem; }
 }
 
-.reading-main { max-width: 48rem; }
+.reading-main { max-width: var(--measure); }
 .entry-era-label {
   display: inline-flex;
   align-items: center;
@@ -1595,7 +1625,12 @@ html[data-theme="dark"] .pill[data-cat="martyr"] { color: #f28b8b; }
   padding-left: 1.05rem;
   margin: 0 0 1.6rem;
 }
-.reading-main h2 { margin-top: 2.2rem; font-size: 1.38rem; }
+/* Long-form comfort: slightly larger type and more air between paragraphs than
+   the site default, now that the column is wide enough to carry it. */
+.entry-body { font-size: 1.06rem; line-height: 1.8; }
+.entry-body p { margin-block: 0 1.15em; }
+.entry-body > *:last-child { margin-bottom: 0; }
+.reading-main h2 { margin-top: 2.4rem; font-size: 1.38rem; }
 .reading-main > .entry-body > p:first-of-type::first-letter,
 .reading-main .entry-body > h2:first-child + p::first-letter {
   font-size: 3.1em;
@@ -2011,8 +2046,12 @@ html[data-theme="dark"] .pill[data-cat="martyr"] { color: #f28b8b; }
 
 /* Chapter-opening figure with a credit line set like a citation */
 .entry-figure { margin: 0.4rem 0 1.5rem; }
+.entry-figure[hidden] { display: none; }
 .entry-figure img {
   width: 100%;
+  /* The width/height attributes exist to reserve the right box before the file
+     arrives; height:auto hands the display size back to the layout. */
+  height: auto;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-strong);
   box-shadow: var(--shadow-sm);
@@ -2085,7 +2124,7 @@ html[data-theme="dark"] .pill[data-cat="martyr"] { color: #f28b8b; }
 }
 .path-card p:last-child { margin: 0; color: var(--ink-2); font-size: 0.96rem; }
 
-.path-page { max-width: 48rem; }
+.path-page { max-width: var(--shell-solo); }
 .path-page .entry-lede { border-left-color: var(--accent); }
 .path-steps {
   list-style: none;

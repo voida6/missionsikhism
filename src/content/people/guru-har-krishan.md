@@ -1,6 +1,7 @@
 ---
 name: "Guru Har Krishan Ji"
 category: guru
+guruNumber: 8
 relatedPeople:
   - guru-har-rai
   - guru-tegh-bahadur

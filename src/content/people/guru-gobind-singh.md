@@ -1,6 +1,7 @@
 ---
 name: "Guru Gobind Singh Ji"
 category: guru
+guruNumber: 10
 relatedPeople:
   - guru-tegh-bahadur
 born: 1666

@@ -1,6 +1,7 @@
 ---
 name: "Guru Angad Dev Ji"
 category: guru
+guruNumber: 2
 relatedPeople:
   - guru-nanak
   - guru-amar-das

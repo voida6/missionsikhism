@@ -6,6 +6,8 @@ shortName: "Singh Sabha"
 image:
   src: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Entrance_to_the_Golden_Temple%2C_Amritsar_in_1870.jpg"
   alt: "A photograph of the entrance to the Golden Temple at Amritsar, taken in 1870."
+  width: 906
+  height: 712
   credit: "Entrance to the Golden Temple, Amritsar, 1870 (photographer unknown). Public domain, via Wikimedia Commons"
   creditUrl: "https://commons.wikimedia.org/wiki/File:Entrance_to_the_Golden_Temple,_Amritsar_in_1870.jpg"
 startYear: 1849

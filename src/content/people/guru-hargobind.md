@@ -1,6 +1,7 @@
 ---
 name: "Guru Hargobind Ji"
 category: guru
+guruNumber: 6
 relatedPeople:
   - guru-arjan
   - guru-har-rai

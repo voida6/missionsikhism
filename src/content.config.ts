@@ -37,6 +37,10 @@ const sources = z.array(source).min(1);
 const image = z.object({
   src: z.string(),
   alt: z.string(),
+  // Intrinsic pixel size. Required so the browser can reserve the space before
+  // the file arrives — without it every illustrated page shifts as it loads.
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
   credit: z.string().optional(),
   creditUrl: z.string().url().optional(),
 });
@@ -160,6 +164,10 @@ const people = defineCollection({
         'modern-figure',
         'other',
       ]), // Phase D: required, build-enforced
+    // Succession number for the ten Gurus. Order of Guruship is not the same as
+    // order of birth — Guru Amar Das was born before Guru Angad, Guru Tegh
+    // Bahadur before Guru Har Rai — so it has to be stated, never derived.
+    guruNumber: z.number().int().min(1).max(10).optional(),
     sortName: z.string().optional(), // for alphabetical listing (e.g. "Nanak, Guru")
     honorific: z.string().optional(), // "Sri", "Ji", etc., kept out of the id/name
     relatedPeople: z.array(reference('people')).optional(), // e.g. Guru succession

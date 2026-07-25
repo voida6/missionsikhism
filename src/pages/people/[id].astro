@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SourceList from '../../components/SourceList.astro';
 import LastUpdated from '../../components/LastUpdated.astro';
 import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
-import { correctionUrl } from '../../site.config';
+import { correctionEmail } from '../../site.config';
 
 export async function getStaticPaths() {
   const people = await getCollection('people');
@@ -155,9 +155,7 @@ const jsonld = [
             )}
             <a
               class="card-map-link"
-              href={correctionUrl(person.data.name, `src/content/people/${person.id}.md`)}
-              rel="noopener noreferrer"
-              target="_blank"
+              href={correctionEmail(person.data.name)}
             >Suggest a correction →</a>
           </div>
 

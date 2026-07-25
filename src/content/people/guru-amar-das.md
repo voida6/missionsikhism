@@ -1,6 +1,7 @@
 ---
 name: "Guru Amar Das Ji"
 category: guru
+guruNumber: 3
 relatedPeople:
   - guru-angad
   - guru-ram-das

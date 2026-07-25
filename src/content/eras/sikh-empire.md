@@ -6,6 +6,8 @@ shortName: "Empire"
 image:
   src: "https://upload.wikimedia.org/wikipedia/commons/a/a2/An_equestrian_portrait_of_Maharaja_Ranjit_Singh%2C_accompanied_by_retinue_and_large_fan.jpg"
   alt: "An equestrian portrait of Maharaja Ranjit Singh accompanied by his retinue."
+  width: 1100
+  height: 1543
   credit: "Equestrian portrait of Maharaja Ranjit Singh (artist unknown). Public domain, via Wikimedia Commons"
   creditUrl: "https://commons.wikimedia.org/wiki/File:An_equestrian_portrait_of_Maharaja_Ranjit_Singh,_accompanied_by_retinue_and_large_fan.jpg"
 startYear: 1799

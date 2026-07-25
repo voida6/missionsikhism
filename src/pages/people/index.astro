@@ -35,7 +35,12 @@ const groups = Object.keys(categoryLabels)
   }))
   .filter((g) => g.items.length > 0);
 
-const gurus = groups.find((g) => g.cat === 'guru')?.items ?? [];
+// The Gurus are the one group that must not be sorted by birth year: Guru Amar
+// Das was born before Guru Angad, and Guru Tegh Bahadur before Guru Har Rai.
+// Succession is stated in the frontmatter (guruNumber) and printed from there.
+const gurus = (groups.find((g) => g.cat === 'guru')?.items ?? [])
+  .slice()
+  .sort((a, b) => (a.data.guruNumber ?? 99) - (b.data.guruNumber ?? 99));
 const otherGroups = groups.filter((g) => g.cat !== 'guru');
 ---
 
@@ -67,7 +72,7 @@ const otherGroups = groups.filter((g) => g.cat !== 'guru');
               {gurus.map((p, i) => (
                 <li>
                   <a class="guru-tile" href={`/people/${p.id}`}>
-                    <span class="guru-n" aria-hidden="true">{i + 1}</span>
+                    <span class="guru-n" aria-hidden="true">{p.data.guruNumber ?? i + 1}</span>
                     <span class="guru-body">
                       <span class="guru-name">{p.data.name}</span>
                       <span class="years">

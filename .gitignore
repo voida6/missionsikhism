@@ -17,3 +17,7 @@ npm-debug.log*
 
 # internal planning notes — keep local, do not publish
 docs/
+
+# editor/FUSE leftovers
+.fuse_hidden*
+build.log

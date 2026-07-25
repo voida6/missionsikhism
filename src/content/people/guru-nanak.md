@@ -1,6 +1,7 @@
 ---
 name: "Guru Nanak Dev Ji"
 category: guru
+guruNumber: 1
 relatedPeople:
   - guru-angad
 born: 1469

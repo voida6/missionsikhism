@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SourceList from '../../components/SourceList.astro';
 import LastUpdated from '../../components/LastUpdated.astro';
 import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
-import { correctionUrl } from '../../site.config';
+import { correctionEmail } from '../../site.config';
 
 export async function getStaticPaths() {
   const eras = await getCollection('eras');
@@ -40,7 +40,11 @@ const jsonld = {
 };
 ---
 
-<BaseLayout title={`${era.data.title} — Mission Sikhism`} description={era.data.summary}>
+<BaseLayout
+  title={`${era.data.title} — Mission Sikhism`}
+  description={era.data.summary}
+  image={`/og/era-${era.id}.png`}
+>
   <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
   <article class="section reading-page" style={`--era: ${era.data.color}`}>
     <div class="container">
@@ -62,7 +66,18 @@ const jsonld = {
           {
             era.data.image && (
               <figure class="entry-figure">
-                <img src={era.data.image.src} alt={era.data.image.alt} loading="lazy" />
+                {/* If the file ever fails to load, take the caption down with
+                    it — a credit line with no picture above it reads as a
+                    mistake rather than a missing image. */}
+                <img
+                  src={era.data.image.src}
+                  alt={era.data.image.alt}
+                  width={era.data.image.width}
+                  height={era.data.image.height}
+                  loading="lazy"
+                  decoding="async"
+                  onerror="this.closest('figure').hidden = true"
+                />
                 {era.data.image.credit && (
                   <figcaption>
                     {era.data.image.creditUrl ? (
@@ -150,9 +165,7 @@ const jsonld = {
             <a class="card-map-link" href={`/map?era=${era.id}`}>See this era on the map →</a>
             <a
               class="card-map-link"
-              href={correctionUrl(era.data.title, `src/content/eras/${era.id}.md`)}
-              rel="noopener noreferrer"
-              target="_blank"
+              href={correctionEmail(era.data.title)}
             >Suggest a correction →</a>
           </div>
 

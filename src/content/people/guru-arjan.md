@@ -1,6 +1,7 @@
 ---
 name: "Guru Arjan Dev Ji"
 category: guru
+guruNumber: 5
 relatedPeople:
   - guru-ram-das
   - guru-hargobind

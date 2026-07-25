@@ -222,6 +222,17 @@ const mapData = { events, eras, types, people, categoryLabels };
 
       var map = L.map('map', { scrollWheelZoom: true }).setView([28, 74], 3);
 
+      // The container is sized in vh and sits below web fonts that reflow the
+      // page as they land, so Leaflet routinely measures it before it has
+      // settled and lays the tiles out against a stale size — the map then
+      // renders offset inside its own frame. Re-measure once the page has
+      // finished loading, and again whenever the window changes size.
+      function remeasure() { map.invalidateSize({ animate: false }); }
+      if (document.readyState === 'complete') requestAnimationFrame(remeasure);
+      else window.addEventListener('load', remeasure);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
+      window.addEventListener('resize', remeasure);
+
       // Tiles follow the site theme: CARTO light_all / dark_all.
       var tileOpts = {
         attribution:

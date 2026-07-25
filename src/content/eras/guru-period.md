@@ -4,8 +4,10 @@ order: 1
 color: "#b45309"
 shortName: "Gurus"
 image:
-  src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Guru_Nanak_with_Bhai_Mardana_with_rabab.jpg/1400px-Guru_Nanak_with_Bhai_Mardana_with_rabab.jpg"
+  src: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Guru_Nanak_with_Bhai_Mardana_with_rabab.jpg/1280px-Guru_Nanak_with_Bhai_Mardana_with_rabab.jpg"
   alt: "A painting of Guru Nanak seated beneath a tree with Bhai Mardana playing the rabab."
+  width: 1280
+  height: 804
   credit: "Guru Nanak with Bhai Mardana (artist unknown). Public domain, via Wikimedia Commons"
   creditUrl: "https://commons.wikimedia.org/wiki/File:Guru_Nanak_with_Bhai_Mardana_with_rabab.jpg"
 startYear: 1469

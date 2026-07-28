@@ -1,0 +1,66 @@
+---
+/**
+ * Which Sikh sites fell on which side of the Radcliffe Line.
+ *
+ * Deliberately schematic rather than cartographic. A real map at this size
+ * would imply a precision about the boundary that the drawing cannot support,
+ * and the point being made is not geographic detail — it is the bare fact that
+ * the faith's beginning and its founder's grave ended up on the far side, and
+ * the sites of its later history on the near one.
+ */
+import Diagram from '../Diagram.astro';
+---
+
+<Diagram
+  title="Diagram: major Sikh sites either side of the 1947 Radcliffe Line — Nankana Sahib, Kartarpur, Lahore and Panja Sahib in Pakistan; Amritsar, Anandpur and Delhi in India"
+  caption="Schematic, not a map — positions are indicative and not to scale. What the line separated: the founder's birthplace and the place he died on one side, the community's later centres on the other. Several hundred more gurdwaras were left in West Punjab; many of the smaller village shrines are now known only from pre-1947 Gurmukhi listings."
+>
+  <svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg" role="img">
+    <!-- Side labels -->
+    <text class="d-title" x="150" y="24" text-anchor="middle">West Punjab → Pakistan</text>
+    <text class="d-title" x="530" y="24" text-anchor="middle">East Punjab → India</text>
+
+    <!-- The line -->
+    <line class="d-line-accent" x1="350" y1="36" x2="350" y2="300" stroke-width="2.5" stroke-dasharray="7 5" />
+    <text class="d-year" x="350" y="318" text-anchor="middle">The Radcliffe Line · published 17 August 1947</text>
+
+    <!-- West side sites -->
+    <rect class="d-box-accent" x="40" y="46" width="230" height="52" rx="4" stroke-width="1.5" />
+    <text class="d-label" x="155" y="68" text-anchor="middle">Nankana Sahib</text>
+    <text class="d-note" x="155" y="86" text-anchor="middle">Guru Nanak born, 1469</text>
+
+    <rect class="d-box-accent" x="40" y="110" width="230" height="52" rx="4" stroke-width="1.5" />
+    <text class="d-label" x="155" y="132" text-anchor="middle">Kartarpur</text>
+    <text class="d-note" x="155" y="150" text-anchor="middle">Guru Nanak died, 1539</text>
+
+    <rect class="d-box" x="40" y="174" width="230" height="52" rx="4" stroke-width="1.5" />
+    <text class="d-label" x="155" y="196" text-anchor="middle">Lahore</text>
+    <text class="d-note" x="155" y="214" text-anchor="middle">Guru Arjan executed, 1606</text>
+
+    <rect class="d-box" x="40" y="238" width="230" height="52" rx="4" stroke-width="1.5" />
+    <text class="d-label" x="155" y="260" text-anchor="middle">Panja Sahib, Sialkot</text>
+    <text class="d-note" x="155" y="278" text-anchor="middle">and several hundred more</text>
+
+    <!-- East side sites -->
+    <rect class="d-box" x="430" y="46" width="230" height="52" rx="4" stroke-width="1.5" />
+    <text class="d-label" x="545" y="68" text-anchor="middle">Amritsar</text>
+    <text class="d-note" x="545" y="86" text-anchor="middle">Harmandir Sahib, Akal Takht</text>
+
+    <rect class="d-box" x="430" y="110" width="230" height="52" rx="4" stroke-width="1.5" />
+    <text class="d-label" x="545" y="132" text-anchor="middle">Anandpur</text>
+    <text class="d-note" x="545" y="150" text-anchor="middle">the Khalsa founded, 1699</text>
+
+    <rect class="d-box" x="430" y="174" width="230" height="52" rx="4" stroke-width="1.5" />
+    <text class="d-label" x="545" y="196" text-anchor="middle">Delhi</text>
+    <text class="d-note" x="545" y="214" text-anchor="middle">Guru Tegh Bahadur executed, 1675</text>
+
+    <rect class="d-box" x="430" y="238" width="230" height="52" rx="4" stroke-width="1.5" />
+    <text class="d-label" x="545" y="260" text-anchor="middle">Nanded</text>
+    <text class="d-note" x="545" y="278" text-anchor="middle">Guruship vested in scripture, 1708</text>
+
+    <!-- The corridor, later -->
+    <path class="d-line-accent" d="M270 136 L430 136" stroke-width="1.5" stroke-dasharray="3 3" />
+    <circle class="d-fill-accent" cx="350" cy="136" r="4" />
+    <text class="d-note" x="350" y="126" text-anchor="middle">corridor opened 2019</text>
+  </svg>
+</Diagram>

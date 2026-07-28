@@ -121,6 +121,12 @@ const events = defineCollection({
           'other',
         ]), // Phase D: required, build-enforced
       people: z.array(reference('people')).optional(),
+      // An explanatory diagram to render beneath the entry body. The value is
+      // a key in the registry in src/components/diagrams/index.ts. Kept in
+      // frontmatter rather than embedded in the prose because the entries are
+      // Markdown, not MDX — MDX would parse the `{{n}}` citation tokens as JS
+      // expressions and fail the build.
+      diagram: z.string().optional(),
       relatedEvents: z.array(reference('events')).optional(), // Phase A
       faith: z.array(reference('faith')).optional(), // Phase A: linked doctrine/topics
       image: image.optional(),

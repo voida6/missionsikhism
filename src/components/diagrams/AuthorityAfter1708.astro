@@ -1,0 +1,80 @@
+---
+/**
+ * How Sikh authority worked once the line of personal Gurus ended.
+ *
+ * Drawn because the eighteenth-century entries keep referring to the Sarbat
+ * Khalsa, gurmatas, the Dal Khalsa and the misls as if the relationship
+ * between them were obvious, and it is not. The shape of the answer — two
+ * sources of authority at the top, one assembly, one binding instrument, then
+ * a dozen semi-independent chiefs — explains both how the community survived
+ * persecution and why it eventually needed Ranjit Singh.
+ */
+import Diagram from '../Diagram.astro';
+---
+
+<Diagram
+  title="Diagram: how Sikh authority was structured after 1708 — the Guru Granth Sahib and the Guru Panth, the Sarbat Khalsa assembly, the gurmata, and the misls"
+  caption="How authority worked after the last human Guru. Both sources at the top are doctrinally equal; the assembly below them is where the community's collective authority was actually exercised. Simplified: misl numbers and boundaries shifted constantly, and the assembly met reliably only while there was somewhere safe to meet."
+>
+  <svg viewBox="0 0 700 430" xmlns="http://www.w3.org/2000/svg" role="img">
+    <!-- Two sources of authority -->
+    <rect class="d-box-accent" x="90" y="10" width="220" height="54" rx="4" stroke-width="1.5" />
+    <text class="d-title" x="200" y="32" text-anchor="middle">Guru Granth Sahib</text>
+    <text class="d-sub" x="200" y="50" text-anchor="middle">the scripture — doctrine</text>
+
+    <rect class="d-box-accent" x="390" y="10" width="220" height="54" rx="4" stroke-width="1.5" />
+    <text class="d-title" x="500" y="32" text-anchor="middle">Guru Panth</text>
+    <text class="d-sub" x="500" y="50" text-anchor="middle">the initiated community — decision</text>
+
+    <text class="d-year" x="350" y="32" text-anchor="middle">1708</text>
+    <text class="d-note" x="350" y="50" text-anchor="middle">both, not one</text>
+
+    <!-- Descenders into the assembly -->
+    <path class="d-line-accent" d="M200 64 L200 92 L350 92 L350 112" stroke-width="1.5" />
+    <path class="d-line-accent" d="M500 64 L500 92 L350 92" stroke-width="1.5" />
+
+    <!-- The assembly -->
+    <rect class="d-box" x="185" y="112" width="330" height="72" rx="4" stroke-width="1.5" />
+    <text class="d-title" x="350" y="136" text-anchor="middle">Sarbat Khalsa</text>
+    <text class="d-sub" x="350" y="154" text-anchor="middle">the whole community in assembly</text>
+    <text class="d-note" x="350" y="172" text-anchor="middle">at the Akal Takht, Amritsar · Vaisakhi and Diwali</text>
+
+    <path class="d-line" d="M350 184 L350 210" stroke-width="1.5" />
+
+    <!-- The instrument -->
+    <rect class="d-box" x="235" y="210" width="230" height="56" rx="4" stroke-width="1.5" />
+    <text class="d-title" x="350" y="233" text-anchor="middle">Gurmata</text>
+    <text class="d-sub" x="350" y="251" text-anchor="middle">a resolution binding on every Sikh</text>
+
+    <!-- Fan out to the misls -->
+    <path class="d-line" d="M350 266 L350 288" stroke-width="1.5" />
+    <path class="d-line" d="M120 288 L580 288" stroke-width="1.5" />
+    <path class="d-line" d="M120 288 L120 306 M212 288 L212 306 M304 288 L304 306 M396 288 L396 306 M488 288 L488 306 M580 288 L580 306" stroke-width="1.5" />
+
+    <rect class="d-box" x="80" y="306" width="80" height="40" rx="3" stroke-width="1.2" />
+    <rect class="d-box" x="172" y="306" width="80" height="40" rx="3" stroke-width="1.2" />
+    <rect class="d-box" x="264" y="306" width="80" height="40" rx="3" stroke-width="1.2" />
+    <rect class="d-box" x="356" y="306" width="80" height="40" rx="3" stroke-width="1.2" />
+    <rect class="d-box" x="448" y="306" width="80" height="40" rx="3" stroke-width="1.2" />
+    <rect class="d-box" x="540" y="306" width="80" height="40" rx="3" stroke-width="1.2" />
+
+    <text class="d-label" x="120" y="331" text-anchor="middle">misl</text>
+    <text class="d-label" x="212" y="331" text-anchor="middle">misl</text>
+    <text class="d-label" x="304" y="331" text-anchor="middle">misl</text>
+    <text class="d-label" x="396" y="331" text-anchor="middle">misl</text>
+    <text class="d-label" x="488" y="331" text-anchor="middle">misl</text>
+    <text class="d-label" x="580" y="331" text-anchor="middle">…</text>
+
+    <text class="d-sub" x="350" y="370" text-anchor="middle">
+      Eleven or twelve standing bands — the Dal Khalsa, reorganised by gurmata on Vaisakhi 1748
+    </text>
+    <text class="d-note" x="350" y="388" text-anchor="middle">
+      each with its own chief, banner, territory and revenue
+    </text>
+
+    <line class="d-rule" x1="90" y1="404" x2="610" y2="404" stroke-width="1" stroke-dasharray="3 4" />
+    <text class="d-note" x="350" y="421" text-anchor="middle">
+      Territory funded by rakhi — a fifth of a village's revenue, paid for protection
+    </text>
+  </svg>
+</Diagram>

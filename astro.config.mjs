@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import { existsSync, createReadStream } from 'node:fs';
 import { join, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import remarkCitations from './src/plugins/remark-citations.mjs';
 
 // Pagefind builds its index into dist/pagefind during `npm run build`, so in
 // `npm run dev` the /pagefind/* assets don't exist and search 404s. This tiny
@@ -41,5 +42,7 @@ export default defineConfig({
   // See docs/07-ROADMAP.md (Phase 0).
   site: 'https://missionsikhism.org',
   integrations: [mdx(), sitemap()],
+  // `{{3}}` in entry prose becomes a superscript link to that entry's source 3.
+  markdown: { remarkPlugins: [remarkCitations] },
   vite: { plugins: [pagefindDev] },
 });

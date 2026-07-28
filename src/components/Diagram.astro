@@ -1,0 +1,29 @@
+---
+/**
+ * Wrapper for the hand-built explanatory diagrams.
+ *
+ * Diagrams are inline SVG rather than <img src="*.svg"> for one reason: the
+ * site has a dark theme, and an external SVG cannot see the page's CSS custom
+ * properties. Inlined, the drawing inherits --ink, --accent and the rest, so a
+ * single diagram is correct in both themes with no second asset.
+ *
+ * The caption is not decoration. Every diagram here is making a claim about
+ * how something worked, so it carries a line saying what it is and, where
+ * relevant, what is being simplified.
+ */
+interface Props {
+  /** Accessible name — what the diagram shows, for screen readers. */
+  title: string;
+  /** Visible caption under the drawing. */
+  caption?: string;
+}
+
+const { title, caption } = Astro.props;
+---
+
+<figure class="diagram" role="group" aria-label={title}>
+  <div class="diagram-canvas">
+    <slot />
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

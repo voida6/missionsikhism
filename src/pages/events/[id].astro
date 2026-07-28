@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SourceList from '../../components/SourceList.astro';
 import LastUpdated from '../../components/LastUpdated.astro';
 import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
+import { diagrams } from '../../components/diagrams/index.ts';
 import { correctionEmail } from '../../site.config';
 
 export async function getStaticPaths() {
@@ -13,6 +14,10 @@ export async function getStaticPaths() {
 
 const { event } = Astro.props;
 const { Content } = await render(event);
+// Optional explanatory diagram, looked up from the registry by frontmatter key.
+const Diagram = event.data.diagram
+  ? diagrams[event.data.diagram as keyof typeof diagrams]
+  : undefined;
 const allEvents = await getCollection('events');
 
 // Resolve linked era, place, and people references.
@@ -137,6 +142,16 @@ const jsonld = [
           <div class="entry-body">
             <Content />
           </div>
+
+          {/* Explanatory diagram, if this entry has one. Rendered after the
+              prose rather than inside it: the entries are Markdown, so there
+              is no way to place a component mid-body without switching to MDX,
+              and MDX would break the {{n}} citation tokens. */}
+          {Diagram && (
+            <div class="entry-diagram">
+              <Diagram />
+            </div>
+          )}
 
           <div class="entry-end" aria-hidden="true"><span>☬</span></div>
 

@@ -23,11 +23,12 @@ const { sources } = Astro.props;
 
 <aside class="sources">
   <h4>Sources</h4>
-  <p class="sources-note">Every fact in this entry rests on the works below.</p>
+  <p class="sources-note">Numbers in the text link to the work that supports the claim.</p>
   <ol>
     {
-      sources.map((s) => (
-        <li>
+      sources.map((s, i) => (
+        // id="src-N" is the landing point for the {{N}} markers in the prose.
+        <li id={`src-${i + 1}`}>
           {s.author && <span>{s.author}. </span>}
           {s.url ? (
             <a href={s.url} rel="noopener noreferrer" target="_blank">
@@ -38,9 +39,12 @@ const { sources } = Astro.props;
           )}
           {s.publisher && <span>. {s.publisher}</span>}
           {s.year && <span> ({s.year})</span>}
-          {s.page && <span>, {s.page}</span>}
-          {s.note && <span> — {s.note}</span>}
           <span>.</span>
+          {/* The locator — which page, ang, sakhi or var actually carries the
+              claim. Set on its own line so it reads as a pointer rather than
+              as part of the title. */}
+          {s.page && <span class="src-locator">{s.page}</span>}
+          {s.note && <span class="src-note">{s.note}</span>}
         </li>
       ))
     }

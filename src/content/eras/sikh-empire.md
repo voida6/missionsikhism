@@ -22,7 +22,7 @@ sources:
     url: "https://www.britannica.com/biography/Ranjit-Singh"
   - title: "Encyclopaedia Britannica — Sikh Wars"
     url: "https://www.britannica.com/topic/Sikh-Wars"
-  - title: "The Sikhs of the Punjab (The New Cambridge History of India)"
+  - title: "The Sikhs of the Punjab (The New Cambridge History of India II.3)"
     author: "J. S. Grewal"
     publisher: "Cambridge University Press"
     year: 1990

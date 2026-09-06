@@ -24,6 +24,12 @@ sources:
     author: "Harbans Singh (ed.)"
     publisher: "Punjabi University, Patiala"
     page: "Entries: Dip Singh, Baba; Harimandar"
+  - title: "Sri Gur Panth Prakash (Prachin Panth Prakash)"
+    author: "Rattan Singh Bhangu"
+    url: "https://archive.org/details/SriGurPanthPrakashVolume1episodes1To81"
+    page: "The episodes on the desecration of the Harmandir Sahib and Baba Deep Singh"
+    note: "the fullest account of the eighteenth century from inside the community, by the grandson of a participant. Openly partisan and written to make a case; see the Library entry"
+
 ---
 
 ## The fourth invasion
@@ -45,6 +51,8 @@ They met the Afghan force outside Amritsar in November 1757. Deep Singh was mort
 ## What is tradition and what is not
 
 The decapitation account is devotional. Sikh historians treat it as such, and it is worth separating out so that what remains can be taken seriously — because what remains is remarkable enough.{{2}}
+
+It reaches us chiefly through the Punjabi chronicle tradition, of which Bhangu's is the fullest — a source written to establish what the Khalsa was and by what right it held the Punjab, and one that does not distinguish the way a modern historian would between what happened and what the event means.{{4}} That is a reason to read it carefully, not a reason to discard it: it is also the only substantial account from inside the community of a century most of whose records were never written down.
 
 An elderly scholar with no troops of his own and no military office raised a force and attacked a professional army over the desecration of a building, and was killed doing it. The band he raised outlived him as one of the twelve misls, the Shahid Misl — the martyrs' confederacy.
 

@@ -27,6 +27,14 @@ sources:
     page: "Ch. 6–7, on the Sikh Empire and its collapse"
   - title: "Encyclopaedia Britannica — Ranjit Singh"
     url: "https://www.britannica.com/biography/Ranjit-Singh"
+  - title: "A History of the Sikhs, from the Origin of the Nation to the Battles of the Sutlej"
+    author: "Joseph Davey Cunningham"
+    publisher: "John Murray, London"
+    year: 1849
+    url: "https://archive.org/details/historyofsikhsfr01cunn"
+    page: "The chapters on the Lahore darbar after 1839"
+    note: "a British political officer on the Sutlej frontier, writing within a decade of the events and with access to the Company's reporting on the Lahore court"
+
 ---
 
 ## 27 June 1839
@@ -44,6 +52,8 @@ And no mechanism for succession that did not run through him personally. The emp
 The decade that followed is among the bleakest in Sikh political history. His son Kharak Singh was deposed and died in custody; Kharak Singh's son Nau Nihal Singh was killed by falling masonry on the day of his father's funeral; Sher Singh took the throne and was assassinated in 1843 along with the chief minister. The Dogra brothers who had risen under Ranjit Singh manoeuvred through all of it, and several of them were killed in it too.{{2}}
 
 By 1843 the throne held a five-year-old — [Duleep Singh](/people/duleep-singh) — with his mother Jind Kaur as regent, an army that no longer trusted the court, and a court that had good reason to fear the army. The [First Anglo-Sikh War](/events/first-anglo-sikh-war) began two years later.
+
+Joseph Davey Cunningham, a British political officer on the Sutlej frontier through these years, published his account of the collapse in 1849 while the participants were still alive. It is the earliest full English narrative of the decade and it was written from the vantage point of the power that stood to gain from it — worth reading for both of those reasons at once.{{5}}
 
 ## The judgement
 

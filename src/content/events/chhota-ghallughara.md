@@ -23,6 +23,12 @@ sources:
     author: "Harbans Singh (ed.)"
     publisher: "Punjabi University, Patiala"
     page: "Entry: Chhota Ghallughara"
+  - title: "Sri Gur Panth Prakash (Prachin Panth Prakash)"
+    author: "Rattan Singh Bhangu"
+    url: "https://archive.org/details/SriGurPanthPrakashVolume1episodes1To81"
+    page: "The episodes on Lakhpat Rai's campaign and the fighting in the Kahnuwan marshes"
+    note: "the fullest account of the eighteenth century from inside the community, by the grandson of a participant. Openly partisan and written to make a case; see the Library entry"
+
 ---
 
 ## The pretext
@@ -38,6 +44,8 @@ The Sikhs fell back the way they always had — east and north, towards the [Gur
 They were caught in the marshes with the Ravi at their back and the hills held against them. The fighting ran through the summer days of 1746 as the bands tried to break out east across the river, encumbered — the accounts stress this — with their families and their copies of the scripture.
 
 The usual figures are around seven thousand killed in the marshes, and about three thousand taken alive, marched to [Lahore](/places/lahore), paraded and executed there.{{1,3}}
+
+Those figures reach us mainly through Rattan Singh Bhangu's chronicle, written from inside the community some sixty years later by the grandson of a participant, and they should be held as the tradition's own count rather than as a return anybody compiled at the time.{{4}} What is not in question is the order of magnitude, or that the campaign was declared as extermination rather than as punishment.
 
 ## The name
 

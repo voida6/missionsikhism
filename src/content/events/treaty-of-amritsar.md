@@ -25,6 +25,14 @@ sources:
   - title: "The Encyclopaedia of Sikhism"
     author: "Harbans Singh (ed.)"
     publisher: "Punjabi University, Patiala"
+  - title: "A History of the Sikhs, from the Origin of the Nation to the Battles of the Sutlej"
+    author: "Joseph Davey Cunningham"
+    publisher: "John Murray, London"
+    year: 1849
+    url: "https://archive.org/details/historyofsikhsfr01cunn"
+    page: "The chapters on Ranjit Singh's relations with the British and the Sutlej boundary"
+    note: "the earliest full English narrative of the treaty and what it settled, by an officer who later served on the frontier it created"
+
 ---
 
 ## The problem on both sides
@@ -50,3 +58,5 @@ The cost was a permanent division of the Sikh world at a river. The Cis-Sutlej s
 There is a long argument about whether Ranjit Singh conceded too readily. The case for is that he was twenty-eight, had held Lahore for a decade, and gave up the unification of the Sikh territories without a fight. The case against is that the Company could concentrate more force than he could in 1809, that he knew it, and that he took the arrangement that let him build a state instead of losing one early.{{1,2}}
 
 Grewal's judgement — that the treaty settled the empire's direction more than any battle did — is the one most often followed.{{2}}
+
+The earliest full English narrative of the negotiation is Cunningham's, published in 1849 by an officer who went on to serve on the very frontier the treaty created — and who was [removed from his post](/events/first-anglo-sikh-war) for what he wrote about how that frontier was eventually crossed.{{5}}

@@ -26,6 +26,13 @@ sources:
   - title: "The Encyclopaedia of Sikhism"
     author: "Harbans Singh (ed.)"
     publisher: "Punjabi University, Patiala"
+  - title: "A History of the Sikhs, from the Origin of the Nation to the Battles of the Sutlej"
+    author: "Joseph Davey Cunningham"
+    publisher: "John Murray, London"
+    year: 1849
+    url: "https://archive.org/details/historyofsikhsfr01cunn"
+    page: "The closing chapters, on the campaign of 1845–46 and the conduct of the Sikh commanders"
+    note: "a British political officer present at the war he describes. He stated in print that Lal Singh and Tej Singh had been bought, and criticised Hardinge's Punjab policy; he was removed from his political appointment and returned to regimental duty for it"
 ---
 
 ## A court that feared its own army
@@ -42,7 +49,17 @@ The army crossed the Sutlej in December 1845. Four major actions followed in qui
 
 Ferozeshah was close enough that British accounts of it are unusually frank about how nearly it went the other way. At Sobraon the Sikh army fought in a bridgehead position on the wrong side of the river with the boat bridge behind it; the bridge failed or was destroyed during the battle, and the force was broken against the water. British commanders wrote afterwards, with evident discomfort, about troops who would not surrender.{{1,3}}
 
-At the decisive moments of both Ferozeshah and Sobraon, Lal Singh and Tej Singh withdrew with substantial reserves that had not been committed. Sikh historiography treats this as betrayal rather than incompetence, and the correspondence between the Sikh commanders and the British political agents supports the reading — though the full extent of what was arranged remains argued over.{{1,2}}
+At the decisive moments of both Ferozeshah and Sobraon, Lal Singh and Tej Singh withdrew with substantial reserves that had not been committed.{{1,2}}
+
+## The witness on the other side
+
+This is usually presented as the Sikh version of events, and it is worth being clear that it is not.
+
+Joseph Davey Cunningham was a British political officer on the Sutlej frontier and was present at the campaign. In 1849 he published *A History of the Sikhs*, the first serious account of the Sikhs in English, and in its closing chapters he stated plainly that the two Sikh commanders had been bought, and criticised Lord Hardinge's Punjab policy for what had been done.{{5}}
+
+He was removed from his political appointment for it and returned to regimental duty, losing his income and any prospect of advancement. He died at Ambala in 1851.{{5}}
+
+So the charge that the Khalsa army was sold at Ferozeshah and Sobraon is not a grievance retrofitted by the losing side. It was made in print, in 1849, by an officer of the winning one, who was punished for making it — and whose book is [free to read](https://archive.org/details/historyofsikhsfr01cunn). What remains genuinely argued over is the extent of what was arranged and when, not whether something was.{{1,2,5}}
 
 ## The Treaty of Lahore
 

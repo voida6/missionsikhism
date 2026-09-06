@@ -25,6 +25,22 @@ sources:
     author: "Harbans Singh (ed.)"
     publisher: "Punjabi University, Patiala"
     page: "Entries: Dal Khalsa, Misl, Sarbat Khalsa, Gurmata"
+  - title: "Sketch of the Sikhs"
+    author: "John Malcolm"
+    publisher: "John Murray, London"
+    year: 1812
+    url: "https://archive.org/details/sketchofsikhssin00malcrich"
+    page: "The sections on Guru Gobind Singh's institutions and on the state of the Sikhs c. 1805"
+    note: "written while the misl system was still operating; the earliest English description of the gurmata, which Malcolm calls the 'state council' and locates at Amritsar"
+  - title: "Sri Gur Panth Prakash (Prachin Panth Prakash)"
+    author: "Rattan Singh Bhangu"
+    url: "https://archive.org/details/SriGurPanthPrakashVolume1episodes1To81"
+    note: "the fullest account from inside the community, by the grandson of a participant — and openly partisan; see the Library entry"
+  - title: "When Sparrows Became Hawks: The Making of the Sikh Warrior Tradition, 1699–1799"
+    author: "Purnima Dhavan"
+    publisher: "Oxford University Press"
+    year: 2011
+    note: "argues Khalsa identity and practice were worked out across the eighteenth century rather than fixed in 1699"
 ---
 
 ## After Kahnuwan
@@ -45,10 +61,24 @@ The misl system is easy to describe wrongly in either direction. It was not a st
 
 The binding element was the Sarbat Khalsa itself. A misl chief ran his own territory and his own men, but the confederacy met — traditionally at Amritsar at Vaisakhi and Diwali — and decisions taken there as gurmatas bound the whole. Command in the field was answerable to that assembly rather than to a person. Territory taken under the *rakhi* system was held on terms, in exchange for protection, and was accounted for.{{2,3}}
 
+We are not reliant on later reconstruction for this. John Malcolm, an East India Company officer who published his *Sketch of the Sikhs* in 1812 while the system was still running, describes the *gurmata* as a "state council" meeting at Amritsar, and reads the Sikh polity as a federative republic rather than as an alliance of chiefs — a Company man's assessment, made when his employer was measuring the Sikhs as a potential adversary rather than romanticising them.{{4}}
+
+Malcolm also supplies the other half of the picture. He records a gurmata called around 1805 that was poorly attended, which is direct contemporary evidence of how far the confederacy had come apart by then — and a caution against reading the institution as having worked uniformly across its whole life.{{4}}
+
 It is, in effect, a written constitution operated by an army, with its supreme authority located in a religious assembly and its legitimacy resting on the same formula [Banda Singh Bahadur had struck on his seal](/events/battle-of-chappar-chiri) forty years earlier — authority vested not in a ruler but in the Gurus.
 
 ## What it did
 
 Within nine years the Dal Khalsa was contesting Amritsar with Afghan armies. Within seventeen it [held Lahore and struck coin there](/events/sikh-capture-of-lahore). Within thirty-five it [rode into Delhi](/events/sikh-occupation-of-delhi) and dictated terms to the Mughal emperor.
+
+## What is disputed
+
+The account above treats 1748 as an organising moment applied to a Khalsa that already knew what it was — one whose identity had been settled in 1699 and was now being given a military structure. That framing is the conventional one, and it is under serious challenge.
+
+Purnima Dhavan's *When Sparrows Became Hawks* (2011) argues that the rituals, codes and markers of Khalsa identity were not fixed by Guru Gobind Singh and thereafter merely defended, but were worked out slowly across the eighteenth century, contested from within, and not composite until close to 1799. On that reading the misl period is not the container the Khalsa was carried in — it is where much of the Khalsa was actually made, by the peasant communities who filled the bands rather than by the chiefs who led them.{{5}}
+
+The sources make the argument hard to settle. The fullest account from inside the community is Rattan Singh Bhangu's chronicle, written decades later, openly partisan, and composed partly to answer British enquiries about who the Sikhs were and by what right they held the Punjab.{{4}} It is indispensable and it has a case to make.
+
+## The flaw in it
 
 It also carried the flaw that eventually ended it. A confederacy of independent chiefs bound by an assembly works while the assembly holds authority, and the misls spent the later part of the century fighting each other as often as anyone else. [Ranjit Singh's achievement](/events/ranjit-singh-proclaimed-maharaja) fifty years on was to replace the whole arrangement with a single monarchy — which was more powerful, and which [did not outlive him](/events/death-of-ranjit-singh).{{2}}

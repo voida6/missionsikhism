@@ -23,6 +23,12 @@ sources:
     author: "Harbans Singh (ed.)"
     publisher: "Punjabi University, Patiala"
     page: "Entry: Mani Singh, Bhai"
+  - title: "Sri Gur Panth Prakash (Prachin Panth Prakash)"
+    author: "Rattan Singh Bhangu"
+    url: "https://archive.org/details/SriGurPanthPrakashVolume1episodes1To81"
+    page: "The episodes on Zakariya Khan's administration and the death of Bhai Mani Singh"
+    note: "the fullest account of the eighteenth century from inside the community, by the grandson of a participant. Openly partisan and written to make a case; see the Library entry"
+
 ---
 
 ## Proscription as policy
@@ -45,7 +51,7 @@ He was arrested for the debt, offered his life for conversion, refused, and exec
 
 ## What it shows
 
-The individual details of the execution come from Sikh tradition rather than from Mughal record, and are held with the confidence usually given to a tradition rather than a document.{{2}} The structure of the case is not in that category and is what the entry is for.
+The individual details of the execution come from Sikh tradition rather than from Mughal record — principally the Punjabi chronicles, of which Bhangu's is the fullest — and are held with the confidence usually given to a tradition rather than a document.{{2,4}} The structure of the case is not in that category and is what the entry is for.
 
 There was no battle here, and no rebellion to suppress. A permission was issued, a fee attached to it, an ambush prepared inside it, and a capital charge produced out of the shortfall when the intended victims failed to walk in. This is administration, not warfare — and it is a fair summary of what the decade was.
 

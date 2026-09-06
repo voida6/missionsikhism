@@ -18,7 +18,7 @@ sources:
     author: "Khushwant Singh"
     publisher: "Oxford University Press"
     year: 2004
-  - title: "The Sikhs of the Punjab (The New Cambridge History of India)"
+  - title: "The Sikhs of the Punjab (The New Cambridge History of India II.3)"
     author: "J. S. Grewal"
     publisher: "Cambridge University Press"
     year: 1990

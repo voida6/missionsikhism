@@ -4,7 +4,7 @@ order: 6
 color: "#6b21a8"
 shortName: "Modern"
 image:
-  src: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Gurdwara_Darbar_Sahib_Kartarpur_b.jpg/1280px-Gurdwara_Darbar_Sahib_Kartarpur_b.jpg"
+  src: "/images/eras/modern-era.jpg"
   alt: "Gurdwara Darbar Sahib at Kartarpur, where Guru Nanak spent his final years."
   width: 1280
   height: 818

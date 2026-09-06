@@ -35,12 +35,58 @@ ERAS = [
     ("modern-era", "#6b21a8", "Era 6 — The Modern Era"),
 ]
 
-SERIF_B = "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"
-SERIF = "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf"
-SANS = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-SANS_B = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+# Fonts are looked up rather than hard-coded: this project is written on
+# Windows and built on Linux, and the original absolute DejaVu paths meant the
+# script only ran on one of them. Each entry is tried in order and the first
+# that exists wins. The Windows fallbacks (Georgia, Segoe UI) are the same
+# faces the site's own --font-body / --font-ui stacks fall back to, so a card
+# regenerated on either machine still looks like the site.
+def _font(*candidates):
+    for path in candidates:
+        if os.path.exists(path):
+            return path
+    raise SystemExit(
+        "No usable font found. Tried:\n  " + "\n  ".join(candidates) +
+        "\nInstall DejaVu (Linux: fonts-dejavu-core) or add a path above."
+    )
+
+
+SERIF_B = _font("/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf",
+                "C:/Windows/Fonts/georgiab.ttf")
+SERIF = _font("/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
+              "C:/Windows/Fonts/georgia.ttf")
+SANS = _font("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+             "C:/Windows/Fonts/segoeui.ttf")
+SANS_B = _font("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+               "C:/Windows/Fonts/seguisb.ttf")
 
 MARGIN = 90
+
+# One share card per section of the site. Colours are pulled from the era
+# palette above so the whole set reads as one family rather than ten unrelated
+# images: (slug, kicker, title, subtitle, accent).
+SECTIONS = [
+    ("history", "The chronicle", "The history, era by era",
+     "Six eras from 1469 to today, each entry tied to its sources.", "#b45309"),
+    ("map", "Where it happened", "The Atlas",
+     "Every event in the history, plotted where it happened.", "#1e3a5f"),
+    ("people", "The index of people", "The ten Gurus, and those who followed",
+     "Five centuries of the faith, told through the people who carried it.", "#b91c1c"),
+    ("places", "On the ground", "The places the history happened",
+     "Cities, gurdwaras and battlefields, each with the events it holds.", "#a16207"),
+    ("faith", "Belief and practice", "The Faith",
+     "Core beliefs, practices and values — from One God to the Rehat Maryada.", "#047857"),
+    ("culture", "Lived tradition", "Culture & Heritage",
+     "Sacred music, langar, language and script, and a global community.", "#6b21a8"),
+    ("glossary", "Plain definitions", "Glossary",
+     "Key terms with Gurmukhi, transliteration and a sourced definition.", "#0e7490"),
+    ("nitnem", "Daily practice", "Daily Prayers",
+     "The nitnem — the banis a Sikh reads each day, with a sourced note on each.", "#6d28d9"),
+    ("library", "The bibliography", "Every source, in one place",
+     "Each work this site cites, and how many entries rest on it.", "#4d7c0f"),
+    ("paths", "Start here", "Reading paths",
+     "Short curated routes through the chronicle, for a first visit.", "#be185d"),
+]
 
 
 def rounded(d, box, r, fill):
@@ -154,3 +200,10 @@ if __name__ == "__main__":
             label.split("—")[0].strip(), colour,
             os.path.join(og, f"era-{era_id}.png"),
         )
+
+    # One card per section. Detail pages are not given their own card on
+    # purpose: 112 PNGs in /public to save a generic share image is a bad
+    # trade. Instead event pages borrow their era's card (see events/[id].astro)
+    # and everything else lands on its section card or the default.
+    for slug, kicker, title, subtitle, colour in SECTIONS:
+        card(title, subtitle, kicker, colour, os.path.join(og, f"{slug}.png"))

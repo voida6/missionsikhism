@@ -5,6 +5,8 @@ import SourceList from '../../components/SourceList.astro';
 import LastUpdated from '../../components/LastUpdated.astro';
 import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
 import { correctionEmail } from '../../site.config';
+import { jsonScript } from '../../json-script';
+import { lifespan } from '../../lifespan';
 
 export async function getStaticPaths() {
   const people = await getCollection('people');
@@ -37,7 +39,7 @@ const categoryLabels: Record<string, string> = {
 };
 
 const hasLifespan = typeof person.data.born === 'number' && typeof person.data.died === 'number';
-const yearsLabel = `${person.data.born ?? '?'}–${person.data.died ?? 'present'}`;
+const yearsLabel = lifespan(person.data.born, person.data.died);
 
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const jsonld = [
@@ -62,8 +64,8 @@ const jsonld = [
 ];
 ---
 
-<BaseLayout title={`${person.data.name} — Mission Sikhism`} description={person.data.summary}>
-  <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
+<BaseLayout title={`${person.data.name} — Mission Sikhism`} description={person.data.summary} image="/og/people.png">
+  <script type="application/ld+json" set:html={jsonScript(jsonld)} />
   <article class="section reading-page">
     <div class="container">
       <nav class="crumb" aria-label="Breadcrumb">
@@ -87,7 +89,7 @@ const jsonld = [
           <h1>{person.data.name}</h1>
           <p class="entry-dateline">
             {yearsLabel}
-            {person.data.role ? ` · ${person.data.role}` : ''}
+            {person.data.role ? `${yearsLabel ? ' · ' : ''}${person.data.role}` : ''}
           </p>
           <p class="entry-lede">{person.data.summary}</p>
 

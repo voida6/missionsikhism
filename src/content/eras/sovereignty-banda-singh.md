@@ -4,7 +4,7 @@ order: 2
 color: "#b91c1c"
 shortName: "Sovereignty"
 image:
-  src: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Painting_of_Banda_Singh_Bahadur_being_blessed_with_five_arrows_by_Guru_Gobind_Singh%2C_by_Gian_Singh_Naqqash%2C_ca.1930.jpg"
+  src: "/images/eras/sovereignty-banda-singh.jpg"
   alt: "A painting of Banda Singh Bahadur receiving five arrows in blessing from Guru Gobind Singh."
   width: 1080
   height: 1080

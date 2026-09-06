@@ -6,6 +6,7 @@ import LastUpdated from '../../components/LastUpdated.astro';
 import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
 import { diagrams } from '../../components/diagrams/index.ts';
 import { correctionEmail } from '../../site.config';
+import { jsonScript } from '../../json-script';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -109,7 +110,7 @@ const jsonld = [
   description={event.data.summary}
   image={era ? `/og/era-${era.id}.png` : undefined}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
+  <script type="application/ld+json" set:html={jsonScript(jsonld)} />
   <article class="section reading-page" style={era?.data.color ? `--era: ${era.data.color}` : undefined}>
     <div class="container">
       <nav class="crumb" aria-label="Breadcrumb">

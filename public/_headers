@@ -1,0 +1,38 @@
+# Cloudflare Pages reads this file from the build output and applies the headers
+# to matching paths. Everything here is static and there is no auth, no cookies
+# and no user input, so these are hardening rather than fixes.
+#
+# The one that earns its place regardless: Referrer-Policy. This site is a
+# bibliography — nearly every page links out to a publisher — and without it
+# each of those links hands the full URL the reader was on to the destination.
+
+/*
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+
+# Notes on the CSP above, so the next person does not weaken it by accident:
+#
+# script-src 'unsafe-inline' — the site runs eleven `is:inline` scripts (theme
+#   switch before first paint, mobile nav, the map island, glossary hovers).
+#   Astro does not emit hashes for them, so tightening this means either moving
+#   each to its own file or generating hashes at build time. Left as-is
+#   deliberately: with no user input reaching the DOM and no third-party script
+#   host allowed, the remaining XSS surface is content, which item #14 in the
+#   worklist closes at the serialisation layer.
+#
+# img-src tile.openstreetmap.org — the map's tiles. If the tile provider ever
+#   changes (see docs/08-WORKLIST.md item #3), change it here too or the map
+#   goes blank with only a console error to explain it.
+#
+# style-src 'unsafe-inline' — Leaflet positions every tile and marker with an
+#   inline `style` attribute. Not removable while Leaflet is the map library.
+
+# Hashed build assets are immutable; everything else revalidates.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=604800

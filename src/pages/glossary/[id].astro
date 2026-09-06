@@ -16,7 +16,7 @@ const seeAlso = (term.data.seeAlso ?? [])
   .filter((t) => t !== undefined);
 ---
 
-<BaseLayout title={`${term.data.term} — Glossary`} description={term.data.definition}>
+<BaseLayout title={`${term.data.term} — Glossary`} description={term.data.definition} image="/og/glossary.png">
   <article class="section">
     <div class="container">
       <nav class="crumb" aria-label="Breadcrumb">

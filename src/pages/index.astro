@@ -45,7 +45,13 @@ const gurus = people
   .filter((p) => p.data.category === 'guru')
   .sort((a, b) => (a.data.guruNumber ?? 99) - (b.data.guruNumber ?? 99));
 
-const span = `${events[0]?.data.year ?? 1469}–${events[events.length - 1]?.data.year ?? new Date().getFullYear()}`;
+// The chronicle's span, as the site states it everywhere else: 1469 to today.
+// This used to end at the last event's year, which rendered "1469–2020" in the
+// hero and on the shelf while the footer and About page promised "1469 to
+// today" — and quietly advertised how far behind the newest entry was. The
+// start is still read from the content; the end is the claim the site makes.
+const firstYear = events[0]?.data.year ?? 1469;
+const span = `${firstYear}–today`;
 ---
 
 <BaseLayout

@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import GlossaryHovers from '../components/GlossaryHovers.astro';
+import { jsonScript } from '../json-script';
 
 interface Props {
   title: string;
@@ -139,8 +140,12 @@ const year = new Date().getFullYear();
     <meta name="twitter:image" content={ogImage} />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- iOS ignores SVG favicons, so a saved home-screen tile gets a blank
+         icon without this PNG. Both are generated from the same geometry. -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="alternate" type="application/rss+xml" title="Mission Sikhism — new events" href="/rss.xml" />
-    <script type="application/ld+json" set:html={JSON.stringify(siteJsonld)} />
+    <script type="application/ld+json" set:html={jsonScript(siteJsonld)} />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -219,7 +224,11 @@ const year = new Date().getFullYear();
       </div>
     </header>
 
-    <main id="main">
+    <!-- `data-pagefind-body` scopes the search index to the page's own content.
+         Without it Pagefind indexes every <body>, so the header nav and the
+         footer link lists are indexed on all 112 pages and a search for
+         "Library" or "Glossary" matches the whole site. -->
+    <main id="main" data-pagefind-body>
       <slot />
     </main>
 

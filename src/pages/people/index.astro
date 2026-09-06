@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { lifespan } from '../../lifespan';
 
 // The WHO lens. The ten Gurus render as a compact gallery (one line each, in
 // succession order) so the rest of the index — martyrs, generals, rulers —
@@ -42,11 +43,13 @@ const gurus = (groups.find((g) => g.cat === 'guru')?.items ?? [])
   .slice()
   .sort((a, b) => (a.data.guruNumber ?? 99) - (b.data.guruNumber ?? 99));
 const otherGroups = groups.filter((g) => g.cat !== 'guru');
+
 ---
 
 <BaseLayout
   title="People — Mission Sikhism"
   description="The Gurus and key figures of Sikh history, grouped by their role, each life tied to the events they shaped."
+  image="/og/people.png"
 >
   <section class="section">
     <div class="container">
@@ -75,9 +78,7 @@ const otherGroups = groups.filter((g) => g.cat !== 'guru');
                     <span class="guru-n" aria-hidden="true">{p.data.guruNumber ?? i + 1}</span>
                     <span class="guru-body">
                       <span class="guru-name">{p.data.name}</span>
-                      <span class="years">
-                        {p.data.born ?? '?'}{p.data.died ? `–${p.data.died}` : ''}
-                      </span>
+                      <span class="years">{lifespan(p.data.born, p.data.died)}</span>
                     </span>
                   </a>
                 </li>
@@ -96,9 +97,7 @@ const otherGroups = groups.filter((g) => g.cat !== 'guru');
                 <li class="person-card">
                   <div class="person-head">
                     <h3><a href={`/people/${p.id}`}>{p.data.name}</a></h3>
-                    <span class="years">
-                      {p.data.born ?? '?'}{p.data.died ? `–${p.data.died}` : ''}
-                    </span>
+                    <span class="years">{lifespan(p.data.born, p.data.died)}</span>
                   </div>
                   {p.data.role && <p class="role">{p.data.role}</p>}
                   <p>{p.data.summary}</p>

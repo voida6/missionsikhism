@@ -1,11 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
+import { jsonScript } from '../json-script';
 
 /**
  * Glossary hover-cards: any link to /glossary/<term> inside the page's main
  * content shows a small card with the term, its Gurmukhi, transliteration, and
  * definition on hover or keyboard focus. Desktop enhancement only — on touch
- * devices the link simply navigates to the glossary as before.
+ * devices the link simply navigates to the glossary as before, which shows the
+ * full entry rather than a summary of it. Either way the link is marked as a
+ * defined term by `main a[href^="/glossary/"]` in global.css, so the
+ * affordance does not depend on having a pointer.
  */
 const glossary = await getCollection('glossary');
 const terms = Object.fromEntries(
@@ -21,7 +25,7 @@ const terms = Object.fromEntries(
 );
 ---
 
-<script type="application/json" id="glossary-data" set:html={JSON.stringify(terms)} />
+<script type="application/json" id="glossary-data" set:html={jsonScript(terms)} />
 <div id="gloss-pop" class="gloss-pop" role="tooltip" hidden></div>
 
 <script is:inline>

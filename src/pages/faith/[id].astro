@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SourceList from '../../components/SourceList.astro';
 import LastUpdated from '../../components/LastUpdated.astro';
+import { jsonScript } from '../../json-script';
 
 export async function getStaticPaths() {
   const topics = await getCollection('faith');
@@ -38,8 +39,8 @@ const jsonld = [
 ];
 ---
 
-<BaseLayout title={`${topic.data.title} — The Faith`} description={topic.data.summary}>
-  <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
+<BaseLayout title={`${topic.data.title} — The Faith`} description={topic.data.summary} image="/og/faith.png">
+  <script type="application/ld+json" set:html={jsonScript(jsonld)} />
   <article class="section">
     <div class="container">
       <nav class="crumb" aria-label="Breadcrumb">

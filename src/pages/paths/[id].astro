@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { lifespan } from '../../lifespan';
 
 export async function getStaticPaths() {
   const paths = await getCollection('paths');
@@ -29,7 +30,7 @@ const steps = path.data.steps.map((s) => {
     const p = people.find((x) => x.id === s.person!.id);
     return p && {
       title: p.data.name,
-      when: `${p.data.born ?? '?'}–${p.data.died ?? 'present'}`,
+      when: lifespan(p.data.born, p.data.died),
       summary: p.data.summary,
       url: `/people/${p.id}`,
       note: s.note,
@@ -54,6 +55,7 @@ const first = steps[0];
 <BaseLayout
   title={`${path.data.title} — Reading Paths — Mission Sikhism`}
   description={path.data.summary}
+  image="/og/paths.png"
 >
   <section class="section">
     <div class="container path-page">

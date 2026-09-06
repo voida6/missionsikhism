@@ -43,7 +43,12 @@ npm install
 npm run dev      # http://localhost:4321
 npm run build    # production build into dist/
 npm run preview  # preview the built site
+npm test         # unit checks (node:test, no framework)
 ```
+
+Search 404s under `npm run dev` until `npm run build` has been run once —
+Pagefind builds its index into `dist/`, and the dev server serves the last
+built copy.
 
 ## Editing content (for non-developers)
 
@@ -60,4 +65,13 @@ Pushes to the `main` branch auto-deploy via Cloudflare Pages.
 - **Set `NODE_VERSION` = `22.12.0`** in the Pages project (Cloudflare's default
   Node is too old for current Astro). The `.nvmrc` in this repo covers it too.
 
+Every push and pull request also runs `npm test` and `npm run build` in GitHub
+Actions (`.github/workflows/build.yml`), so a contributor's PR shows a red
+check if an entry is missing its sources — rather than finding out after merge.
+
 Deployed via Cloudflare.
+
+## Licence
+
+Content under `src/content/` is CC BY-SA 4.0; the code is MIT; images carry
+their own credit and licence per entry. See [LICENSE](LICENSE).

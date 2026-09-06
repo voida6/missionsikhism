@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { jsonScript } from '../json-script';
 
 // Signature feature (Phase E). We resolve each event's coordinates server-side
 // (event coords override, else its place) and serialise a lean island; all
@@ -92,6 +93,7 @@ const mapData = { events, eras, types, people, categoryLabels };
 <BaseLayout
   title="Global Map — Mission Sikhism"
   description="An interactive map of Sikh history — every event plotted by place and time, filterable by era, type, and person."
+  image="/og/map.png"
 >
   <link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
   <link rel="stylesheet" href="/vendor/markercluster/MarkerCluster.css" />
@@ -189,7 +191,7 @@ const mapData = { events, eras, types, people, categoryLabels };
 
   </section>
 
-  <script type="application/json" id="map-data" set:html={JSON.stringify(mapData)}></script>
+  <script type="application/json" id="map-data" set:html={jsonScript(mapData)}></script>
   <script is:inline src="/vendor/leaflet/leaflet.js"></script>
   <script is:inline src="/vendor/markercluster/leaflet.markercluster.js"></script>
   <script is:inline>
@@ -233,24 +235,24 @@ const mapData = { events, eras, types, people, categoryLabels };
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(remeasure);
       window.addEventListener('resize', remeasure);
 
-      // Tiles follow the site theme: CARTO light_all / dark_all.
-      var tileOpts = {
+      // Tiles come from OpenStreetMap's own servers, which need no API key.
+      // (We were on CARTO's light_all/dark_all; CARTO now requires a registered
+      // key and serves every tile stamped "API KEY REQUIRED" without one.)
+      //
+      // OSM publishes no dark style, so dark mode is a CSS filter over the same
+      // tiles — see `.map-dark .leaflet-tile` in global.css. That keeps one tile
+      // layer and one cache instead of swapping URLs on every theme change.
+      var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19,
-      };
-      function tileUrl(theme) {
-        return 'https://{s}.basemaps.cartocdn.com/' +
-          (theme === 'dark' ? 'dark_all' : 'light_all') + '/{z}/{x}/{y}{r}.png';
-      }
-      var currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      var tiles = L.tileLayer(tileUrl(currentTheme), tileOpts).addTo(map);
+      }).addTo(map);
+
+      var mapEl = document.getElementById('map');
+      function applyMapTheme(t) { mapEl.classList.toggle('map-dark', t === 'dark'); }
+      applyMapTheme(document.documentElement.getAttribute('data-theme') || 'light');
       document.addEventListener('themechange', function (e) {
-        var t = (e.detail && e.detail.theme) || 'light';
-        if (t === currentTheme) return;
-        currentTheme = t;
-        tiles.setUrl(tileUrl(t));
+        applyMapTheme((e.detail && e.detail.theme) || 'light');
       });
 
       function esc(s) {

@@ -5,6 +5,7 @@ import SourceList from '../../components/SourceList.astro';
 import LastUpdated from '../../components/LastUpdated.astro';
 import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
 import { correctionEmail } from '../../site.config';
+import { jsonScript } from '../../json-script';
 
 export async function getStaticPaths() {
   const eras = await getCollection('eras');
@@ -45,7 +46,7 @@ const jsonld = {
   description={era.data.summary}
   image={`/og/era-${era.id}.png`}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
+  <script type="application/ld+json" set:html={jsonScript(jsonld)} />
   <article class="section reading-page" style={`--era: ${era.data.color}`}>
     <div class="container">
       <nav class="crumb" aria-label="Breadcrumb">

@@ -15,6 +15,10 @@
   --accent-strong: #a8500a;
   --accent-soft: #f7ecd9;
   --accent-glow: rgba(217, 119, 6, 0.18);
+  /* Text sitting ON an accent fill. Light mode's accent is dark enough for
+     white; dark mode's is a bright amber, where white drops to about 2:1 —
+     under half the WCAG AA minimum — so it flips to near-black instead. */
+  --on-accent: #ffffff;
 
   /* Deep Sikh blue — secondary */
   --blue: #1e3a5f;
@@ -74,6 +78,7 @@ html[data-theme="dark"] {
   --accent-strong: #f7b955;
   --accent-soft: rgba(240, 162, 50, 0.14);
   --accent-glow: rgba(240, 162, 50, 0.16);
+  --on-accent: #1a1509;
 
   --blue: #8fb3da;
   --blue-strong: #0f1b2b;
@@ -265,7 +270,7 @@ img { max-width: 100%; height: auto; }
   width: 2.1rem; height: 2.1rem;
   border-radius: 10px;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
-  color: #fff;
+  color: var(--on-accent);
   font-size: 1.25rem;
   line-height: 1;
   box-shadow: var(--shadow-sm);
@@ -356,7 +361,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   padding: 0.45rem 1rem;
   border-radius: var(--radius-pill);
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
-  color: #fff !important;
+  color: var(--on-accent) !important;
   font-size: 0.9rem;
   font-weight: 650;
   text-decoration: none;
@@ -371,7 +376,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
   filter: brightness(1.08);
   transform: translateY(-1px);
-  color: #fff;
+  color: var(--on-accent);
 }
 
 /* Hamburger */
@@ -586,20 +591,20 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 .btn-primary {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
   border-color: transparent;
-  color: #fff;
+  color: var(--on-accent);
   box-shadow: 0 4px 14px var(--accent-glow);
 }
 .btn-primary:hover {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
   filter: brightness(1.07);
   transform: translateY(-1px);
-  color: #fff;
+  color: var(--on-accent);
   border-color: transparent;
 }
 /* Buttons sitting on the hero's dark ground */
 .hero .btn { color: var(--hero-ink); border-color: rgba(255, 255, 255, 0.35); }
 .hero .btn:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.55); color: #fff; }
-.hero .btn-primary { color: #fff; border-color: transparent; }
+.hero .btn-primary { color: var(--on-accent); border-color: transparent; }
 .hero .btn-primary:hover { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%); filter: brightness(1.1); }
 
 /* ==========================================================================
@@ -823,7 +828,7 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 .cta-card p { color: var(--hero-ink-2); max-width: 42rem; margin: 0 0 1.4rem; }
 .cta-card .btn { color: var(--hero-ink); border-color: rgba(255,255,255,0.35); }
 .cta-card .btn:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.55); }
-.cta-card .btn-primary { color: #fff; border-color: transparent; }
+.cta-card .btn-primary { color: var(--on-accent); border-color: transparent; }
 
 /* ==========================================================================
    Article / detail pages
@@ -1183,6 +1188,13 @@ html[data-theme="dark"] .site-footer {
 .map-popup .pop-link { font-weight: 700; color: var(--accent-strong); text-decoration: none; }
 .map-popup .pop-link:hover { text-decoration: underline; }
 .leaflet-container { font: inherit; }
+/* OpenStreetMap ships one style, and it is a light one. Dark mode inverts the
+   tiles and rotates the hue back so land, water and roads keep their relative
+   colours instead of coming out cyan. Applied to the tiles only, so the pins,
+   clusters and popups drawn on top are untouched. */
+.map-dark .leaflet-tile {
+  filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.85) saturate(0.55);
+}
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
   background: var(--surface);
   color: var(--ink);
@@ -1219,7 +1231,7 @@ html[data-theme="dark"] .leaflet-control-attribution a { color: var(--blue); }
 .map-empty-card button {
   margin-top: 0.5rem; padding: 0.5rem 1.1rem; font-weight: 600; cursor: pointer;
   border: 1px solid var(--accent); border-radius: var(--radius-pill);
-  background: var(--accent); color: #fff;
+  background: var(--accent); color: var(--on-accent);
 }
 
 @media (max-width: 860px) {
@@ -1372,15 +1384,15 @@ html[data-theme="dark"] .pill[data-cat="martyr"] { color: #f28b8b; }
 .catalog-search button {
   border: none;
   cursor: pointer;
-  background: var(--blue);
-  color: #fff;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  color: var(--on-accent);
   font-family: var(--font-ui);
   font-weight: 650;
   font-size: 0.95rem;
   padding: 0 1.4rem;
-  transition: background 0.15s ease;
+  transition: filter 0.15s ease;
 }
-.catalog-search button:hover { background: var(--blue-strong); }
+.catalog-search button:hover { filter: brightness(1.07); }
 
 /* "New here? Start with —" the librarian's shelf */
 .start-here {
@@ -2308,6 +2320,29 @@ article.reading-page .container { max-width: var(--shell-reading); }
 /* ==========================================================================
    Glossary hover-cards
    ========================================================================== */
+
+/* A glossary link is marked as a defined term rather than left looking like
+   any other link. This is the whole affordance on touch, where there is no
+   hover card and tapping goes straight to the glossary entry — which is more
+   than the card would have shown anyway. On desktop it doubles as the hint
+   that hovering will do something. */
+main a[href^="/glossary/"] {
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent);
+  cursor: help;
+}
+main a[href^="/glossary/"]:hover,
+main a[href^="/glossary/"]:focus-visible {
+  border-bottom-style: solid;
+}
+/* Not inside the glossary's own pages, where every link is a glossary link
+   and the dotted rule would just be noise. */
+.glossary-item a[href^="/glossary/"],
+.gloss-pop a[href^="/glossary/"] {
+  border-bottom: none;
+  cursor: pointer;
+}
+
 .gloss-pop {
   position: fixed;
   z-index: 1300;

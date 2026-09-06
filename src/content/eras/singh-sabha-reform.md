@@ -4,7 +4,7 @@ order: 5
 color: "#047857"
 shortName: "Singh Sabha"
 image:
-  src: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Entrance_to_the_Golden_Temple%2C_Amritsar_in_1870.jpg"
+  src: "/images/eras/singh-sabha-reform.jpg"
   alt: "A photograph of the entrance to the Golden Temple at Amritsar, taken in 1870."
   width: 906
   height: 712

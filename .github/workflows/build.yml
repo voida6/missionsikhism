@@ -1,0 +1,34 @@
+# The site's one promise — every entry carries a source — is enforced by the
+# content schema, so a build failure IS the content review. Until now that only
+# ran on Cloudflare after a push had already landed on main, which gave an
+# outside contributor's pull request no signal at all. This runs the same build
+# on every PR.
+
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Must match .nvmrc and the NODE_VERSION set in the Cloudflare Pages
+          # project, so a green check here means the deploy will build too.
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm test
+
+      # `astro build` fails on any entry missing `sources`, or missing the
+      # enforced `event.type` / `people.category` / `era.color`. Pagefind then
+      # indexes the result, which is also where a broken build surfaces.
+      - run: npm run build

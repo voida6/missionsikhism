@@ -8,6 +8,11 @@ type: treaty
 lat: 31.582
 lng: 74.3294
 location: "Lahore, present-day Pakistan"
+people:
+  - duleep-singh
+relatedEvents:
+  - first-anglo-sikh-war
+  - death-of-ranjit-singh
 summary: "Ten years after Ranjit Singh's death, the East India Company annexed the Punjab, deposed a child Maharaja and took the Koh-i-Noor — ending Sikh sovereignty and beginning a colonial relationship that reshaped Sikh identity."
 sources:
   - title: "The Sikhs of the Punjab (The New Cambridge History of India II.3)"
@@ -32,13 +37,13 @@ sources:
 
 ## Ten years of collapse
 
-[Ranjit Singh](/events/ranjit-singh-captures-lahore) died in 1839 leaving a large, well-armed state and no working mechanism for succession. What followed was a decade of court killings: four rulers in six years, ministers murdered in the palace, and a Khalsa army that had become a political actor in its own right, negotiating with a darbar it no longer trusted.{{2}}
+[Ranjit Singh](/people/ranjit-singh) [died in 1839](/events/death-of-ranjit-singh) leaving a large, well-armed state and no working mechanism for succession. What followed was a decade of court killings: four rulers in six years, ministers murdered in the palace, and a Khalsa army that had become a political actor in its own right, negotiating with a darbar it no longer trusted.{{2}}
 
-The First Anglo-Sikh War (1845–46) ended in defeat and the Treaty of Lahore, which took territory, cut the army and installed a British Resident. The Second (1848–49) ended it. On 29 March 1849 the Punjab was annexed to the East India Company's territory.{{1,3}}
+The [First Anglo-Sikh War (1845–46)](/events/first-anglo-sikh-war) ended in defeat and the Treaty of Lahore, which took territory, cut the army and installed a British Resident. The Second (1848–49) ended it. On 29 March 1849 the Punjab was annexed to the East India Company's territory.{{1,3}}
 
 ## What was taken
 
-The Maharaja Dalip Singh, Ranjit Singh's youngest son, was ten years old. He was deposed, separated from his mother Jind Kaur, converted to Christianity, and sent to England, where he lived as a curiosity of the Victorian court. As part of the terms of surrender he handed over the Koh-i-Noor diamond to Queen Victoria.{{2,4}}
+The Maharaja [Duleep Singh](/people/duleep-singh), Ranjit Singh's youngest son, was ten years old. He was deposed, separated from his mother Jind Kaur, converted to Christianity, and sent to England, where he lived as a curiosity of the Victorian court. As part of the terms of surrender he handed over the Koh-i-Noor diamond to Queen Victoria.{{2,4}}
 
 The Punjab was the last major Indian territory to fall to the Company. It had also been the hardest — a point the British registered in their own way.
 

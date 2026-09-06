@@ -4,7 +4,7 @@ order: 3
 color: "#a16207"
 shortName: "Misls"
 image:
-  src: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Painting_of_three_seated_Sikh_sardars%2C_Nahar_Singh%2C_Karam_Singh%2C_and_Lehna_Singh%2C_circa_late_18th_century.jpg/1280px-Painting_of_three_seated_Sikh_sardars%2C_Nahar_Singh%2C_Karam_Singh%2C_and_Lehna_Singh%2C_circa_late_18th_century.jpg"
+  src: "/images/eras/misl-period.jpg"
   alt: "A late 18th-century painting of three seated Sikh sardars of the misl period."
   width: 1280
   height: 1766

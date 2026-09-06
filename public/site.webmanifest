@@ -1,0 +1,13 @@
+{
+  "name": "Mission Sikhism",
+  "short_name": "Mission Sikhism",
+  "description": "A non-profit, fully-sourced history of the Sikh faith, from 1469 to today.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f7f2e7",
+  "theme_color": "#f7f2e7",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

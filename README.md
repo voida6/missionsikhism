@@ -4,13 +4,13 @@ A non-profit, fully-sourced history of the Sikh faith (1469 to today), built as 
 static site with [Astro](https://astro.build). Content lives as Markdown in Git —
 no database, no CMS, nothing to hack.
 
-## The core rule: every fact is sourced
+## The core rule: every entry is sourced
 
 Content is organised into content collections — `eras`, `places`, `events`,
 `people`, `faith`, `culture`, `works`, `glossary`, and `nitnem` (see
 `src/content.config.ts`). Every entry **must**
 include a non-empty `sources` list. If a content file omits it, **the build
-fails.** The site's "every fact sourced" promise is enforced by the build, not
+fails.** The site's "every entry sourced" promise is enforced by the build, not
 by memory. Beyond `sources`, the build also enforces the controlled
 vocabularies — every event needs a `type`, every person a `category`, and every
 era a hex `color`, or the build fails.

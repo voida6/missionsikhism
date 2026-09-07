@@ -5,6 +5,8 @@ date: "1745"
 era: sovereignty-banda-singh
 place: lahore
 type: martyrdom
+faith:
+  - the-five-ks
 location: "Lahore, Punjab, Pakistan"
 summary: "A young farmer who fed Sikh fighters from his own crop was taken to Lahore and told to cut his hair and convert. He refused, and his scalp was cut away instead. He was about twenty-five."
 sources:

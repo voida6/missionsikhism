@@ -6,6 +6,7 @@ era: guru-period
 place: anandpur
 type: founding
 faith:
+  - the-five-ks
   - rehat-maryada
   - ceremonies-and-rites
 relatedEvents:

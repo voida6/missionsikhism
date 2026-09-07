@@ -6,6 +6,7 @@ era: guru-period
 place: kartarpur
 type: founding
 faith:
+  - naam-simran
   - foundations-philosophy
 lat: 32.0678
 lng: 75.048

@@ -5,6 +5,8 @@ date: "December 1704"
 era: guru-period
 place: chamkaur
 type: battle
+faith:
+  - the-dasam-granth
 location: "Chamkaur Sahib, Rupnagar district, Punjab, India"
 people:
   - guru-gobind-singh

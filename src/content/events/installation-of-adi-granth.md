@@ -6,6 +6,7 @@ era: guru-period
 place: amritsar
 type: publication
 faith:
+  - naam-simran
   - guru-granth-sahib
 relatedEvents:
   - martyrdom-of-guru-arjan

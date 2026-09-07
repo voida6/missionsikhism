@@ -5,6 +5,8 @@ date: "December 1704"
 era: guru-period
 place: anandpur
 type: battle
+faith:
+  - the-dasam-granth
 location: "Anandpur, Punjab, India"
 people:
   - guru-gobind-singh

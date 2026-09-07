@@ -4,6 +4,8 @@ year: 1761
 era: misl-period
 place: goindwal
 type: other
+people:
+  - jassa-singh-ahluwalia
 location: "The Beas ferry at Goindwal, Punjab, India"
 relatedEvents:
   - formation-of-the-dal-khalsa

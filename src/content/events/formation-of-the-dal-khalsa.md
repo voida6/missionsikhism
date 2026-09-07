@@ -5,6 +5,9 @@ date: "29 March 1748"
 era: misl-period
 place: amritsar
 type: institution
+people:
+  - nawab-kapur-singh
+  - jassa-singh-ahluwalia
 location: "Akal Takht, Amritsar, Punjab, India"
 relatedEvents:
   - chhota-ghallughara
@@ -53,7 +56,7 @@ It also, for the first time in decades, had room to move. Mughal authority in th
 
 The gathering was a *Sarbat Khalsa* — the whole Panth in assembly, meeting at the [Akal Takht](/events/founding-of-akal-takht), the seat [Guru Hargobind](/people/guru-hargobind) had raised in 1606 precisely so that temporal decisions had somewhere to be made. Its resolutions were *gurmatas*, taken in the presence of the Guru Granth Sahib and binding on everyone present.{{3}}
 
-What it resolved was structural. The scattered bands — sixty-odd *jathas* — were consolidated into a single army, the *Dal Khalsa*, under the overall command of Jassa Singh Ahluwalia, and organised into a set of divisions each with its own chief, its own territory and its own following. Those divisions are the *misls*, eventually twelve of them.{{1,2}}
+What it resolved was structural. The scattered bands — sixty-odd *jathas* — were consolidated into a single army, the *Dal Khalsa*, under the overall command of [Jassa Singh Ahluwalia](/people/jassa-singh-ahluwalia), and organised into a set of divisions each with its own chief, its own territory and its own following. Those divisions are the *misls*, eventually twelve of them.{{1,2}}
 
 ## What kind of thing it was
 
@@ -75,9 +78,9 @@ Within nine years the Dal Khalsa was contesting Amritsar with Afghan armies. Wit
 
 The account above treats 1748 as an organising moment applied to a Khalsa that already knew what it was — one whose identity had been settled in 1699 and was now being given a military structure. That framing is the conventional one, and it is under serious challenge.
 
-Purnima Dhavan's *When Sparrows Became Hawks* (2011) argues that the rituals, codes and markers of Khalsa identity were not fixed by Guru Gobind Singh and thereafter merely defended, but were worked out slowly across the eighteenth century, contested from within, and not composite until close to 1799. On that reading the misl period is not the container the Khalsa was carried in — it is where much of the Khalsa was actually made, by the peasant communities who filled the bands rather than by the chiefs who led them.{{5}}
+Purnima Dhavan's *When Sparrows Became Hawks* (2011) argues that the rituals, codes and markers of Khalsa identity were not fixed by Guru Gobind Singh and thereafter merely defended, but were worked out slowly across the eighteenth century, contested from within, and not composite until close to 1799. On that reading the misl period is not the container the Khalsa was carried in — it is where much of the Khalsa was actually made, by the peasant communities who filled the bands rather than by the chiefs who led them.{{6}}
 
-The sources make the argument hard to settle. The fullest account from inside the community is Rattan Singh Bhangu's chronicle, written decades later, openly partisan, and composed partly to answer British enquiries about who the Sikhs were and by what right they held the Punjab.{{4}} It is indispensable and it has a case to make.
+The sources make the argument hard to settle. The fullest account from inside the community is Rattan Singh Bhangu's chronicle, written decades later, openly partisan, and composed partly to answer British enquiries about who the Sikhs were and by what right they held the Punjab.{{5}} It is indispensable and it has a case to make.
 
 ## The flaw in it
 

@@ -5,6 +5,8 @@ date: "11 March 1783"
 era: misl-period
 place: delhi
 type: other
+people:
+  - jassa-singh-ahluwalia
 location: "Delhi, India"
 relatedEvents:
   - martyrdom-of-guru-tegh-bahadur
@@ -31,7 +33,7 @@ sources:
 
 By the 1780s the misls held the Punjab and were raiding well beyond it, into the Ganges plain that the Mughal empire still nominally governed from [Delhi](/places/delhi). The empire of Shah Alam II was by then an authority over not much more than the city itself.
 
-In March 1783 a large force under Baghel Singh, with Jassa Singh Ahluwalia and Jassa Singh Ramgarhia among the leaders, entered Delhi and occupied the Red Fort — the Diwan-i-Am, the hall the emperors gave audience in.{{1,3}}
+In March 1783 a large force under Baghel Singh, with [Jassa Singh Ahluwalia](/people/jassa-singh-ahluwalia) and Jassa Singh Ramgarhia among the leaders, entered Delhi and occupied the Red Fort — the Diwan-i-Am, the hall the emperors gave audience in.{{1,3}}
 
 ## What was asked for
 

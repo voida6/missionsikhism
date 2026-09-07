@@ -5,6 +5,8 @@ date: "14 January 1764"
 era: misl-period
 place: sirhind
 type: battle
+people:
+  - jassa-singh-ahluwalia
 location: "Sirhind, Punjab, India"
 relatedEvents:
   - execution-of-the-younger-sahibzade
@@ -39,7 +41,7 @@ sources:
 
 ## 14 January 1764
 
-The Dal Khalsa came against Sirhind under Jassa Singh Ahluwalia with the misls in concert. Zain Khan was defeated and killed in the field.{{1,3}}
+The Dal Khalsa came against Sirhind under [Jassa Singh Ahluwalia](/people/jassa-singh-ahluwalia) with the misls in concert. Zain Khan was defeated and killed in the field.{{1,3}}
 
 The town was sacked, and the territory of the province was divided among the misls and the Phulkian chiefs — Patiala, Nabha, Jind — who took the eastern share.
 

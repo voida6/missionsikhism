@@ -4,6 +4,8 @@ year: 1733
 era: sovereignty-banda-singh
 place: amritsar
 type: treaty
+people:
+  - nawab-kapur-singh
 location: "Amritsar, Punjab, India"
 relatedEvents:
   - formation-of-the-dal-khalsa
@@ -39,7 +41,7 @@ By 1733 Zakariya Khan, governor at [Lahore](/places/lahore), had been trying to 
 
 The offer was put to a *Sarbat Khalsa* at [Amritsar](/places/amritsar) — which is itself the interesting part, because there was no individual with authority to accept it. The assembly had to.
 
-The title was offered first to Baba Darbara Singh, who declined it. It went then to Kapur Singh, who accepted, and who is known ever afterwards as Nawab Kapur Singh. The tradition holds the assembly took the honour without enthusiasm and that Kapur Singh accepted it as a duty rather than an elevation — a chief given a Mughal rank by a body that did not think Mughal ranks conferred anything.{{1,3}}
+The title was offered first to Baba Darbara Singh, who declined it. It went then to [Kapur Singh](/people/nawab-kapur-singh), who accepted, and who is known ever afterwards as Nawab Kapur Singh. The tradition holds the assembly took the honour without enthusiasm and that Kapur Singh accepted it as a duty rather than an elevation — a chief given a Mughal rank by a body that did not think Mughal ranks conferred anything.{{1,3}}
 
 ## What was done with the three years
 

@@ -23,4 +23,4 @@ sources:
 
 Sikh scripture is written in **Gurmukhi**, the script standardised by Guru Angad, and its language is closely tied to Punjabi. Learning to read Gurmukhi is, for many Sikhs, a first step toward reading the Guru directly.
 
-Punjabi language and literature are woven through Sikh cultural life, from scripture and devotional poetry to everyday speech across the Punjab and the diaspora.
+Punjabi language and literature are woven through Sikh cultural life, from scripture and devotional poetry to everyday speech across the Punjab and the diaspora.{{1,2,3}}

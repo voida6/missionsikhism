@@ -21,4 +21,4 @@ sources:
     url: "https://www.britannica.com/topic/Sikhism"
 ---
 
-The **Nishan Sahib**, the saffron triangular flag bearing the Khanda emblem, flies over every gurdwara. Initiated Sikhs keep the five articles of faith described under [the Rehat Maryada](/faith/rehat-maryada), of which the turban and uncut hair are the most recognised the world over — a visible commitment to identity and equality.
+The **Nishan Sahib**, the saffron triangular flag bearing the Khanda emblem, flies over every gurdwara. Initiated Sikhs keep the five articles of faith described under [the Rehat Maryada](/faith/rehat-maryada), of which the turban and uncut hair are the most recognised the world over — a visible commitment to identity and equality.{{1,2,4}}

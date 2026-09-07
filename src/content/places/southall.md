@@ -21,8 +21,8 @@ sources:
     note: "primary source for Sikh population figures in England and Wales; Scotland and Northern Ireland are counted by separate agencies"
 ---
 
-Southall's Sikh community grew from post-war labour migration — men recruited into the factories of west London and Heathrow through the 1950s and 60s, later joined by families and by East African Sikhs expelled from Kenya and Uganda. The concentration was dense enough that the Broadway acquired the nickname Little Punjab, with Punjabi signage, sweet shops and cloth merchants along it.
+Southall's Sikh community grew from post-war labour migration — men recruited into the factories of west London and Heathrow through the 1950s and 60s, later joined by families and by East African Sikhs expelled from Kenya and Uganda. The concentration was dense enough that the Broadway acquired the nickname Little Punjab, with Punjabi signage, sweet shops and cloth merchants along it.{{1,2}}
 
-Gurdwara Sri Guru Singh Sabha opened its first premises in 1964. The congregation moved to Park Avenue in 1997 so that the Havelock Road site could be demolished and rebuilt; the new building was inaugurated in 2003 and is the largest gurdwara in Europe. Its langar serves thousands of free meals a week to anyone who comes through the door, which is the ordinary practice of every gurdwara operating at unusual scale.
+Gurdwara Sri Guru Singh Sabha opened its first premises in 1964. The congregation moved to Park Avenue in 1997 so that the Havelock Road site could be demolished and rebuilt; the new building was inaugurated in 2003 and is the largest gurdwara in Europe. Its langar serves thousands of free meals a week to anyone who comes through the door, which is the ordinary practice of every gurdwara operating at unusual scale.{{1}}
 
-The oldest Sikh institution in Britain is elsewhere and older: the Khalsa Jatha was formed in London in 1908, took a lease at Sinclair Road in Shepherd's Bush in 1913, and moved in 1969 to the Queensdale Road building where the Central Gurdwara stands today.
+The oldest Sikh institution in Britain is elsewhere and older: the Khalsa Jatha was formed in London in 1908, took a lease at Sinclair Road in Shepherd's Bush in 1913, and moved in 1969 to the Queensdale Road building where the Central Gurdwara stands today.{{2}}

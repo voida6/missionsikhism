@@ -28,14 +28,14 @@ sources:
 
 Bhai Gurdas was a nephew of Guru Amar Das and served four Gurus. In 1604, at [Amritsar](/places/amritsar), [Guru Arjan](/people/guru-arjan) dictated the compilation that became the [Adi Granth](/events/installation-of-adi-granth) and Bhai Gurdas wrote it — the volume known as the Kartarpur Pothi, the ancestor of every copy of the Guru Granth Sahib since.
 
-The work was editorial as well as manual. The Guru selected, arranged by *raga*, and set the boundary against the compositions of rival claimants; Bhai Gurdas executed a scheme that had to be exactly right, because it was going to be fixed.
+The work was editorial as well as manual. The Guru selected, arranged by *raga*, and set the boundary against the compositions of rival claimants; Bhai Gurdas executed a scheme that had to be exactly right, because it was going to be fixed.{{1,2,3}}
 
 ## The Var and the Kabitt
 
 His own writing is substantial: thirty-nine *vars* in Punjabi and a body of *kabitt-savaiyye* in Braj. They are the earliest Sikh writing that explains rather than sings — the first attempt to set out what the Gurus taught in expository form, and the earliest near-contemporary account of Sikh history and institutions.
 
-Guru Arjan is traditionally reported to have called them *the key to the Guru's Word*. That formulation fixes their status precisely: they are not in the scripture and never were, and they are the only non-scriptural texts that may be recited in a [gurdwara](/glossary/gurdwara) alongside it. Later Sikh scholarship still leans on them heavily, because for the sixteenth-century Panth there is not much else written from inside it.
+Guru Arjan is traditionally reported to have called them *the key to the Guru's Word*. That formulation fixes their status precisely: they are not in the scripture and never were, and they are the only non-scriptural texts that may be recited in a [gurdwara](/glossary/gurdwara) alongside it. Later Sikh scholarship still leans on them heavily, because for the sixteenth-century Panth there is not much else written from inside it.{{1,2,3}}
 
 ## Two Gurus, two eras
 
-He lived through the transition that the martyrdom of Guru Arjan forced. He served [Guru Hargobind](/people/guru-hargobind) as well, and his writing is one of the sources for how the community understood the change when the sixth Guru [took up arms and built the Akal Takht](/events/founding-of-akal-takht) — the doctrine later named [miri-piri](/glossary/miri-piri). He died at Goindwal in 1636.
+He lived through the transition that the martyrdom of Guru Arjan forced. He served [Guru Hargobind](/people/guru-hargobind) as well, and his writing is one of the sources for how the community understood the change when the sixth Guru [took up arms and built the Akal Takht](/events/founding-of-akal-takht) — the doctrine later named [miri-piri](/glossary/miri-piri). He died at Goindwal in 1636.{{1,2,3}}

@@ -30,16 +30,16 @@ sources:
 
 Hari Singh entered [Maharaja Ranjit Singh](/people/ranjit-singh)'s service as a teenager and spent his career on the hardest frontier the empire had. He commanded at the taking of Kasur, at [Multan](/places/multan), in the Kashmir campaign of 1819, and at Peshawar, which the Sikh Empire took in 1834 — the first time in about eight centuries that a power based in the Punjab held the city rather than losing it to an army coming the other way.
 
-As governor of the frontier he built and garrisoned a chain of forts through the Khyber approaches, of which [Jamrud](/places/jamrud) — raised in 1836 at the mouth of the pass itself — was the furthest forward.
+As governor of the frontier he built and garrisoned a chain of forts through the Khyber approaches, of which [Jamrud](/places/jamrud) — raised in 1836 at the mouth of the pass itself — was the furthest forward.{{1,2,3}}
 
 ## Jamrud, 1837
 
 In April 1837, with Ranjit Singh's court occupied at [Lahore](/places/lahore) by a royal wedding and much of the army with it, an Afghan force moved on Jamrud. Hari Singh rode from Peshawar with what he had. [The fort held](/events/battle-of-jamrud) and the Afghan advance was stopped, but he was shot during the fighting and died of the wound.
 
-The accounts hold that he ordered his death concealed until relief arrived — that a garrison which learned its commander was dead would not hold the walls. Jamrud stayed in Sikh hands. The Khyber frontier remained where he had put it until the empire itself fell.
+The accounts hold that he ordered his death concealed until relief arrived — that a garrison which learned its commander was dead would not hold the walls. Jamrud stayed in Sikh hands. The Khyber frontier remained where he had put it until the empire itself fell.{{1,2,3}}
 
 ## Reputation
 
 He is the one Sikh Empire figure besides the Maharaja whose name carried beyond the Punjab, and the reputation is double-edged in the sources. Afghan and some British accounts describe his administration of the frontier as severe; Sikh and Punjabi tradition remembers a commander who never lost a field. Both can be true, and a frontier held by force for two decades does not produce a single account of itself.
 
-What is not disputed is the strategic fact. For centuries invasions of India came through the Khyber. Under Ranjit Singh, and under this general specifically, they stopped.
+What is not disputed is the strategic fact. For centuries invasions of India came through the Khyber. Under Ranjit Singh, and under this general specifically, they stopped.{{1,2,3}}

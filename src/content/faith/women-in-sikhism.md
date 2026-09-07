@@ -18,13 +18,13 @@ sources:
 
 ## Equal before God
 
-From Guru Nanak onward, Sikhi taught the spiritual equality of women and men. The Gurus rejected the idea that women were impure or lesser, and Sikh scripture honours women's role in the created order.
+From Guru Nanak onward, Sikhi taught the spiritual equality of women and men. The Gurus rejected the idea that women were impure or lesser, and Sikh scripture honours women's role in the created order.{{1,2,3}}
 
 ## Reform in practice
 
-Guru Amar Das put the principle into practice: he appointed women to lead congregations, and spoke against **sati** (widow-burning), **purdah** (seclusion and veiling) and female infanticide. **Mata Khivi**, wife of Guru Angad, is remembered for organising the langar and is named in the Guru Granth Sahib.
+Guru Amar Das put the principle into practice: he appointed women to lead congregations, and spoke against **sati** (widow-burning), **purdah** (seclusion and veiling) and female infanticide. **Mata Khivi**, wife of Guru Angad, is remembered for organising the langar and is named in the Guru Granth Sahib.{{1,2,3}}
 
 ## Kaur, and the field
 
-With the founding of the Khalsa in 1699, women took the name **Kaur** ("princess"), holding their own standing rather than one derived from a husband. Sikh history remembers women such as **Mai Bhago**, who led Sikh soldiers in battle. Women and men share equally in prayer, service and the reading of scripture.
+With the founding of the Khalsa in 1699, women took the name **Kaur** ("princess"), holding their own standing rather than one derived from a husband. Sikh history remembers women such as **Mai Bhago**, who led Sikh soldiers in battle. Women and men share equally in prayer, service and the reading of scripture.{{1,2,3}}
 

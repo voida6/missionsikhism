@@ -32,7 +32,7 @@ Kapur Singh was born in 1697 at Kaloke in the Lahore province, in what is now th
 
 In 1733 the Lahore government, having failed to destroy the Sikhs, [offered them a grant instead](/events/the-nawabi-of-1733) — a jagir and the title of Nawab for their leader. The Sarbat Khalsa offered the title first to Baba Darbara Singh, who refused it; Kapur Singh accepted, and carried the name for the rest of his life and in the record ever since.
 
-The tradition is emphatic that he took it as a duty rather than an honour, and the detail is consistent with everything else about him: a man given a Mughal rank by an assembly that did not believe Mughal ranks conferred anything.
+The tradition is emphatic that he took it as a duty rather than an honour, and the detail is consistent with everything else about him: a man given a Mughal rank by an assembly that did not believe Mughal ranks conferred anything.{{1,2,3}}
 
 ## What he built
 
@@ -42,7 +42,7 @@ The fighting men were divided into the **Budha Dal**, the veterans, who took cha
 
 When the accommodation collapsed and the persecution resumed — through [Bhai Mani Singh's execution in 1738](/events/martyrdom-of-bhai-mani-singh) and on to [the marshes at Kahnuwan in 1746](/events/chhota-ghallughara) — the men who went back into the field were organised in a way they had not been before.
 
-He also took Faizullapur near [Amritsar](/places/amritsar), renamed it Singhpura, and from it the Singhpuria misl took its name.
+He also took Faizullapur near [Amritsar](/places/amritsar), renamed it Singhpura, and from it the Singhpuria misl took its name.{{1,2,3}}
 
 ## 1748
 
@@ -50,4 +50,4 @@ Two years after Kahnuwan the Sarbat Khalsa met at the Akal Takht and [folded the
 
 He did not keep the command. He handed it to [Jassa Singh Ahluwalia](/people/jassa-singh-ahluwalia), thirty years his junior, whom he had trained himself.
 
-He died at Amritsar in 1753, twelve years before the Sikhs took Lahore. Almost everything the misls did afterwards was done with the machinery he assembled during a truce that lasted three years.
+He died at Amritsar in 1753, twelve years before the Sikhs took Lahore. Almost everything the misls did afterwards was done with the machinery he assembled during a truce that lasted three years.{{1,2,3}}

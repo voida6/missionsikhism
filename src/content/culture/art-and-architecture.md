@@ -33,22 +33,22 @@ It sits **lower than the ground around it**. You go *down* steps to reach it, wh
 
 It stands **in the middle of a pool**, reached by a causeway, which makes the approach itself part of the building.
 
-None of this is decoration. It is [what the Gurus taught](/faith/one-god) rendered in stone by people who had to decide where to put a door.
+None of this is decoration. It is [what the Gurus taught](/faith/one-god) rendered in stone by people who had to decide where to put a door.{{2,3}}
 
 ## The gold came later
 
 The marble and the gold leaf that give the building its English name — the Golden Temple — are not original. They were added under [Maharaja Ranjit Singh](/people/ranjit-singh) in the early nineteenth century, roughly two and a half centuries after [the site was founded](/events/founding-of-amritsar) and the [scripture installed in it in 1604](/events/installation-of-adi-granth).
 
-The structure standing today is also not the one Guru Arjan built. It was destroyed by Afghan forces [in 1757](/events/defence-of-amritsar) and again in 1762, and rebuilt each time. What is continuous is the site and the plan, not the fabric.
+The structure standing today is also not the one Guru Arjan built. It was destroyed by Afghan forces [in 1757](/events/defence-of-amritsar) and again in 1762, and rebuilt each time. What is continuous is the site and the plan, not the fabric.{{1,3}}
 
 ## The decorative tradition
 
 The interior work — *jaratkari* inlay of coloured stone, *gach* relief in gypsum, *tukri* mirror work, and painted floral and animal panels — belongs largely to the Sikh Empire period, and draws on the Mughal and Kangra vocabularies its craftsmen already worked in. Sikh art of that era is not a break from the region's art; it is that art turned to different purposes.
 
-Manuscript illumination is the other main line: decorated *birs* of the scripture, and the janam-sakhi paintings that illustrate episodes from [Guru Nanak's life](/people/guru-nanak) in a Punjabi provincial style.
+Manuscript illumination is the other main line: decorated *birs* of the scripture, and the janam-sakhi paintings that illustrate episodes from [Guru Nanak's life](/people/guru-nanak) in a Punjabi provincial style.{{2,3}}
 
 ## What a gurdwara actually requires
 
 Almost nothing. A gurdwara is defined by the presence of the Guru Granth Sahib installed with due respect, a canopy above it, a place for the congregation to sit on the floor at one level, a kitchen, and the [Nishan Sahib](/glossary/nishan-sahib) outside.
 
-That is why gurdwaras look so different from one another — a converted mill in [Abbotsford](/places/abbotsford), a marble complex in the Punjab, a converted cinema in [Southall](/places/southall) — and why none of them is less a gurdwara for it. The building is not the sacred object. What it houses is.
+That is why gurdwaras look so different from one another — a converted mill in [Abbotsford](/places/abbotsford), a marble complex in the Punjab, a converted cinema in [Southall](/places/southall) — and why none of them is less a gurdwara for it. The building is not the sacred object. What it houses is.{{2,3,4}}

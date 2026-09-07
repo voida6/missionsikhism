@@ -27,20 +27,20 @@ sources:
 
 Born Ramji Das to a Hindu family in 1904, he became a Sikh as a young man while living at a gurdwara in Lahore that fed and housed him. He stayed and did the work of the place.
 
-In 1934 someone left a severely disabled boy at the gurdwara. Nobody claimed him. Puran Singh took him, named him Piara, and carried him on his back — for fourteen years, through the ordinary business of a life, including the flight from Lahore at [Partition](/events/partition-of-punjab). That is the origin of everything that followed: he had already decided he was not going to put a person down.
+In 1934 someone left a severely disabled boy at the gurdwara. Nobody claimed him. Puran Singh took him, named him Piara, and carried him on his back — for fourteen years, through the ordinary business of a life, including the flight from Lahore at [Partition](/events/partition-of-punjab). That is the origin of everything that followed: he had already decided he was not going to put a person down.{{1,2,3}}
 
 ## Pingalwara
 
 Arriving at [Amritsar](/places/amritsar) in 1947 among refugees, he worked in the camps and then simply did not stop. He collected the people nobody else would take — the disabled, the mentally ill, lepers, the abandoned elderly, the dying — first on the pavement outside the railway station, then in premises he begged the funds for. Registered in 1957, the All India Pingalwara Charitable Society still runs.
 
-His method for raising money was to stand in public with a collection box, in the same clothes, for decades. He printed and gave away tracts on whatever he thought people needed to know, and paid for them himself.
+His method for raising money was to stand in public with a collection box, in the same clothes, for decades. He printed and gave away tracts on whatever he thought people needed to know, and paid for them himself.{{1,2,3}}
 
 ## The other campaign
 
 From the 1960s the tracts increasingly concerned soil erosion, deforestation, water pollution, and the costs of intensive fertiliser use in Punjab — arguments made while the Green Revolution was being celebrated without qualification, and which have aged extremely well.
 
-He returned India's Padma Shri in 1984 in protest at [Operation Blue Star](/events/operation-blue-star). He died in 1992.
+He returned India's Padma Shri in 1984 in protest at [Operation Blue Star](/events/operation-blue-star). He died in 1992.{{1,2,3}}
 
 ## Seva, literally
 
-Sikh teaching holds *seva* — service — as an obligation rather than a virtue, and [langar](/glossary/langar) is its institutional form: a kitchen open to anyone. Bhagat Puran Singh is the modern figure the tradition most often points to for what the principle looks like when someone takes it entirely literally for sixty years, with no organisation behind him at the start and no interest in having one.
+Sikh teaching holds *seva* — service — as an obligation rather than a virtue, and [langar](/glossary/langar) is its institutional form: a kitchen open to anyone. Bhagat Puran Singh is the modern figure the tradition most often points to for what the principle looks like when someone takes it entirely literally for sixty years, with no organisation behind him at the start and no interest in having one.{{1,2,3}}

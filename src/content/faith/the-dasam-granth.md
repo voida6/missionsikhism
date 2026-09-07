@@ -40,11 +40,11 @@ It is nevertheless woven through daily Sikh life more thoroughly than most peopl
 - The verses recited during the preparation of *[amrit](/glossary/amrit)* at initiation.
 - The **[Zafarnama](/library)**, the Guru's Persian letter to Aurangzeb, written after [Chamkaur](/events/battle-of-chamkaur).
 
-So a Sikh who reads the daily prayers is reading from it, whatever position they hold on the questions below.
+So a Sikh who reads the daily prayers is reading from it, whatever position they hold on the questions below.{{1,3,4}}
 
 ## What is disputed
 
-This is the genuinely contested text in the tradition, and this site is not going to pretend otherwise or quietly take a side.
+This is the genuinely contested text in the tradition, and this site is not going to pretend otherwise or quietly take a side.{{1,2,3}}
 
 **Authorship.** The collection contains material of very different kinds — devotional praise, autobiography, martial verse, and a long section retelling stories drawn from Puranic and Persian sources, some of them erotic or violent. One position holds the whole to be the Guru's own composition. Another holds that only part is his and the rest is the work of poets at his court, of whom there were many, gathered into one volume afterwards. A third narrows the Guru's authorship further still.
 
@@ -58,4 +58,4 @@ The dispute is not a matter of a missing document that would settle it. It runs 
 
 Positions on it also track other divisions — between institutional bodies, reform movements and the *taksals* — which means the textual question is rarely argued on textual grounds alone.
 
-What can be stated plainly is the part nobody contests: that several of its compositions are recited by Sikhs every day, and that the Guru Granth Sahib alone is the Guru.
+What can be stated plainly is the part nobody contests: that several of its compositions are recited by Sikhs every day, and that the Guru Granth Sahib alone is the Guru.{{2,3,5}}

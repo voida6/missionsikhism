@@ -21,10 +21,10 @@ sources:
     url: "https://celebratecalifornia.library.ca.gov/stockton-is-home-to-nations-first-gurdwara/"
 ---
 
-Punjabi farm labourers reached California's Central Valley in the first decade of the twentieth century. In 1912 the Pacific Coast Khalsa Diwan Society, founded by Jawala Singh and Wasakha Singh, opened a gurdwara at Stockton; prayers began there on 24 October. A larger brick building followed in 1929.
+Punjabi farm labourers reached California's Central Valley in the first decade of the twentieth century. In 1912 the Pacific Coast Khalsa Diwan Society, founded by Jawala Singh and Wasakha Singh, opened a gurdwara at Stockton; prayers began there on 24 October. A larger brick building followed in 1929.{{1,2,3}}
 
-For roughly half a century it was the only gurdwara on the West Coast, and it functioned as far more than a place of worship. It was the religious, social and political centre of South Asian life in California — used by Sikhs, Muslims and Hindus alike, and by the Catholic wives and American-born children of Punjabi men who could not bring families from India under the immigration law of the time.
+For roughly half a century it was the only gurdwara on the West Coast, and it functioned as far more than a place of worship. It was the religious, social and political centre of South Asian life in California — used by Sikhs, Muslims and Hindus alike, and by the Catholic wives and American-born children of Punjabi men who could not bring families from India under the immigration law of the time.{{1,2}}
 
-It was also a base for the Ghadar movement, the revolutionary campaign for Indian independence organised from the American west coast; Punjabi farmers around Stockton helped finance its press, the first Punjabi-language publishing in the United States. Dalip Singh Saund, later the first Asian American, Sikh American and Indian American elected to the US Congress, served as the gurdwara's secretary.
+It was also a base for the Ghadar movement, the revolutionary campaign for Indian independence organised from the American west coast; Punjabi farmers around Stockton helped finance its press, the first Punjabi-language publishing in the United States. Dalip Singh Saund, later the first Asian American, Sikh American and Indian American elected to the US Congress, served as the gurdwara's secretary.{{1,3}}
 
 Estimates of the American Sikh population vary widely, from roughly 280,000 to over 500,000 — the United States does not ask about religion in its census, so no authoritative figure exists.

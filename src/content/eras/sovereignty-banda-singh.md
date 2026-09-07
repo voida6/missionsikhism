@@ -28,13 +28,13 @@ sources:
 
 ## The first sovereign Sikh rule
 
-Acting on Guru Gobind Singh's authority, Banda Singh Bahadur carried the struggle into the Punjab. In 1710 he defeated the Mughal governor Wazir Khan at [Chappar Chiri](/events/battle-of-chappar-chiri) and captured Sirhind, establishing the first sovereign Sikh rule. He struck coin in the name of the Gurus and issued land reforms that favoured the cultivators over the old landholding class.
+Acting on Guru Gobind Singh's authority, Banda Singh Bahadur carried the struggle into the Punjab. In 1710 he defeated the Mughal governor Wazir Khan at [Chappar Chiri](/events/battle-of-chappar-chiri) and captured Sirhind, establishing the first sovereign Sikh rule. He struck coin in the name of the Gurus and issued land reforms that favoured the cultivators over the old landholding class.{{1,2,3}}
 
 ## Reprisal and endurance
 
-Mughal reprisal was severe. Banda Singh was captured and [executed in Delhi in 1716](/events/martyrdom-of-banda-singh). In the decades that followed, governors of Lahore such as Zakariya Khan pursued the Sikhs with bounties and mass executions; in the Chhota Ghallughara of 1746, some seven thousand were killed in the marshes near the Beas.
+Mughal reprisal was severe. Banda Singh was captured and [executed in Delhi in 1716](/events/martyrdom-of-banda-singh). In the decades that followed, governors of Lahore such as Zakariya Khan pursued the Sikhs with bounties and mass executions; in the Chhota Ghallughara of 1746, some seven thousand were killed in the marshes near the Beas.{{1,2,3}}
 
 ## Regrouping as the Dal Khalsa
 
-Yet the community held together. Meeting as the Sarbat Khalsa at Amritsar, the Sikhs organised their scattered fighting bands; on Vaisakhi 1748 these were brought together as the Dal Khalsa — the seed of the misl confederacy that would dominate the Punjab in the years ahead.
+Yet the community held together. Meeting as the Sarbat Khalsa at Amritsar, the Sikhs organised their scattered fighting bands; on Vaisakhi 1748 these were brought together as the Dal Khalsa — the seed of the misl confederacy that would dominate the Punjab in the years ahead.{{1,2,3}}
 

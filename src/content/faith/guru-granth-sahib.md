@@ -15,13 +15,13 @@ sources:
 
 ## The eternal Guru
 
-Before his death in 1708, Guru Gobind Singh [ended the line of human Gurus](/events/guru-granth-eternal-guruship) and vested eternal Guruship in the scripture itself. For Sikhs the Guru Granth Sahib is a living Guru, treated with the reverence due to a sovereign.
+Before his death in 1708, Guru Gobind Singh [ended the line of human Gurus](/events/guru-granth-eternal-guruship) and vested eternal Guruship in the scripture itself. For Sikhs the Guru Granth Sahib is a living Guru, treated with the reverence due to a sovereign.{{1,2,3}}
 
 ## How it was compiled
 
-Guru Arjan [compiled the first edition — the Adi Granth — in 1604](/events/installation-of-adi-granth), dictated to the scribe Bhai Gurdas, and installed it in the Harmandir Sahib. A century later, in 1706, Guru Gobind Singh prepared the final recension at Damdama Sahib, adding the hymns of the ninth Guru, Guru Tegh Bahadur.
+Guru Arjan [compiled the first edition — the Adi Granth — in 1604](/events/installation-of-adi-granth), dictated to the scribe Bhai Gurdas, and installed it in the Harmandir Sahib. A century later, in 1706, Guru Gobind Singh prepared the final recension at Damdama Sahib, adding the hymns of the ninth Guru, Guru Tegh Bahadur.{{1,2,3}}
 
 ## What it contains
 
-The scripture runs to 1,430 *angs* (pages). It gathers the hymns of the Sikh Gurus alongside those of Hindu and Muslim saints — the *bhagats*, among them Kabir, Sheikh Farid, Namdev and Ravidas — an inclusion striking for its time. The compositions are written in the Gurmukhi script and arranged by *raag*, the musical measure to which they are sung.
+The scripture runs to 1,430 *angs* (pages). It gathers the hymns of the Sikh Gurus alongside those of Hindu and Muslim saints — the *bhagats*, among them Kabir, Sheikh Farid, Namdev and Ravidas — an inclusion striking for its time. The compositions are written in the Gurmukhi script and arranged by *raag*, the musical measure to which they are sung.{{1,2,3}}
 

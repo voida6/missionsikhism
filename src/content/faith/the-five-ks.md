@@ -39,24 +39,24 @@ Every Sikh initiated into the [Khalsa](/glossary/khalsa) undertakes to keep five
 - **Kachhera** — a specific cut of undergarment.
 - **Kirpan** — a sword, worn on a strap.
 
-The requirement is set out in the [Rehat Maryada](/library) and applies from [initiation](/glossary/amrit) onward.
+The requirement is set out in the [Rehat Maryada](/library) and applies from [initiation](/glossary/amrit) onward.{{1,2,4}}
 
 ## What they are not
 
 They are not lucky objects, and Sikh teaching is explicit that they carry no power in themselves. A faith whose first statement is that [there is one reality and no other](/faith/one-god) does not then locate protection in a bracelet.
 
-Nor are they symbols in the ordinary sense, where the object stands in for a meaning that could equally be stated in words. The point is closer to the opposite: they are a commitment made physically continuous. You do not decide each morning whether to be identifiable as a Sikh. The decision was taken once, and the articles keep it taken.
+Nor are they symbols in the ordinary sense, where the object stands in for a meaning that could equally be stated in words. The point is closer to the opposite: they are a commitment made physically continuous. You do not decide each morning whether to be identifiable as a Sikh. The decision was taken once, and the articles keep it taken.{{2,3,4}}
 
 ## The kirpan, which people ask about
 
 The kirpan is a sword and the tradition does not soften that. It is worn because [Guru Gobind Singh](/people/guru-gobind-singh) founded a community with an obligation to stand between power and the people it is used against — the argument the ninth Guru [made with his own life in 1675](/events/martyrdom-of-guru-tegh-bahadur), defending the religious freedom of a community not his own.
 
-Its use is bounded by that. The Rehat Maryada frames the Khalsa's arms as answerable to the same discipline as everything else. In practice most kirpans worn today are small, and legal exemptions for them exist in many countries on the basis that they are religiously mandated rather than carried as weapons.
+Its use is bounded by that. The Rehat Maryada frames the Khalsa's arms as answerable to the same discipline as everything else. In practice most kirpans worn today are small, and legal exemptions for them exist in many countries on the basis that they are religiously mandated rather than carried as weapons.{{2,3,4}}
 
 ## When they became fixed
 
 The five are commonly described as instituted whole at [Vaisakhi 1699](/events/creation-of-the-khalsa), and the tradition holds that. Historians of the eighteenth century are more careful.
 
-Purnima Dhavan's study argues that the Khalsa's markers and codes were worked out gradually across the century that followed, through argument inside the community, and were not fully settled until close to 1799. The earlier *rahit-namas* — the codes attributed to Sikhs close to the tenth Guru — differ from one another on details, which is a difficulty for the tidier account.
+Purnima Dhavan's study argues that the Khalsa's markers and codes were worked out gradually across the century that followed, through argument inside the community, and were not fully settled until close to 1799. The earlier *rahit-namas* — the codes attributed to Sikhs close to the tenth Guru — differ from one another on details, which is a difficulty for the tidier account.{{5}}
 
-What is not in doubt is that by the 1740s the outward form was the thing the Mughal administration could see and act on. When Bhai Taru Singh was told to hand over his hair as the price of his life and [refused](/events/martyrdom-of-bhai-taru-singh), both sides were treating the visible form as the substance of the thing.
+What is not in doubt is that by the 1740s the outward form was the thing the Mughal administration could see and act on. When Bhai Taru Singh was told to hand over his hair as the price of his life and [refused](/events/martyrdom-of-bhai-taru-singh), both sides were treating the visible form as the substance of the thing.{{2,4}}

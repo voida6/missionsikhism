@@ -23,13 +23,13 @@ sources:
 
 ## Partition
 
-The [Partition of 1947](/events/partition-of-punjab) cut the Punjab in two. Millions of Sikhs were uprooted from ancestral homes in the west — among them Nankana Sahib, Guru Nanak's birthplace, and Kartarpur — in one of the largest and most violent migrations in history.
+The [Partition of 1947](/events/partition-of-punjab) cut the Punjab in two. Millions of Sikhs were uprooted from ancestral homes in the west — among them Nankana Sahib, Guru Nanak's birthplace, and Kartarpur — in one of the largest and most violent migrations in history.{{1,2}}
 
 ## Independent India
 
-In independent India the Punjabi Suba movement sought a Punjabi-speaking state, achieved when Punjab was reorganised on 1 November 1966. In 1984, the Indian Army's [Operation Blue Star](/events/operation-blue-star) at the Golden Temple, and the violence that followed, left deep and lasting wounds.
+In independent India the Punjabi Suba movement sought a Punjabi-speaking state, achieved when Punjab was reorganised on 1 November 1966. In 1984, the Indian Army's [Operation Blue Star](/events/operation-blue-star) at the Golden Temple, and the violence that followed, left deep and lasting wounds.{{1,2}}
 
 ## A global community
 
-Today Sikhs form a global community — a diaspora across six continents, contributing in every field — while remaining bound to the Punjab. The opening of the [Kartarpur Corridor](/events/kartarpur-corridor-opens) in 2019 restored, for many, a path to one of the faith's most cherished sites. The story remains open.
+Today Sikhs form a global community — a diaspora across six continents, contributing in every field — while remaining bound to the Punjab. The opening of the [Kartarpur Corridor](/events/kartarpur-corridor-opens) in 2019 restored, for many, a path to one of the faith's most cherished sites. The story remains open.{{1,2}}
 

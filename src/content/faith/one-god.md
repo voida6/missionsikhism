@@ -13,13 +13,13 @@ sources:
 
 ## The opening word
 
-The Guru Granth Sahib opens with **Ik Onkar** — literally "one" (*ik*) and "Creator/creation" (*onkar*): there is one God. It is the first phrase of the **Mool Mantar**, the summary of Sikh belief that begins the scripture.
+The Guru Granth Sahib opens with **Ik Onkar** — literally "one" (*ik*) and "Creator/creation" (*onkar*): there is one God. It is the first phrase of the **Mool Mantar**, the summary of Sikh belief that begins the scripture.{{1,2}}
 
 ## A formless God
 
-That one God is described as without form, without gender, beyond time, self-existent, neither born nor dying — knowable through grace and remembrance (*naam*) rather than image or idol. God is both the Creator and present within creation.
+That one God is described as without form, without gender, beyond time, self-existent, neither born nor dying — knowable through grace and remembrance (*naam*) rather than image or idol. God is both the Creator and present within creation.{{1,2}}
 
 ## Truth as the name
 
-The Mool Mantar continues: **Satnam** — truth is the Name — and names God as fearless, without enmity, and beyond birth. These few words open every recitation of the scripture and frame the whole of Sikh devotion.
+The Mool Mantar continues: **Satnam** — truth is the Name — and names God as fearless, without enmity, and beyond birth. These few words open every recitation of the scripture and frame the whole of Sikh devotion.{{1,2}}
 

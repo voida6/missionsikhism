@@ -23,10 +23,10 @@ sources:
     note: "used for the count of gurdwaras and the approximate national figure"
 ---
 
-Spain's Sikh population is small by European standards — around 26,000 — and unusually concentrated. Roughly half of it lives in Catalonia, and the settlement pattern follows specific industries rather than cities in general.
+Spain's Sikh population is small by European standards — around 26,000 — and unusually concentrated. Roughly half of it lives in Catalonia, and the settlement pattern follows specific industries rather than cities in general.{{1,3}}
 
-Barcelona draws Sikhs into hospitality and the restaurant trade; the coastal cities of Valencia, Alicante and Palma do the same. But the most settled communities are inland, in Olot and Vic in Girona province, where the work is in food processing — above all in slaughterhouses and meat plants.
+Barcelona draws Sikhs into hospitality and the restaurant trade; the coastal cities of Valencia, Alicante and Palma do the same. But the most settled communities are inland, in Olot and Vic in Girona province, where the work is in food processing — above all in slaughterhouses and meat plants.{{1,2}}
 
-That last detail is worth sitting with. Many Sikhs are vegetarian, and the Rehat Maryada prohibits eating *kutha* meat, ritually slaughtered in the Muslim manner. A community whose dietary discipline is strict has become a mainstay of an industry it largely does not consume from. It is the kind of arrangement migration produces routinely and that neither side plans: available work meets available workers, and the theology is negotiated afterwards, person by person.
+That last detail is worth sitting with. Many Sikhs are vegetarian, and the Rehat Maryada prohibits eating *kutha* meat, ritually slaughtered in the Muslim manner. A community whose dietary discipline is strict has become a mainstay of an industry it largely does not consume from. It is the kind of arrangement migration produces routinely and that neither side plans: available work meets available workers, and the theology is negotiated afterwards, person by person.{{1}}
 
-Spain has around a dozen gurdwaras, including Gurdwara Bhai Mardana Ji at Olot and Gurdwara Guru Darshan Sahib in Barcelona. A further complication in counting Spanish Sikhs is the large Ravidassia presence in Catalonia — a community with roots in the same Punjabi migration and its own distinct religious identity, frequently counted as Sikh in surveys and often not identifying as such.
+Spain has around a dozen gurdwaras, including Gurdwara Bhai Mardana Ji at Olot and Gurdwara Guru Darshan Sahib in Barcelona. A further complication in counting Spanish Sikhs is the large Ravidassia presence in Catalonia — a community with roots in the same Punjabi migration and its own distinct religious identity, frequently counted as Sikh in surveys and often not identifying as such.{{1,2,3}}

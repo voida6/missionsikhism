@@ -24,10 +24,10 @@ sources:
     page: "771,790 Sikhs at the 2021 census; British Columbia 290,870"
 ---
 
-Sikh settlers reached the Fraser Valley from about 1905, working in farming and the sawmills. In 1908 the community secured land on a hillside above Abbotsford and carried the lumber up from the mills themselves. The Gur Sikh Temple opened on 26 February 1911.
+Sikh settlers reached the Fraser Valley from about 1905, working in farming and the sawmills. In 1908 the community secured land on a hillside above Abbotsford and carried the lumber up from the mills themselves. The Gur Sikh Temple opened on 26 February 1911.{{1,2,3}}
 
-It is not the first gurdwara built in Canada — one was raised at Golden in 1905 and another in Vancouver's Kitsilano in 1908 — but both of those are gone, which makes the Abbotsford building the oldest standing gurdwara in North America. In 2002 it was designated a National Historic Site of Canada, the only gurdwara outside India and Pakistan to hold that status. A Sikh Heritage Museum now occupies the ground floor.
+It is not the first gurdwara built in Canada — one was raised at Golden in 1905 and another in Vancouver's Kitsilano in 1908 — but both of those are gone, which makes the Abbotsford building the oldest standing gurdwara in North America. In 2002 it was designated a National Historic Site of Canada, the only gurdwara outside India and Pakistan to hold that status. A Sikh Heritage Museum now occupies the ground floor.{{2,3}}
 
-The building went up during the years of the *Continuous Journey* regulation, the rule designed to make Indian migration to Canada practically impossible and the same rule that would turn back the *Komagata Maru* and its 376 passengers at Vancouver in 1914. That is the context in which the community was carrying lumber up a hill.
+The building went up during the years of the *Continuous Journey* regulation, the rule designed to make Indian migration to Canada practically impossible and the same rule that would turn back the *Komagata Maru* and its 376 passengers at Vancouver in 1914. That is the context in which the community was carrying lumber up a hill.{{2,3}}
 
-Canada now has the largest Sikh population outside India — 771,790 at the 2021 census, about 2.1 per cent of the country, with 290,870 of them in British Columbia.
+Canada now has the largest Sikh population outside India — 771,790 at the 2021 census, about 2.1 per cent of the country, with 290,870 of them in British Columbia.{{4}}

@@ -24,4 +24,4 @@ sources:
 
 The **gurdwara** ("doorway to the Guru") is the Sikh place of worship, open to all regardless of faith or background. At its heart sits the Guru Granth Sahib, treated as the living Guru. Attached to almost every gurdwara is the **langar** — the free community kitchen founded in Guru Nanak's own time, where volunteers cook and serve a meal to anyone who comes, all seated together on the floor as equals.
 
-Langar is Sikhi's most visible social teaching: equality and service made edible. No one is turned away, and no distinction of caste, wealth, or creed survives the shared meal on the floor.
+Langar is Sikhi's most visible social teaching: equality and service made edible. No one is turned away, and no distinction of caste, wealth, or creed survives the shared meal on the floor.{{1,2,4}}

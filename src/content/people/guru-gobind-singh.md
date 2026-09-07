@@ -23,12 +23,12 @@ sources:
 
 ## A childhood ended at nine
 
-Born at Patna in 1666, Gobind Rai was nine when his father [was executed at Delhi](/events/martyrdom-of-guru-tegh-bahadur) for another community's freedom of worship — and he became tenth Guru at [Anandpur](/places/anandpur) under that shadow. The court he built there was as much literary as martial: poets in Braj, Persian and Punjabi, the Guru himself among them — author of the [Jaap Sahib](/nitnem/jaap-sahib), and of the Zafarnama, the defiant "epistle of victory" later addressed to Aurangzeb.
+Born at Patna in 1666, Gobind Rai was nine when his father [was executed at Delhi](/events/martyrdom-of-guru-tegh-bahadur) for another community's freedom of worship — and he became tenth Guru at [Anandpur](/places/anandpur) under that shadow. The court he built there was as much literary as martial: poets in Braj, Persian and Punjabi, the Guru himself among them — author of the [Jaap Sahib](/nitnem/jaap-sahib), and of the Zafarnama, the defiant "epistle of victory" later addressed to Aurangzeb.{{1,2,3}}
 
 ## The Khalsa
 
-On Vaisakhi 1699 he [created the Khalsa](/events/creation-of-the-khalsa): five volunteers, the double-edged sword, amrit, the names Singh and Kaur, [a discipline](/faith/rehat-maryada) worn on the body. Then he knelt and took initiation from his own initiates — sovereignty handed to the community itself. War followed: Anandpur besieged, evacuated in 1705 on promises broken at the Sarsa; his two elder sons killed at Chamkaur; the younger two, aged about six and nine, bricked up and executed at Sirhind; his mother dead in captivity. The tradition preserves his composure in loss as the model of *chardi kala* — unbroken spirit.
+On Vaisakhi 1699 he [created the Khalsa](/events/creation-of-the-khalsa): five volunteers, the double-edged sword, amrit, the names Singh and Kaur, [a discipline](/faith/rehat-maryada) worn on the body. Then he knelt and took initiation from his own initiates — sovereignty handed to the community itself. War followed: Anandpur besieged, evacuated in 1705 on promises broken at the Sarsa; his two elder sons killed at Chamkaur; the younger two, aged about six and nine, bricked up and executed at Sirhind; his mother dead in captivity. The tradition preserves his composure in loss as the model of *chardi kala* — unbroken spirit.{{1,2,3}}
 
 ## The final acts
 
-At Damdama he fixed the final recension of the scripture; at [Nanded in 1708](/events/guru-granth-eternal-guruship), dying of an assassin's wound, he ended the human Guruship and sealed it in the [Guru Granth Sahib](/faith/guru-granth-sahib) forever — having first sent [Banda Singh Bahadur](/people/banda-singh-bahadur) north to the Punjab.
+At Damdama he fixed the final recension of the scripture; at [Nanded in 1708](/events/guru-granth-eternal-guruship), dying of an assassin's wound, he ended the human Guruship and sealed it in the [Guru Granth Sahib](/faith/guru-granth-sahib) forever — having first sent [Banda Singh Bahadur](/people/banda-singh-bahadur) north to the Punjab.{{1,2,3}}

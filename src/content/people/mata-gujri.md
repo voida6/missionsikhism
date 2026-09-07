@@ -28,16 +28,16 @@ sources:
 
 Mata Gujri married [Guru Tegh Bahadur](/people/guru-tegh-bahadur), and for the two decades he spent largely in withdrawal and travel she held the household. Their only child, Gobind Rai, was born at Patna in 1666 while his father was in Assam; she raised him there, and brought him to [Anandpur](/places/anandpur) as a boy.
 
-In 1675 her husband was [executed at Delhi](/events/martyrdom-of-guru-tegh-bahadur) for refusing to convert, and for defending the right of Kashmiri Brahmins — a community not his own — to keep their religion. Her nine-year-old son became [Guru Gobind Singh](/people/guru-gobind-singh).
+In 1675 her husband was [executed at Delhi](/events/martyrdom-of-guru-tegh-bahadur) for refusing to convert, and for defending the right of Kashmiri Brahmins — a community not his own — to keep their religion. Her nine-year-old son became [Guru Gobind Singh](/people/guru-gobind-singh).{{1,2,3}}
 
 ## Sirhind
 
 Thirty years later, in the freezing December of 1704, the family was scattered while crossing the flooded Sirsa river in the retreat from Anandpur. Mata Gujri, then about eighty, was separated from her son along with his two youngest children — Zorawar Singh, roughly nine, and Fateh Singh, roughly seven. They were betrayed to the authorities and taken to Sirhind, where the governor Wazir Khan held them in an open tower.
 
-The boys were brought before Wazir Khan and offered their lives in exchange for conversion. They refused, on the accounts, over successive days. They were executed — bricked into a wall, in the tradition's memory of it — and Mata Gujri died in the tower the same day.
+The boys were brought before Wazir Khan and offered their lives in exchange for conversion. They refused, on the accounts, over successive days. They were executed — bricked into a wall, in the tradition's memory of it — and Mata Gujri died in the tower the same day.{{1,2,3}}
 
 ## Why it is remembered as it is
 
 Sikh memory does not treat the Sirhind killings as one atrocity among many, and the reason is partly what followed. Five years later [Banda Singh Bahadur](/people/banda-singh-bahadur) marched on Sirhind and broke Wazir Khan's army at [Chappar Chiri](/events/battle-of-chappar-chiri); the campaign that produced the [first Sikh state](/history/sovereignty-banda-singh) began as an answer to what happened in that tower.
 
-The other reason is the shape of the loss itself. Mata Gujri is remembered for having lost a father-in-law, a husband and four grandsons to the same demand — that the family change its religion — and having conceded nothing.
+The other reason is the shape of the loss itself. Mata Gujri is remembered for having lost a father-in-law, a husband and four grandsons to the same demand — that the family change its religion — and having conceded nothing.{{1,2,3}}

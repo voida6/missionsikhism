@@ -21,10 +21,10 @@ sources:
     url: "https://en.wikipedia.org/wiki/Sikh_Temple_Makindu,_Makindu"
 ---
 
-The Uganda Railway, driven inland from Mombasa toward Lake Victoria between 1896 and 1901, was built substantially by labourers and artisans brought from British India, a large number of them Sikhs from Punjab. Makindu was a service point on the line. The men there kept a Guru Granth Sahib in a tin-roofed hut and prayed daily.
+The Uganda Railway, driven inland from Mombasa toward Lake Victoria between 1896 and 1901, was built substantially by labourers and artisans brought from British India, a large number of them Sikhs from Punjab. Makindu was a service point on the line. The men there kept a Guru Granth Sahib in a tin-roofed hut and prayed daily.{{2,3}}
 
-A permanent gurdwara was built in 1926, and a larger one opened on 27 April 1930 before a gathering of Sikhs from across East Africa. What makes Makindu remarkable is not the building but the practice that has never lapsed since. It sits on the main road between Mombasa and Nairobi, and it feeds and houses anyone who stops — Sikh, Muslim, Christian, Hindu, of any nationality, free of charge, around the clock. Truck drivers, backpackers and stranded travellers have relied on it for the better part of a century.
+A permanent gurdwara was built in 1926, and a larger one opened on 27 April 1930 before a gathering of Sikhs from across East Africa. What makes Makindu remarkable is not the building but the practice that has never lapsed since. It sits on the main road between Mombasa and Nairobi, and it feeds and houses anyone who stops — Sikh, Muslim, Christian, Hindu, of any nationality, free of charge, around the clock. Truck drivers, backpackers and stranded travellers have relied on it for the better part of a century.{{2,3}}
 
-This is not a special dispensation. It is [langar](/glossary/langar) exactly as Guru Nanak instituted it at [Kartarpur](/events/founding-of-kartarpur) — food shared without asking who anyone is — carried five thousand kilometres and applied literally to a highway in Kenya.
+This is not a special dispensation. It is [langar](/glossary/langar) exactly as Guru Nanak instituted it at [Kartarpur](/events/founding-of-kartarpur) — food shared without asking who anyone is — carried five thousand kilometres and applied literally to a highway in Kenya.{{1}}
 
-East Africa's Sikh community was much larger before the expulsions and Africanisation policies of the late 1960s and 1970s, which sent most of Kenya's and Uganda's Asians to Britain. Makindu's congregation is now small, and the gurdwara is maintained substantially for the travellers rather than for itself.
+East Africa's Sikh community was much larger before the expulsions and Africanisation policies of the late 1960s and 1970s, which sent most of Kenya's and Uganda's Asians to Britain. Makindu's congregation is now small, and the gurdwara is maintained substantially for the travellers rather than for itself.{{1}}

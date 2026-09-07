@@ -22,10 +22,10 @@ sources:
     url: "https://worldpopulationreview.com/country-rankings/sikhism-by-country"
 ---
 
-Italy holds one of the largest Sikh populations in Europe — on most estimates around 200,000, behind only the United Kingdom — and almost none of it is in the cities tourists know. It is in the agricultural Po valley, and it exists because of cheese.
+Italy holds one of the largest Sikh populations in Europe — on most estimates around 200,000, behind only the United Kingdom — and almost none of it is in the cities tourists know. It is in the agricultural Po valley, and it exists because of cheese.{{2,3}}
 
-Parmigiano-Reggiano production requires dairy herds milked twice a day, every day, including holidays. From the late 1980s Italian farms in Emilia-Romagna and Lombardy struggled to find local labour willing to do it, and Punjabi men — many with farming backgrounds — took the work. Sikhs became central to an industry that is a protected symbol of Italian identity, a fact Italians themselves often find surprising. The community's presence in the region is now measured in generations rather than in seasons.
+Parmigiano-Reggiano production requires dairy herds milked twice a day, every day, including holidays. From the late 1980s Italian farms in Emilia-Romagna and Lombardy struggled to find local labour willing to do it, and Punjabi men — many with farming backgrounds — took the work. Sikhs became central to an industry that is a protected symbol of Italian identity, a fact Italians themselves often find surprising. The community's presence in the region is now measured in generations rather than in seasons.{{1,2}}
 
-Novellara, a town of around 13,000 in the province of Reggio Emilia, holds one of the largest concentrations. Its gurdwara, built with the community's own money and private donations, was inaugurated in 2000 — the first purpose-built gurdwara in Italy, opened in the presence of Romano Prodi. Italy now has roughly sixty gurdwaras.
+Novellara, a town of around 13,000 in the province of Reggio Emilia, holds one of the largest concentrations. Its gurdwara, built with the community's own money and private donations, was inaugurated in 2000 — the first purpose-built gurdwara in Italy, opened in the presence of Romano Prodi. Italy now has roughly sixty gurdwaras.{{1}}
 
-The claim sometimes made that Novellara's was the first gurdwara in Europe needs qualifying: London's Khalsa Jatha dates to 1908, and [Southall](/places/southall) long predates it. Novellara's distinction is as a purpose-built building rather than a converted one.
+The claim sometimes made that Novellara's was the first gurdwara in Europe needs qualifying: London's Khalsa Jatha dates to 1908, and [Southall](/places/southall) long predates it. Novellara's distinction is as a purpose-built building rather than a converted one.{{1,2}}

@@ -22,12 +22,12 @@ sources:
 
 ## From Lehna to Angad
 
-Born in 1504 at Matte di Sarai in central Punjab, Lehna was a devout worshipper of the goddess Durga until, in middle life, he heard Guru Nanak's hymns and travelled to [Kartarpur](/places/kartarpur) to meet their author. He stayed to become the community's most self-effacing servant; the tradition's stories of his testing all turn on obedience the Guru's own sons would not give. Nanak renamed him Angad — "of my own limb" — and installed him as Guru in 1539.
+Born in 1504 at Matte di Sarai in central Punjab, Lehna was a devout worshipper of the goddess Durga until, in middle life, he heard Guru Nanak's hymns and travelled to [Kartarpur](/places/kartarpur) to meet their author. He stayed to become the community's most self-effacing servant; the tradition's stories of his testing all turn on obedience the Guru's own sons would not give. Nanak renamed him Angad — "of my own limb" — and installed him as Guru in 1539.{{1,2}}
 
 ## The script of the scripture
 
-From his seat at Khadur Sahib, Guru Angad gave the community durable institutions. He standardised the Gurmukhi script — "from the Guru's mouth" — in which [the scripture](/faith/guru-granth-sahib) and [the language of Sikh life](/culture/language-and-script) have been written since, collected Guru Nanak's hymns, and added his own shloks, which the Granth preserves. Schools for children, wrestling grounds for the young, and a [langar](/glossary/langar) famously kept by his wife Mata Khivi — remembered by name in the scripture itself — made Khadur a working model of Nanak's Kartarpur.
+From his seat at Khadur Sahib, Guru Angad gave the community durable institutions. He standardised the Gurmukhi script — "from the Guru's mouth" — in which [the scripture](/faith/guru-granth-sahib) and [the language of Sikh life](/culture/language-and-script) have been written since, collected Guru Nanak's hymns, and added his own shloks, which the Granth preserves. Schools for children, wrestling grounds for the young, and a [langar](/glossary/langar) famously kept by his wife Mata Khivi — remembered by name in the scripture itself — made Khadur a working model of Nanak's Kartarpur.{{1,2}}
 
 ## Passing the light
 
-Following his teacher's precedent, he passed over his sons and installed the aged, tireless [Amar Das](/people/guru-amar-das) as third Guru in 1552 — the succession by merit now a settled principle of [the Guru period](/history/guru-period).
+Following his teacher's precedent, he passed over his sons and installed the aged, tireless [Amar Das](/people/guru-amar-das) as third Guru in 1552 — the succession by merit now a settled principle of [the Guru period](/history/guru-period).{{1,2}}

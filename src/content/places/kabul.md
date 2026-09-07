@@ -25,10 +25,10 @@ sources:
     url: "https://feeds.bbci.co.uk/news/world-asia-61850021"
 ---
 
-Sikhs and Hindus lived in Afghanistan for centuries, trading along the routes between Punjab and Central Asia and long established in Kabul, Jalalabad and Ghazni. In the 1970s the Sikh population was around 100,000.
+Sikhs and Hindus lived in Afghanistan for centuries, trading along the routes between Punjab and Central Asia and long established in Kabul, Jalalabad and Ghazni. In the 1970s the Sikh population was around 100,000.{{1}}
 
-Four decades of war, the Taliban's first period in power, and targeted violence have very nearly ended it. By 2020 fewer than seven hundred Sikhs and Hindus remained in the whole country. In March that year gunmen of Islamic State Khorasan Province attacked Gurdwara Har Rai Sahib in Shor Bazar, the old Sikh quarter of Kabul, killing twenty-five people at prayer. That gurdwara and the nearby Dharamshala — by tradition the oldest Sikh place of worship in the city — were abandoned afterwards.
+Four decades of war, the Taliban's first period in power, and targeted violence have very nearly ended it. By 2020 fewer than seven hundred Sikhs and Hindus remained in the whole country. In March that year gunmen of Islamic State Khorasan Province attacked Gurdwara Har Rai Sahib in Shor Bazar, the old Sikh quarter of Kabul, killing twenty-five people at prayer. That gurdwara and the nearby Dharamshala — by tradition the oldest Sikh place of worship in the city — were abandoned afterwards.{{1,2,3}}
 
-That left Gurdwara Karte Parwan as the last functioning gurdwara in Kabul, sheltering families who had nowhere else to go. On 18 June 2022 it too was attacked, with explosives, gunfire and grenades; Islamic State Khorasan Province again claimed responsibility. Most of those who could leave have gone, to India or beyond. Those who remain are largely the ones who cannot afford to.
+That left Gurdwara Karte Parwan as the last functioning gurdwara in Kabul, sheltering families who had nowhere else to go. On 18 June 2022 it too was attacked, with explosives, gunfire and grenades; Islamic State Khorasan Province again claimed responsibility. Most of those who could leave have gone, to India or beyond. Those who remain are largely the ones who cannot afford to.{{2,3}}
 
-The Afghan Sikh community is the clearest case of something the wider diaspora tends to obscure: these are not only stories of arrival and growth. Some of the oldest communities outside Punjab are ending within a single lifetime.
+The Afghan Sikh community is the clearest case of something the wider diaspora tends to obscure: these are not only stories of arrival and growth. Some of the oldest communities outside Punjab are ending within a single lifetime.{{1}}

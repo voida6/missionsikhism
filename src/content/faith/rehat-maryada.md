@@ -13,13 +13,13 @@ sources:
 
 ## A shared discipline
 
-The **Sikh Rehat Maryada** is the code of conduct that sets out Sikh belief, ceremony and daily practice. Drawn together over years of deliberation and approved by the Shiromani Gurdwara Parbandhak Committee in 1945, it gives Sikhs worldwide a single, agreed standard.
+The **Sikh Rehat Maryada** is the code of conduct that sets out Sikh belief, ceremony and daily practice. Drawn together over years of deliberation and approved by the Shiromani Gurdwara Parbandhak Committee in 1945, it gives Sikhs worldwide a single, agreed standard.{{1,2}}
 
 ## The Five Ks
 
-An initiated (*Amritdhari*) Sikh keeps the five articles of faith, the **Panj Kakar**: **kesh** (uncut hair), **kangha** (a wooden comb), **kara** (a steel bracelet), **kachera** (a cotton undergarment) and **kirpan** (a small sword). Together they mark commitment to the Khalsa.
+An initiated (*Amritdhari*) Sikh keeps the five articles of faith, the **Panj Kakar**: **kesh** (uncut hair), **kangha** (a wooden comb), **kara** (a steel bracelet), **kachera** (a cotton undergarment) and **kirpan** (a small sword). Together they mark commitment to the Khalsa.{{1,2}}
 
 ## The four prohibitions
 
-The code names four cardinal prohibitions (*bajjar kurahits*): cutting the hair, eating *kutha* meat (ritually slaughtered), adultery, and the use of tobacco or other intoxicants.
+The code names four cardinal prohibitions (*bajjar kurahits*): cutting the hair, eating *kutha* meat (ritually slaughtered), adultery, and the use of tobacco or other intoxicants.{{1,2}}
 

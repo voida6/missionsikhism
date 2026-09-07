@@ -17,11 +17,11 @@ sources:
 
 ## A life around the Guru
 
-Sikh rites of passage are simple and centre on the Guru Granth Sahib. Four mark the stages of life: birth, initiation, marriage and death.
+Sikh rites of passage are simple and centre on the Guru Granth Sahib. Four mark the stages of life: birth, initiation, marriage and death.{{1,2,3}}
 
 ## Naam Karan
 
-Soon after a birth, the family gathers before the Guru Granth Sahib; the scripture is opened at random and the child's name begins with the first letter of the hymn on that page. Boys take the name **Singh** ("lion") and girls **Kaur** ("princess").
+Soon after a birth, the family gathers before the Guru Granth Sahib; the scripture is opened at random and the child's name begins with the first letter of the hymn on that page. Boys take the name **Singh** ("lion") and girls **Kaur** ("princess").{{1,2,3}}
 
 ## Amrit Sanchar
 
@@ -29,9 +29,9 @@ Soon after a birth, the family gathers before the Guru Granth Sahib; the scriptu
 
 ## Anand Karaj
 
-The Sikh marriage, **Anand Karaj** ("ceremony of bliss"), was introduced by Guru Amar Das. The couple circles the Guru Granth Sahib four times as the four **laavan** — hymns composed by Guru Ram Das — are sung, each verse marking a stage of the union.
+The Sikh marriage, **Anand Karaj** ("ceremony of bliss"), was introduced by Guru Amar Das. The couple circles the Guru Granth Sahib four times as the four **laavan** — hymns composed by Guru Ram Das — are sung, each verse marking a stage of the union.{{1,2,3}}
 
 ## Antam Sanskar
 
-At death, **Antam Sanskar** is observed with prayers and, normally, cremation, closing with the evening hymn *Kirtan Sohila* — a quiet acceptance of God's will.
+At death, **Antam Sanskar** is observed with prayers and, normally, cremation, closing with the evening hymn *Kirtan Sohila* — a quiet acceptance of God's will.{{1,2,3}}
 

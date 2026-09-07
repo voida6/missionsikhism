@@ -28,13 +28,13 @@ sources:
 
 ## Renewal under colonial rule
 
-Under British rule, Sikhs set about renewing their faith and institutions. The [Singh Sabha movement](/events/founding-of-singh-sabha), begun at Amritsar in 1873, promoted education, standardised religious practice, and reasserted a distinct Sikh identity — founding schools and, in 1892, Khalsa College at Amritsar.
+Under British rule, Sikhs set about renewing their faith and institutions. The [Singh Sabha movement](/events/founding-of-singh-sabha), begun at Amritsar in 1873, promoted education, standardised religious practice, and reasserted a distinct Sikh identity — founding schools and, in 1892, Khalsa College at Amritsar.{{1,2}}
 
 ## Jallianwala Bagh
 
-Colonial rule also brought tragedy. On Vaisakhi 1919, British troops fired on an unarmed crowd penned inside the walled garden of [Jallianwala Bagh](/events/jallianwala-bagh-massacre) in Amritsar, killing hundreds — a turning point for the wider Indian independence movement.
+Colonial rule also brought tragedy. On Vaisakhi 1919, British troops fired on an unarmed crowd penned inside the walled garden of [Jallianwala Bagh](/events/jallianwala-bagh-massacre) in Amritsar, killing hundreds — a turning point for the wider Indian independence movement.{{1,2}}
 
 ## The Gurdwara Reform movement
 
-Sikhs also moved to free the historic shrines from hereditary custodians. They formed the Shiromani Gurdwara Parbandhak Committee (SGPC) in 1920 to manage the gurdwaras; through a campaign of peaceful *morchas* — and despite bloodshed such as the Nankana Sahib massacre of 20 February 1921 — the struggle culminated in the Sikh Gurdwaras Act of 1925, which placed the shrines under elected community control.
+Sikhs also moved to free the historic shrines from hereditary custodians. They formed the Shiromani Gurdwara Parbandhak Committee (SGPC) in 1920 to manage the gurdwaras; through a campaign of peaceful *morchas* — and despite bloodshed such as the Nankana Sahib massacre of 20 February 1921 — the struggle culminated in the Sikh Gurdwaras Act of 1925, which placed the shrines under elected community control.{{1,2}}
 

@@ -22,8 +22,8 @@ sources:
     note: "primary source for Australian Sikh population figures"
 ---
 
-Punjabi men reached the New South Wales north coast in the early twentieth century, many of them working first as itinerant hawkers. Barred by the White Australia policy from holding freehold title, they worked land they could not own until the restrictions eased. From the 1940s they moved into banana growing around Woolgoolga, and by the 1990s Punjabi families held the majority of the plantations.
+Punjabi men reached the New South Wales north coast in the early twentieth century, many of them working first as itinerant hawkers. Barred by the White Australia policy from holding freehold title, they worked land they could not own until the restrictions eased. From the 1940s they moved into banana growing around Woolgoolga, and by the 1990s Punjabi families held the majority of the plantations.{{1}}
 
-The First Sikh Temple on Hastings Street opened on 6 June 1968 — the first gurdwara in Australia. It was deliberately built in local vernacular: brick and tile, open plan, with a langar hall in the same materials, a building that looks like the town around it rather than like Punjab.
+The First Sikh Temple on Hastings Street opened on 6 June 1968 — the first gurdwara in Australia. It was deliberately built in local vernacular: brick and tile, open plan, with a langar hall in the same materials, a building that looks like the town around it rather than like Punjab.{{1,2}}
 
-Woolgoolga is unusual in the diaspora for its density. Sikhs make up a substantial majority of a town of roughly six thousand — the closest thing outside Punjab to a Sikh country town, with a second and larger gurdwara added later. Australia's Sikh population has grown very fast in recent decades, reaching around 210,000 by the 2021 census.
+Woolgoolga is unusual in the diaspora for its density. Sikhs make up a substantial majority of a town of roughly six thousand — the closest thing outside Punjab to a Sikh country town, with a second and larger gurdwara added later. Australia's Sikh population has grown very fast in recent decades, reaching around 210,000 by the 2021 census.{{1,3}}

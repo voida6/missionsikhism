@@ -25,16 +25,16 @@ sources:
 
 ## Scribe first
 
-Deep Singh was initiated into the [Khalsa](/glossary/khalsa) by [Guru Gobind Singh](/people/guru-gobind-singh) at [Anandpur](/places/anandpur) as a young man. His long middle life was spent not in the field but at Damdama Sahib in the Malwa, working with Bhai Mani Singh on copies of the Guru Granth Sahib and on the teaching of Gurmukhi and scripture. The recension prepared there is still known as the Damdami version.
+Deep Singh was initiated into the [Khalsa](/glossary/khalsa) by [Guru Gobind Singh](/people/guru-gobind-singh) at [Anandpur](/places/anandpur) as a young man. His long middle life was spent not in the field but at Damdama Sahib in the Malwa, working with Bhai Mani Singh on copies of the Guru Granth Sahib and on the teaching of Gurmukhi and scripture. The recension prepared there is still known as the Damdami version.{{1,2,3}}
 
 ## 1757
 
 The [Afghan invasions](/history/misl-period) of the mid-century fell repeatedly on [Amritsar](/places/amritsar). In 1757 Ahmad Shah Abdali's forces, returning from Delhi, blew up the Harmandir Sahib and filled the sacred pool with the carcasses of slaughtered cattle.
 
-Deep Singh, then seventy-five, is recorded as having drawn a line across the ground with his sword and asked who would cross it and come with him. He marched on Amritsar and met the Afghan force near the city. He was killed in the fighting; the accounts agree he was mortally wounded and disagree on the manner of it, the popular tradition holding that he fought on with his head in his hand until he reached the precinct.
+Deep Singh, then seventy-five, is recorded as having drawn a line across the ground with his sword and asked who would cross it and come with him. He marched on Amritsar and met the Afghan force near the city. He was killed in the fighting; the accounts agree he was mortally wounded and disagree on the manner of it, the popular tradition holding that he fought on with his head in his hand until he reached the precinct.{{1,2,3}}
 
 ## What the story is doing
 
 The decapitation account is devotional rather than documentary, and Sikh historians treat it as such. The underlying facts are not in dispute: an elderly scholar with no military command raised a force and died attacking a far larger professional army, over the desecration of a shrine, at an age when nobody expected it of him.
 
-The band he raised became one of the twelve [misls](/history/misl-period) — the Shahid Misl, the martyrs' confederacy. The Harmandir Sahib was rebuilt, destroyed again in 1762 in the year of the [Vadda Ghallughara](/events/vadda-ghallughara), and rebuilt again. Within eight years of his death the Sikhs [held Lahore](/events/sikh-capture-of-lahore).
+The band he raised became one of the twelve [misls](/history/misl-period) — the Shahid Misl, the martyrs' confederacy. The Harmandir Sahib was rebuilt, destroyed again in 1762 in the year of the [Vadda Ghallughara](/events/vadda-ghallughara), and rebuilt again. Within eight years of his death the Sikhs [held Lahore](/events/sikh-capture-of-lahore).{{1,2,3}}

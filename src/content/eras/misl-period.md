@@ -26,13 +26,13 @@ sources:
 
 ## Power in the hands of the misls
 
-Through the second half of the eighteenth century, power in the Punjab lay with the misls — a confederacy of Sikh war-bands, commonly counted as twelve, that governed territory, collected *rakhi* (protection revenue), and resisted both Mughal and Afghan authority.
+Through the second half of the eighteenth century, power in the Punjab lay with the misls — a confederacy of Sikh war-bands, commonly counted as twelve, that governed territory, collected *rakhi* (protection revenue), and resisted both Mughal and Afghan authority.{{1,2}}
 
 ## The Vadda Ghallughara
 
-The cost of survival was heavy. During Ahmad Shah Durrani's repeated invasions the Sikhs suffered the [Vadda Ghallughara of 1762](/events/vadda-ghallughara), when tens of thousands — many of them non-combatants — were killed in a single day near Kup and Malerkotla. The community endured, and pressed its advantage: in 1765 the misls [took Lahore](/events/sikh-capture-of-lahore) and struck coin in the name of the Gurus.
+The cost of survival was heavy. During Ahmad Shah Durrani's repeated invasions the Sikhs suffered the [Vadda Ghallughara of 1762](/events/vadda-ghallughara), when tens of thousands — many of them non-combatants — were killed in a single day near Kup and Malerkotla. The community endured, and pressed its advantage: in 1765 the misls [took Lahore](/events/sikh-capture-of-lahore) and struck coin in the name of the Gurus.{{1,2}}
 
 ## Toward unity
 
-By the century's close the misls held the Punjab, but remained divided among rival sardars — an opening that a single leader would soon seize.
+By the century's close the misls held the Punjab, but remained divided among rival sardars — an opening that a single leader would soon seize.{{1,2}}
 

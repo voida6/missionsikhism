@@ -23,4 +23,4 @@ sources:
 
 Sikh worship is sung. **Kirtan** — the singing of scripture — is central to Sikh devotional life, and the Guru Granth Sahib is itself organised by *raag*, the classical melodic framework to which each hymn is set.
 
-The tradition reaches back to Guru Nanak and his lifelong companion Bhai Mardana, who accompanied him on the rebab. Music remains the living voice of the scripture, carrying its words into daily practice.
+The tradition reaches back to Guru Nanak and his lifelong companion Bhai Mardana, who accompanied him on the rebab. Music remains the living voice of the scripture, carrying its words into daily practice.{{1,2,4}}

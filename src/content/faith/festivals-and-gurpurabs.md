@@ -14,17 +14,17 @@ sources:
 
 ## Gurpurabs
 
-A **Gurpurab** marks an anniversary in the life of a Guru — most widely the birth of Guru Nanak and of Guru Gobind Singh, and the martyrdoms of [Guru Arjan](/events/martyrdom-of-guru-arjan) and [Guru Tegh Bahadur](/events/martyrdom-of-guru-tegh-bahadur). They are observed with continuous readings of the Guru Granth Sahib (*akhand path*), kirtan, and langar.
+A **Gurpurab** marks an anniversary in the life of a Guru — most widely the birth of Guru Nanak and of Guru Gobind Singh, and the martyrdoms of [Guru Arjan](/events/martyrdom-of-guru-arjan) and [Guru Tegh Bahadur](/events/martyrdom-of-guru-tegh-bahadur). They are observed with continuous readings of the Guru Granth Sahib (*akhand path*), kirtan, and langar.{{1,2}}
 
 ## Vaisakhi
 
-Vaisakhi, in April, is both a spring harvest festival and the anniversary of the [creation of the Khalsa in 1699](/events/creation-of-the-khalsa) — one of the most significant days in the Sikh calendar.
+Vaisakhi, in April, is both a spring harvest festival and the anniversary of the [creation of the Khalsa in 1699](/events/creation-of-the-khalsa) — one of the most significant days in the Sikh calendar.{{1,2}}
 
 ## Bandi Chhor Divas
 
-Coinciding with Diwali, **Bandi Chhor Divas** — the "day of liberation" — recalls Guru Hargobind's release from imprisonment at Gwalior Fort, together with a number of princes freed alongside him.
+Coinciding with Diwali, **Bandi Chhor Divas** — the "day of liberation" — recalls Guru Hargobind's release from imprisonment at Gwalior Fort, together with a number of princes freed alongside him.{{1,2}}
 
 ## Hola Mohalla
 
-Established by Guru Gobind Singh at Anandpur in 1701, **Hola Mohalla** falls the day after Holi and is marked by displays of martial skill, mock battles and poetry — a festival of discipline and courage.
+Established by Guru Gobind Singh at Anandpur in 1701, **Hola Mohalla** falls the day after Holi and is marked by displays of martial skill, mock battles and poetry — a festival of discipline and courage.{{1,2}}
 

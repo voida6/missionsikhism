@@ -21,4 +21,4 @@ sources:
     url: "https://www.britannica.com/topic/Sikhism"
 ---
 
-From Guru Hargobind's doctrine of *miri-piri* onward, Sikhi has held together the spiritual and the martial. That heritage survives in the **Akali Nihang** orders and in **gatka**, the Sikh martial art demonstrated each year at [Hola Mohalla](/faith/festivals-and-gurpurabs) in Anandpur.
+From Guru Hargobind's doctrine of *miri-piri* onward, Sikhi has held together the spiritual and the martial. That heritage survives in the **Akali Nihang** orders and in **gatka**, the Sikh martial art demonstrated each year at [Hola Mohalla](/faith/festivals-and-gurpurabs) in Anandpur.{{1,2,3}}

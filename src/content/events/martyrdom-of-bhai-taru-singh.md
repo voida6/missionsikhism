@@ -45,7 +45,7 @@ He refused. His scalp was then cut away from his skull with a knife, in public, 
 
 The detail that the state wanted the hair specifically, rather than a formula of words, is the reason this execution is remembered as sharply as it is.
 
-By the 1740s the outward form of the [Khalsa](/glossary/khalsa) had become the thing the administration could see, count and act on. Uncut hair identified a man on sight, and a man's hair in the governor's hand was proof of a conversion in a way a statement was not. The demand and the refusal were both about the same thing: whether the visible form was incidental to the faith or constitutive of it.
+By the 1740s [the outward form of the Khalsa](/faith/the-five-ks) had become the thing the administration could see, count and act on. Uncut hair identified a man on sight, and a man's hair in the governor's hand was proof of a conversion in a way a statement was not. The demand and the refusal were both about the same thing: whether the visible form was incidental to the faith or constitutive of it.
 
 Purnima Dhavan's study of the century argues that Khalsa identity was still being worked out across exactly these decades rather than having been settled in 1699. Episodes like this one are part of how it was settled — under a knife, in public, with the state insisting the outward form mattered and Sikhs agreeing with it.
 

@@ -59,4 +59,4 @@ The [*Zafarnama*](/library) — the letter in Persian verse he sent to Aurangzeb
 
 ## On the dates
 
-The days given for this fortnight vary between accounts, and the variation is real rather than sloppy: it comes from the conversion between the Bikrami calendar the sources use and the Common Era, and the question was reopened by the Nanakshahi calendar reform in the twentieth century. December 1704 is secure. The individual days are argued over, and this site gives months rather than pretending otherwise.
+The days given for this fortnight vary between accounts, and the variation is real rather than sloppy: it comes from the conversion between the Bikrami calendar the sources use and the Common Era, and the question was reopened by [the Nanakshahi calendar reform](/culture/the-sikh-calendar) in the twentieth century. December 1704 is secure. The individual days are argued over, and this site gives months rather than pretending otherwise.

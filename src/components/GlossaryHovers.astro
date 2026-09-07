@@ -39,6 +39,8 @@ const terms = Object.fromEntries(
     try { terms = JSON.parse(dataEl.textContent); } catch (e) { return; }
 
     var hideTimer = null;
+    var removeTimer = null;
+    var lastHidden = 0;
     function esc(s) {
       return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
         return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -59,19 +61,53 @@ const terms = Object.fromEntries(
       var pw = pop.offsetWidth;
       var left = Math.max(8, Math.min(r.left + r.width / 2 - pw / 2, window.innerWidth - pw - 8));
       var top = r.bottom + 8;
-      if (top + pop.offsetHeight > window.innerHeight - 8) top = r.top - pop.offsetHeight - 8;
+      var above = top + pop.offsetHeight > window.innerHeight - 8;
+      if (above) top = r.top - pop.offsetHeight - 8;
       pop.style.left = left + 'px';
       pop.style.top = top + 'px';
+
+      // Grow from the edge facing the word being defined, so the card never
+      // scales away from its own subject.
+      pop.style.setProperty('--gloss-origin', above ? 'bottom' : 'top');
+
+      // Once one card has been shown, the next few open instantly. Moving
+      // along a line of linked terms should feel like one card following the
+      // cursor rather than a new one being built at each word.
+      if (lastHidden && Date.now() - lastHidden < 400) pop.setAttribute('data-instant', '');
+      else pop.removeAttribute('data-instant');
+
+      // Force a style flush so the browser has the closed state on record
+      // before the open state lands — without this the two are batched into
+      // one recalculation and there is nothing to transition between.
+      void pop.offsetWidth;
+      pop.setAttribute('data-open', '');
+    }
+    function hide() {
+      pop.removeAttribute('data-open');
+      lastHidden = Date.now();
+      // Keep it in the layout until the fade finishes, or it disappears
+      // instantly and the transition is never seen.
+      clearTimeout(removeTimer);
+      removeTimer = setTimeout(function () {
+        if (!pop.hasAttribute('data-open')) pop.hidden = true;
+      }, 160);
     }
     function scheduleHide() {
-      hideTimer = setTimeout(function () { pop.hidden = true; }, 150);
+      hideTimer = setTimeout(hide, 150);
     }
     pop.addEventListener('mouseenter', function () { clearTimeout(hideTimer); });
     pop.addEventListener('mouseleave', scheduleHide);
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') pop.hidden = true;
+      if (e.key === 'Escape') hide();
     });
-    window.addEventListener('scroll', function () { pop.hidden = true; }, { passive: true });
+    // On scroll the card would be left behind by the word it belongs to, so it
+    // goes immediately rather than fading — the connection is already broken.
+    window.addEventListener('scroll', function () {
+      clearTimeout(hideTimer);
+      pop.removeAttribute('data-open');
+      pop.hidden = true;
+      lastHidden = Date.now();
+    }, { passive: true });
 
     var links = document.querySelectorAll('main a[href^="/glossary/"]');
     Array.prototype.forEach.call(links, function (link) {

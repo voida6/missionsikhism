@@ -65,6 +65,29 @@
   --radius: 8px;
   --radius-sm: 5px;
   --radius-pill: 999px;
+
+  /* ---------- Motion ----------
+     The browser's built-in easings are deliberately weak; they read as vague
+     rather than intentional. These are the standard strong variants.
+
+     Which to use, in order:
+       entering or exiting  → --ease-out   (starts fast, so it feels immediate)
+       moving on screen     → --ease-in-out
+       hover or colour only → plain `ease` (no curve needed, nothing travels)
+       constant motion      → linear
+
+     Never `ease-in` on UI: it delays the first few frames, which is exactly
+     when the user is looking, so the whole interface reads as sluggish.
+
+     Durations are budgets, not suggestions. UI motion stays under 300ms. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --dur-press: 160ms;   /* press feedback */
+  --dur-tooltip: 140ms; /* tooltips, small popovers */
+  --dur-pop: 180ms;     /* dropdowns, menus */
+  --dur-drawer: 260ms;  /* the mobile nav panel */
   --shadow-sm: 0 1px 2px rgba(46, 40, 25, 0.06);
   --shadow: 0 4px 14px rgba(46, 40, 25, 0.08);
   --shadow-lift: 0 10px 26px rgba(46, 40, 25, 0.12);
@@ -140,13 +163,30 @@ html[data-theme="dark"] {
 
 html { scroll-behavior: smooth; }
 
+/* Reduced motion means less movement, not no feedback. Killing every
+   transition also kills the colour and opacity changes that tell a visitor a
+   thing is focused, open, or hovered — which makes the interface harder to
+   read, not gentler. So: keep opacity and colour, and neutralise the
+   properties that actually move something across the screen. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+    /* Restrict what may animate rather than forbidding transforms outright:
+       Leaflet positions every tile and marker with a transform, so a blanket
+       `transform: none` would break the map for exactly the people this rule
+       is meant to help. Limiting transition-property stops motion without
+       touching static positioning. */
+    transition-property: opacity, color, background-color, background,
+      border-color, box-shadow, filter, fill, stroke !important;
+  }
+  /* Press feedback is movement, however small. Keep the colour response. */
+  .btn:active, .icon-btn:active, .nav-contribute:active, .chip:active,
+  .reset-btn:active, .ribbon-seg:active, .catalog-search button:active,
+  .map-empty-card button:active, .turn:active, .path-step:active {
+    transform: none;
   }
 }
 
@@ -315,7 +355,7 @@ img { max-width: 100%; height: auto; }
   border-right: 1.8px solid currentColor;
   border-bottom: 1.8px solid currentColor;
   transform: rotate(45deg) translateY(-2px);
-  transition: transform 0.15s ease;
+  transition: transform 0.15s var(--ease-in-out);
   opacity: 0.65;
 }
 .nav-group[open] > summary::after { transform: rotate(225deg) translateY(-1px); }
@@ -344,9 +384,11 @@ img { max-width: 100%; height: auto; }
   color: var(--ink-2);
   cursor: pointer;
   text-decoration: none;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease,
+    transform var(--dur-press) var(--ease-out);
 }
 .icon-btn:hover { background: var(--accent-soft); color: var(--accent-strong); }
+.icon-btn:active { transform: scale(0.94); }
 .icon-btn svg { width: 1.2rem; height: 1.2rem; }
 
 /* Theme toggle: show moon in light mode, sun in dark mode */
@@ -366,11 +408,12 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   font-weight: 650;
   text-decoration: none;
   box-shadow: var(--shadow-sm);
-  transition: filter 0.15s ease, transform 0.15s ease;
+  transition: filter 0.15s ease, transform var(--dur-press) var(--ease-out);
   white-space: nowrap;
 }
 /* .nav-menu a:hover paints a pale wash — reassert the gradient here or the
    button flashes white on hover. */
+.nav-contribute:active { transform: scale(0.97); }
 .nav-menu a.nav-contribute:hover,
 .nav-contribute:hover {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
@@ -392,8 +435,11 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   color: var(--ink-2);
   cursor: pointer;
   -webkit-user-select: none; user-select: none;
+  transition: background 0.15s ease, color 0.15s ease,
+    transform var(--dur-press) var(--ease-out);
 }
 .nav-hamburger:hover { background: var(--accent-soft); color: var(--accent-strong); }
+.nav-hamburger:active { transform: scale(0.94); }
 .nav-hamburger .bars { position: relative; width: 1.15rem; height: 2px; }
 .nav-hamburger .bars,
 .nav-hamburger .bars::before,
@@ -401,7 +447,12 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   display: block;
   background: currentColor;
   border-radius: 2px;
-  transition: transform 0.2s ease, opacity 0.2s ease, top 0.2s ease;
+  /* transform and opacity only. The two outer bars used to travel to the
+     centre by animating `top`, which is a layout property: every frame cost a
+     layout, a paint and a composite instead of just a composite. They are now
+     parked at top:0 and offset with translateY, so the morph runs entirely on
+     the GPU and the rotation composes with it. */
+  transition: transform 0.2s var(--ease-in-out), opacity 0.2s var(--ease-in-out);
 }
 .nav-hamburger .bars::before,
 .nav-hamburger .bars::after {
@@ -410,12 +461,12 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   left: 0;
   width: 100%; height: 2px;
 }
-.nav-hamburger .bars::before { top: -6px; }
-.nav-hamburger .bars::after { top: 6px; }
+.nav-hamburger .bars::before { top: 0; transform: translateY(-6px); }
+.nav-hamburger .bars::after { top: 0; transform: translateY(6px); }
 /* morph to an X while open */
 #nav-toggle:checked ~ .header-actions .nav-hamburger .bars { transform: rotate(45deg); }
-#nav-toggle:checked ~ .header-actions .nav-hamburger .bars::before { top: 0; transform: rotate(-90deg); }
-#nav-toggle:checked ~ .header-actions .nav-hamburger .bars::after { top: 0; opacity: 0; }
+#nav-toggle:checked ~ .header-actions .nav-hamburger .bars::before { transform: translateY(0) rotate(-90deg); }
+#nav-toggle:checked ~ .header-actions .nav-hamburger .bars::after { transform: translateY(0); opacity: 0; }
 
 /* Backdrop behind the mobile panel */
 .nav-backdrop {
@@ -426,6 +477,12 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   background: rgba(10, 12, 18, 0.45);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity var(--dur-drawer) var(--ease-out);
+}
+#nav-toggle:checked ~ .nav-backdrop { opacity: 1; }
+@starting-style {
+  #nav-toggle:checked ~ .nav-backdrop { opacity: 0; }
 }
 
 /* Desktop dropdown popovers */
@@ -441,6 +498,26 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
     border: 1px solid var(--border);
     border-radius: var(--radius);
     box-shadow: var(--shadow-lift);
+
+    /* The menu belongs to the trigger above it, so it grows from there rather
+       than from its own middle — `top left` is this popover's equivalent of
+       Base UI's var(--transform-origin). It also starts at 0.97 rather than 0:
+       nothing in the world appears out of nothing, and a menu that scales up
+       from a point reads as a special effect instead of as a panel opening. */
+    transform-origin: top left;
+    transition: opacity var(--dur-pop) var(--ease-out),
+      transform var(--dur-pop) var(--ease-out);
+  }
+  /* Entry only, and deliberately so. The menu opens on hover, so it is seen
+     often; a matching close animation would put motion between the visitor and
+     every navigation. Opening explains where the panel came from, closing has
+     nothing left to explain. Browsers without @starting-style simply show it,
+     which is a perfectly good outcome. */
+  @starting-style {
+    .nav-group[open] > .nav-menu {
+      opacity: 0;
+      transform: scale(0.97) translateY(-2px);
+    }
   }
   /* Invisible bridge across the gap between the trigger and the menu, so the
      cursor can travel down without leaving the group (which would close it). */
@@ -472,7 +549,11 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
     padding: 4.5rem 1.1rem 2rem;
     overflow-y: auto;
     transform: translateX(105%);
-    transition: transform 0.22s ease;
+    /* The iOS drawer curve: nearly all of the travel happens up front, then it
+       settles. A panel this size on plain `ease` reads as though it is being
+       dragged open by something slow. translateX is a percentage of the panel's
+       own width, so the closed position stays correct at any panel size. */
+    transition: transform var(--dur-drawer) var(--ease-drawer);
   }
   #nav-toggle:checked ~ .nav { transform: translateX(0); }
   #nav-toggle:checked ~ .nav-backdrop { display: block; }
@@ -585,9 +666,14 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   font-size: 0.98rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.16s ease;
+  /* Named properties, not `all`: `all` animates whatever happens to change,
+     including layout properties that cannot run on the GPU. */
+  transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease,
+    transform var(--dur-press) var(--ease-out), box-shadow 0.16s ease,
+    filter 0.16s ease;
 }
 .btn:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+.btn:active { transform: scale(0.97); }
 .btn-primary {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
   border-color: transparent;
@@ -661,10 +747,17 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   padding: 1.5rem 1.55rem;
   background: var(--surface);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  transition: transform 0.18s var(--ease-out), box-shadow 0.18s ease, border-color 0.18s ease;
+}
+/* Gated behind a real pointer: a touch device fires :hover on tap and then
+   leaves it stuck until the next tap elsewhere, so on a phone this lift
+   would latch on after every press. */
+@media (hover: hover) and (pointer: fine) {
+  .era-card:hover, .lens-card:hover, .person-card:hover, .topic-card:hover {
+    transform: translateY(-3px);
+  }
 }
 .era-card:hover, .lens-card:hover, .person-card:hover, .topic-card:hover {
-  transform: translateY(-3px);
   box-shadow: var(--shadow-lift);
   border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
 }
@@ -775,9 +868,12 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   background: var(--surface);
   padding: 1.1rem 1.2rem 1.15rem;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition: transform 0.18s var(--ease-out), box-shadow 0.18s ease;
 }
-.timeline-era:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+@media (hover: hover) and (pointer: fine) {
+  .timeline-era:hover { transform: translateY(-3px); }
+}
+.timeline-era:hover { box-shadow: var(--shadow-lift); }
 @media (prefers-reduced-motion: reduce) { .timeline-era:hover { transform: none; } }
 .timeline-era .years { display: block; margin-bottom: 0.25rem; }
 .timeline-era h3 { margin: 0; font-size: 1.02rem; line-height: 1.3; }
@@ -1110,8 +1206,10 @@ html[data-theme="dark"] .site-footer {
   font-size: 0.8rem; font-weight: 600;
   border: 1px solid var(--border-strong);
   background: var(--surface); color: var(--ink);
-  transition: opacity 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+  transition: opacity 0.12s ease, background 0.12s ease, border-color 0.12s ease,
+    transform var(--dur-press) var(--ease-out);
 }
+.chip:active { transform: scale(0.96); }
 .chip .chip-dot {
   width: 0.7rem; height: 0.7rem; border-radius: 50%; flex: none;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
@@ -1124,8 +1222,11 @@ html[data-theme="dark"] .site-footer {
   width: 100%; padding: 0.55rem; font-size: 0.85rem; font-weight: 600;
   border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
   background: var(--surface); color: var(--ink); cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease,
+    transform var(--dur-press) var(--ease-out);
 }
 .reset-btn:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-strong); }
+.reset-btn:active { transform: scale(0.97); }
 
 /* Combobox */
 .combobox { position: relative; }
@@ -1390,9 +1491,10 @@ html[data-theme="dark"] .pill[data-cat="martyr"] { color: #f28b8b; }
   font-weight: 650;
   font-size: 0.95rem;
   padding: 0 1.4rem;
-  transition: filter 0.15s ease;
+  transition: filter 0.15s ease, transform var(--dur-press) var(--ease-out);
 }
 .catalog-search button:hover { filter: brightness(1.07); }
+.catalog-search button:active { transform: scale(0.97); }
 
 /* "New here? Start with —" the librarian's shelf */
 .start-here {
@@ -1478,13 +1580,16 @@ html[data-theme="dark"] .pill[data-cat="martyr"] { color: #f28b8b; }
   text-decoration: none;
   color: var(--ink);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
+  transition: transform 0.16s var(--ease-out), box-shadow 0.16s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .book-spine:hover { transform: translateY(-6px); }
 }
 .book-spine:hover {
-  transform: translateY(-6px);
   box-shadow: var(--shadow-lift);
   color: var(--ink);
 }
+.book-spine:active { transform: translateY(-2px) scale(0.99); }
 @media (prefers-reduced-motion: reduce) { .book-spine:hover { transform: none; } }
 .book-spine::before {
   content: "";
@@ -1911,8 +2016,9 @@ article.reading-page .container { max-width: var(--shell-reading); }
   cursor: pointer;
   background: var(--era-c, var(--accent));
   opacity: 0.85;
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  transition: opacity 0.15s ease, transform var(--dur-press) var(--ease-out);
 }
+.era-ribbon .ribbon-seg:active { transform: scale(0.98); }
 .era-ribbon .ribbon-seg:first-child { border-radius: var(--radius-pill) 0 0 var(--radius-pill); }
 .era-ribbon .ribbon-seg:last-child { border-radius: 0 var(--radius-pill) var(--radius-pill) 0; }
 .era-ribbon .ribbon-seg:hover { opacity: 1; }
@@ -2354,6 +2460,27 @@ main a[href^="/glossary/"]:focus-visible {
   box-shadow: var(--shadow-lift);
   font-size: 0.9rem;
   line-height: 1.55;
+
+  /* The card grows from the edge nearest the word it defines. The script sets
+     --gloss-origin to `top` or `bottom` depending on which side of the link it
+     had room to place the card, so it never scales away from its own subject.
+     0.97 rather than 0: a card that inflates from a point looks like an effect,
+     one that is already almost full size looks like it was simply revealed. */
+  transform-origin: var(--gloss-origin, top);
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity var(--dur-tooltip) var(--ease-out),
+    transform var(--dur-tooltip) var(--ease-out);
+}
+.gloss-pop[data-open] {
+  opacity: 1;
+  transform: scale(1);
+}
+/* Moving between adjacent glossary terms should feel like the card is
+   following the cursor, not like it is rebuilt each time. Once one has been
+   shown, the next few appear instantly. */
+.gloss-pop[data-instant] {
+  transition-duration: 0ms;
 }
 .gloss-pop .gloss-term {
   display: inline-block;

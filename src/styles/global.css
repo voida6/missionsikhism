@@ -2690,3 +2690,65 @@ main a[href^="/glossary/"]:focus-visible {
 @media (max-width: 34rem) {
   .quiz-done-actions { width: 100%; justify-content: space-between; }
 }
+
+/* ==========================================================================
+   Reading level — the same entry at two lengths
+   ========================================================================== */
+.reading-level {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin: 1.25rem 0 1.75rem;
+}
+.reading-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 0.15rem;
+}
+
+/* The simpler level hides the long body and leans on the summary, which every
+   collection requires, so nothing here depends on a second piece of writing.
+   Diagrams stay: they explain more per second of attention than the prose
+   does, which is the whole point of this level. Sources stay too — the promise
+   does not get a children's exemption. */
+html[data-reading="kids"] .entry-body,
+html[data-reading="kids"] .xref-list,
+html[data-reading="kids"] .entry-end {
+  display: none;
+}
+html[data-reading="kids"] .entry-lede {
+  font-size: 1.32rem;
+  line-height: 1.62;
+  max-width: 34ch;
+  color: var(--ink);
+}
+html[data-reading="kids"] h2 {
+  font-size: 1.2rem;
+}
+
+.kid-words {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 1rem 1.15rem;
+  margin: 1.5rem 0;
+  max-width: 40rem;
+}
+.kid-words h2 { margin: 0 0 0.6rem; font-size: 1.05rem; }
+.kid-words dl { margin: 0; }
+.kid-words dt {
+  font-weight: 700;
+  margin-top: 0.7rem;
+}
+.kid-words dt:first-of-type { margin-top: 0; }
+.kid-words dd {
+  margin: 0.15rem 0 0;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}

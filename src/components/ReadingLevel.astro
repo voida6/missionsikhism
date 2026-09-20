@@ -1,0 +1,102 @@
+---
+/**
+ * Reading level: the same entry, told at two lengths.
+ *
+ * This is deliberately NOT a second piece of writing. Every claim on the site
+ * carries a citation, and a hand-simplified retelling would either drag the
+ * citations along into sentences they no longer support, or quietly drop them
+ * — and an unsourced simplified history, aimed at children, is the exact thing
+ * this site exists to be the opposite of.
+ *
+ * So the simpler level re-presents what is already there and build-enforced:
+ * the entry's own `summary`, its facts, and the glossary words it leans on.
+ * Nothing is generated, nothing is paraphrased, and it works on all 187
+ * entries the day it ships. Hand-written children's versions of individual
+ * entries can come later without this having to move.
+ *
+ * The switch lives on <html> and is set before first paint (see BaseLayout),
+ * so a reader who chose the shorter level never sees the long one flash first.
+ */
+---
+
+<div class="reading-level" role="group" aria-label="Reading level">
+  <span class="reading-label">Reading</span>
+  <button type="button" class="chip reading-opt" data-level="full" aria-pressed="true">
+    Full entry
+  </button>
+  <button type="button" class="chip reading-opt" data-level="kids" aria-pressed="false">
+    Simpler
+  </button>
+</div>
+
+{/* Filled at runtime from the glossary links already in the entry body. Built
+    in the browser rather than in the HTML so the search index sees each
+    definition once, on its own glossary page, and not again on every entry
+    that happens to link to it. */}
+<aside class="kid-words" hidden>
+  <h2>Words to know</h2>
+  <dl></dl>
+</aside>
+
+<script is:inline>
+  (function () {
+    var group = document.querySelector('.reading-level');
+    if (!group) return;
+
+    var root = document.documentElement;
+    var words = document.querySelector('.kid-words');
+    var built = false;
+
+    function buildWords() {
+      if (built || !words) return;
+      built = true;
+
+      var dataEl = document.getElementById('glossary-data');
+      var terms = {};
+      try { terms = JSON.parse(dataEl.textContent); } catch (e) { return; }
+
+      var dl = words.querySelector('dl');
+      var seen = {};
+      var links = document.querySelectorAll('.entry-body a[href^="/glossary/"]');
+
+      Array.prototype.forEach.call(links, function (a) {
+        var id = a.getAttribute('href').split('/')[2];
+        if (!id || seen[id] || !terms[id]) return;
+        seen[id] = true;
+
+        var dt = document.createElement('dt');
+        dt.textContent = terms[id].term;
+        var dd = document.createElement('dd');
+        dd.textContent = terms[id].def;
+        dl.appendChild(dt);
+        dl.appendChild(dd);
+      });
+
+      // An entry that leans on no glossary word gets no empty panel.
+      if (!dl.children.length) words.remove();
+    }
+
+    function apply(level, persist) {
+      root.setAttribute('data-reading', level);
+      Array.prototype.forEach.call(group.querySelectorAll('.reading-opt'), function (b) {
+        b.setAttribute('aria-pressed', String(b.dataset.level === level));
+      });
+      if (level === 'kids') {
+        buildWords();
+        if (words && words.isConnected) words.hidden = false;
+      } else if (words && words.isConnected) {
+        words.hidden = true;
+      }
+      if (persist) {
+        try { localStorage.setItem('reading', level); } catch (e) {}
+      }
+    }
+
+    apply(root.getAttribute('data-reading') === 'kids' ? 'kids' : 'full', false);
+
+    group.addEventListener('click', function (e) {
+      var b = e.target.closest('.reading-opt');
+      if (b) apply(b.dataset.level, true);
+    });
+  })();
+</script>

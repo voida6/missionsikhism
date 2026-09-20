@@ -124,6 +124,18 @@ const year = new Date().getFullYear();
       })();
     </script>
 
+    <!-- Reading level, applied in the same pre-paint pass and for the same
+         reason: switching it after first paint would show the full entry and
+         then snatch it away. Only entry pages act on it; setting it site-wide
+         keeps the choice from resetting as a reader moves between them. -->
+    <script is:inline>
+      (function () {
+        var r;
+        try { r = localStorage.getItem('reading'); } catch (e) {}
+        document.documentElement.setAttribute('data-reading', r === 'kids' ? 'kids' : 'full');
+      })();
+    </script>
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteName} />

@@ -7,6 +7,7 @@ import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
 import { diagrams } from '../../components/diagrams/index.ts';
 import { correctionEmail } from '../../site.config';
 import { jsonScript } from '../../json-script';
+import ReadingLevel from '../../components/ReadingLevel.astro';
 import Quiz from '../../components/Quiz.astro';
 import { questionsFor } from '../../quiz-content';
 
@@ -149,6 +150,8 @@ const jsonld = [
             {event.data.location ? ` · ${event.data.location}` : ''}
           </p>
           <p class="entry-lede">{event.data.summary}</p>
+
+          <ReadingLevel />
 
           <div class="entry-body">
             <Content />

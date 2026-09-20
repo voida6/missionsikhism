@@ -267,14 +267,23 @@ img { max-width: 100%; height: auto; }
   border-bottom: 1px solid var(--border);
 }
 /* The blur lives on a pseudo-element: putting backdrop-filter on the header
-   itself would make it the containing block for the fixed mobile nav panel. */
+   itself would make it the containing block for the fixed mobile nav panel.
+
+   ponytail: the -webkit- prefix MUST come first. The CSS minifier treats the
+   two as one property and keeps whichever is written last, so with the
+   standard one first the build shipped only -webkit-backdrop-filter — and
+   Chrome has dropped that alias, which killed the blur on every page and let
+   the era ribbon scroll through the header in hard colour bands. Prefix
+   first, standard last, and the standard one survives minification. The cost
+   is Safari below 18, which loses the blur and falls back to the translucent
+   background; upgrade path is a browserslist target if that ever matters. */
 .site-header::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  backdrop-filter: saturate(1.4) blur(14px);
   -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  backdrop-filter: saturate(1.4) blur(14px);
 }
 .site-header::before {
   content: "";
@@ -475,8 +484,8 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   inset: 0;
   z-index: 950;
   background: rgba(10, 12, 18, 0.45);
-  backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
   opacity: 0;
   transition: opacity var(--dur-drawer) var(--ease-out);
 }

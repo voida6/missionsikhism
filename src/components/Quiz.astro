@@ -1,0 +1,272 @@
+---
+/**
+ * The quiz, both as the whole game at /quiz and as the block at the foot of an
+ * entry. One component rather than two so the interaction cannot drift between
+ * them — the entry block is the one that matters for anyone arriving from a
+ * video, and it would be the one to rot if it had its own copy.
+ *
+ * Everything is scoped to the component's own root element rather than looked
+ * up by id, so a page can hold more than one without them fighting.
+ */
+import { jsonScript } from '../json-script';
+import type { Question } from '../quiz';
+
+interface Props {
+  questions: Question[];
+  /** Difficulty chips. The hub wants them; a five-question block does not. */
+  showTiers?: boolean;
+  round?: number;
+  /** Heading for the block form. Omitted on the hub, which has an <h1>. */
+  heading?: string;
+  /** Shown when the round ends, to send a player on somewhere. */
+  moreHref?: string;
+  moreLabel?: string;
+}
+
+const {
+  questions,
+  showTiers = false,
+  round = 10,
+  heading,
+  moreHref,
+  moreLabel = 'More questions →',
+} = Astro.props;
+
+const countOf = (tier: string) =>
+  tier === 'mixed' ? questions.length : questions.filter((q) => q.tier === tier).length;
+
+const tiers = [
+  { id: 'mixed', label: 'Mixed' },
+  { id: 'easy', label: 'Easier' },
+  { id: 'medium', label: 'Harder' },
+  { id: 'hard', label: 'Hardest' },
+].map((t) => ({ ...t, count: countOf(t.id) }));
+
+const size = Math.min(round, questions.length);
+---
+
+{
+  questions.length > 0 && (
+    <div class="quiz-root" data-round={size}>
+      {heading && <h2 class="quiz-heading">{heading}</h2>}
+
+      {showTiers && (
+        <div class="quiz-tiers" role="group" aria-label="Choose a difficulty">
+          {tiers.map((t) => (
+            <button
+              type="button"
+              class="chip quiz-tier"
+              data-tier={t.id}
+              aria-pressed={t.id === 'mixed' ? 'true' : 'false'}
+            >
+              {t.label} <span class="quiz-tier-count">{t.count}</span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div class="quiz-shell" data-quiz hidden>
+        <div class="quiz-scoreline">
+          <span data-progress />
+          <span class="quiz-streak" data-streak />
+        </div>
+
+        <p class="quiz-prompt" data-prompt aria-live="polite" />
+
+        <div class="quiz-options" data-options role="group" aria-label="Answers" />
+
+        <div class="quiz-after" data-after hidden>
+          <p class="quiz-verdict" data-verdict aria-live="polite" />
+          <a class="quiz-read" data-read href="/">
+            Read the entry →
+          </a>
+          <button type="button" class="btn" data-next>
+            Next question
+          </button>
+        </div>
+
+        <div class="quiz-done" data-done hidden>
+          <p class="quiz-verdict" data-score />
+          <span class="quiz-done-actions">
+            {moreHref && (
+              <a class="quiz-read" href={moreHref}>
+                {moreLabel}
+              </a>
+            )}
+            <button type="button" class="btn" data-again>
+              Play again
+            </button>
+          </span>
+        </div>
+      </div>
+
+      <noscript>
+        <p class="search-fallback">
+          The quiz needs JavaScript. Everything it asks about is in the entries
+          themselves — <a href="/history">History</a>,{' '}
+          <a href="/people">People</a>, and the <a href="/glossary">Glossary</a>.
+        </p>
+      </noscript>
+
+      {/* The bank rides along as data inside the block it belongs to, so the
+          script finds it by looking down rather than by a global name that two
+          instances would have to share. */}
+      <script type="application/json" data-bank set:html={jsonScript(questions)} />
+    </div>
+  )
+}
+
+<script is:inline>
+  (function () {
+    var ROUND_KEY = 'ms-quiz-best';
+
+    // The same path with and without its trailing slash, so a question about
+    // the page you are standing on can be recognised.
+    function samePage(href) {
+      var here = location.pathname.replace(/\/$/, '');
+      return href.replace(/\/$/, '') === here;
+    }
+
+    function shuffle(list) {
+      var a = list.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+      }
+      return a;
+    }
+
+    function store(key, value) {
+      try {
+        if (value === undefined) return parseInt(localStorage.getItem(key) || '0', 10) || 0;
+        localStorage.setItem(key, String(value));
+      } catch (e) {
+        // Private mode, blocked storage. The quiz works; the record does not.
+      }
+      return value || 0;
+    }
+
+    function init(root) {
+      // This script is emitted once per instance of the component, so a page
+      // with two blocks would otherwise bind every handler twice.
+      if (root.dataset.ready) return;
+      root.dataset.ready = '1';
+
+      var bank = root.querySelector('script[data-bank]');
+      var ALL = bank ? JSON.parse(bank.textContent) : [];
+      if (!ALL.length) return;
+
+      var shell = root.querySelector('[data-quiz]');
+      var promptEl = root.querySelector('[data-prompt]');
+      var optionsEl = root.querySelector('[data-options]');
+      var afterEl = root.querySelector('[data-after]');
+      var verdictEl = root.querySelector('[data-verdict]');
+      var readEl = root.querySelector('[data-read]');
+      var nextEl = root.querySelector('[data-next]');
+      var doneEl = root.querySelector('[data-done]');
+      var scoreEl = root.querySelector('[data-score]');
+      var againEl = root.querySelector('[data-again]');
+      var progressEl = root.querySelector('[data-progress]');
+      var streakEl = root.querySelector('[data-streak]');
+
+      // Only the hub keeps a record. A five-question block on one entry is not
+      // the same game and would trample the score.
+      var tracksBest = !!root.querySelector('.quiz-tier');
+      var round = parseInt(root.dataset.round, 10) || 10;
+      var tier = 'mixed';
+      var deck = [];
+      var at = 0;
+      var correct = 0;
+
+      shell.hidden = false;
+
+      function start() {
+        var pool = tier === 'mixed' ? ALL : ALL.filter(function (q) { return q.tier === tier; });
+        deck = shuffle(pool).slice(0, Math.min(round, pool.length));
+        at = 0;
+        correct = 0;
+        doneEl.hidden = true;
+        show();
+      }
+
+      function show() {
+        var q = deck[at];
+        afterEl.hidden = true;
+        progressEl.textContent = 'Question ' + (at + 1) + ' of ' + deck.length;
+        var record = tracksBest ? store(ROUND_KEY) : 0;
+        streakEl.textContent = record ? 'Best: ' + record + '/' + round : '';
+        promptEl.textContent = q.prompt;
+
+        optionsEl.textContent = '';
+        shuffle([q.answer].concat(q.distractors)).forEach(function (choice) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'quiz-option';
+          b.textContent = choice;
+          b.addEventListener('click', function () { answer(b, choice, q); });
+          optionsEl.appendChild(b);
+        });
+      }
+
+      function answer(button, choice, q) {
+        var right = choice === q.answer;
+        if (right) correct++;
+
+        Array.prototype.forEach.call(optionsEl.children, function (b) {
+          b.disabled = true;
+          if (b.textContent === q.answer) b.classList.add('is-right');
+        });
+        if (!right) button.classList.add('is-wrong');
+
+        verdictEl.textContent = right ? 'Correct.' : 'Not quite — the answer is ' + q.answer + '.';
+
+        // On an entry page most questions are about that entry, and "read the
+        // entry" would point at the page already open.
+        if (samePage(q.href)) {
+          readEl.hidden = true;
+        } else {
+          readEl.hidden = false;
+          readEl.href = q.href;
+        }
+
+        afterEl.hidden = false;
+        nextEl.textContent = at === deck.length - 1 ? 'See your score' : 'Next question';
+        // preventScroll: keyboard users still land on the control, but the page
+        // does not lurch under a mouse user who has just read the verdict.
+        nextEl.focus({ preventScroll: true });
+      }
+
+      nextEl.addEventListener('click', function () {
+        at++;
+        if (at < deck.length) return show();
+        afterEl.hidden = true;
+        optionsEl.textContent = '';
+        promptEl.textContent = '';
+        progressEl.textContent = 'Round complete';
+        if (tracksBest && correct > store(ROUND_KEY)) store(ROUND_KEY, correct);
+        scoreEl.textContent = correct + ' out of ' + deck.length + '.';
+        streakEl.textContent = tracksBest ? 'Best: ' + store(ROUND_KEY) + '/' + round : '';
+        doneEl.hidden = false;
+        againEl.focus({ preventScroll: true });
+      });
+
+      againEl.addEventListener('click', start);
+
+      Array.prototype.forEach.call(root.querySelectorAll('.quiz-tier'), function (b) {
+        b.addEventListener('click', function () {
+          tier = b.dataset.tier;
+          Array.prototype.forEach.call(root.querySelectorAll('.quiz-tier'), function (o) {
+            o.setAttribute('aria-pressed', String(o === b));
+          });
+          start();
+        });
+      });
+
+      start();
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll('.quiz-root'), init);
+  })();
+</script>

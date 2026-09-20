@@ -110,6 +110,52 @@ const eraLabel = (title: string) => {
   return (parts.length > 1 ? parts[parts.length - 1] : title).trim();
 };
 
+/**
+ * Whether a prompt hands over its own answer.
+ *
+ * Entries are titled by their subject, so a prompt built from the title
+ * routinely contains the thing it is asking for: "The Anti-Sikh Violence of
+ * November 1984" asked for a year, "The Battle of Chamkaur" asked for a place
+ * that is called Chamkaur Sahib. A plain substring test catches the first and
+ * misses the second, so this compares words instead — any word of four letters
+ * or more shared between the prompt and the answer is enough to make it a
+ * reading exercise.
+ *
+ * Honorifics and the words the whole corpus shares are excluded from the
+ * comparison, because they discriminate nothing. Counting them cost every
+ * succession question on the site — "Which Guru succeeded Guru Amar Das Ji?"
+ * against "Guru Ram Das Ji" overlaps on `guru` and nothing else — and those
+ * are the questions `guruNumber` exists to make possible.
+ */
+const COMMON = new Set([
+  'guru',
+  'singh',
+  'kaur',
+  'sikh',
+  'sikhs',
+  'bhai',
+  'mata',
+  'baba',
+  'sahib',
+  'khalsa',
+]);
+
+const words = (text: string) =>
+  new Set(
+    text
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      .filter((w) => w.length >= 4 && !COMMON.has(w))
+  );
+
+const givesItself = (prompt: string, answer: string) => {
+  const inPrompt = words(prompt);
+  for (const w of words(answer)) if (inPrompt.has(w)) return true;
+  // Short answers — a bare year, a one-syllable term — have no word of four
+  // letters to compare, so fall back to looking for them whole.
+  return words(answer).size === 0 && prompt.toLowerCase().includes(answer.toLowerCase());
+};
+
 /** First sentence, for prompts built from a definition or summary. */
 const firstSentence = (text: string) => {
   const end = text.search(/[.?!]\s/);
@@ -129,12 +175,7 @@ export function buildQuestions(content: QuizContent): Question[] {
 
   const add = (q: Omit<Question, 'distractors'> & { pool: string[] }) => {
     const { pool, ...rest } = q;
-    // Entries are titled by their subject, so a prompt built from the title
-    // routinely contains its own answer: "The Anti-Sikh Violence of November
-    // 1984" asked for a year, "The Battle of Chamkaur" asked for a place.
-    // Those are free points, not questions, and the only general fix is to
-    // drop them — rewording the title would be editing history to suit a quiz.
-    if (rest.prompt.toLowerCase().includes(rest.answer.toLowerCase())) return;
+    if (givesItself(rest.prompt, rest.answer)) return;
     const distractors = distractorsFrom(pool, rest.answer, rest.id);
     if (distractors.length === 3) questions.push({ ...rest, distractors });
   };

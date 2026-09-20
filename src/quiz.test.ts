@@ -84,6 +84,36 @@ test('a title that contains its own answer drops the question', () => {
   assert.ok(giveaway.find((q) => q.id === 'place-v1984'), 'dropped more than the giveaway');
 });
 
+test('a partial overlap with the answer counts as giving it away', () => {
+  const near = buildQuestions({
+    ...content,
+    events: content.events.concat({
+      id: 'chamkaur',
+      title: 'The Battle of Chamkaur',
+      year: 1704,
+      eraId: 'guru',
+      eraTitle: 'Guru Period',
+      // Not a substring of the title, but the distinguishing word is.
+      placeName: 'Chamkaur Sahib',
+    }),
+  });
+  assert.equal(
+    near.find((q) => q.id === 'place-chamkaur'),
+    undefined,
+    'asked where a battle named after the place happened'
+  );
+});
+
+test('honorifics shared by the whole corpus do not count as a giveaway', () => {
+  // "Which Guru succeeded Guru Angad?" overlaps its answer on `guru` alone.
+  // Counting that would delete every succession question on the site.
+  const q = questions.find((x) => x.id === 'succession-an');
+  assert.ok(q, 'lost the succession question to a shared honorific');
+  const role = questions.find((x) => x.id === 'role-an');
+  assert.ok(role, 'lost the role question to a shared honorific');
+  assert.equal(role.answer, 'Second Sikh Guru');
+});
+
 test('year distractors are the nearest years, not the whole span', () => {
   const q = questions.find((x) => x.id === 'year-c');
   assert.ok(q, 'no year question for Event C');

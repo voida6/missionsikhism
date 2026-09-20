@@ -7,6 +7,8 @@ import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
 import { correctionEmail } from '../../site.config';
 import { jsonScript } from '../../json-script';
 import { lifespan } from '../../lifespan';
+import Quiz from '../../components/Quiz.astro';
+import { questionsFor } from '../../quiz-content';
 
 export async function getStaticPaths() {
   const people = await getCollection('people');
@@ -25,6 +27,13 @@ const allPeople = await getCollection('people');
 const relatedPeople = (person.data.relatedPeople ?? [])
   .map((ref) => allPeople.find((p) => p.id === ref.id))
   .filter((p) => p !== undefined);
+
+// The block at the foot of the entry: this person's own questions, then the
+// events they appear in, so a short round is always fillable.
+const quizQuestions = await questionsFor([
+  `people:${person.id}`,
+  ...events.map((e) => `events:${e.id}`),
+]);
 
 const categoryLabels: Record<string, string> = {
   guru: 'Guru',
@@ -116,6 +125,14 @@ const jsonld = [
               </>
             )
           }
+
+          <Quiz
+            questions={quizQuestions}
+            heading="Before you go"
+            round={5}
+            moreHref="/quiz"
+            moreLabel="Take the full quiz →"
+          />
 
           <LastUpdated path={`src/content/people/${person.id}.md`} />
         </div>

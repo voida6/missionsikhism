@@ -2676,3 +2676,17 @@ main a[href^="/glossary/"]:focus-visible {
   .quiz-after, .quiz-done { flex-direction: column; align-items: stretch; }
   .quiz-after .btn, .quiz-done .btn { width: 100%; }
 }
+
+/* The block form: a quiz at the foot of an entry, after the cross-references
+   and before the page turn. */
+.quiz-heading { margin-top: 2.5rem; }
+.quiz-root .quiz-shell { max-width: none; }
+.quiz-done-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+@media (max-width: 34rem) {
+  .quiz-done-actions { width: 100%; justify-content: space-between; }
+}

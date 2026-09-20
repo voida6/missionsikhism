@@ -7,6 +7,8 @@ import ChronicleRibbon from '../../components/ChronicleRibbon.astro';
 import { diagrams } from '../../components/diagrams/index.ts';
 import { correctionEmail } from '../../site.config';
 import { jsonScript } from '../../json-script';
+import Quiz from '../../components/Quiz.astro';
+import { questionsFor } from '../../quiz-content';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -20,6 +22,14 @@ const Diagram = event.data.diagram
   ? diagrams[event.data.diagram as keyof typeof diagrams]
   : undefined;
 const allEvents = await getCollection('events');
+
+// The block at the foot of the entry. Its own questions first, then the people
+// it names, so an entry that only generated two of its own still fills a short
+// round. See src/quiz-content.ts.
+const quizQuestions = await questionsFor([
+  `events:${event.id}`,
+  ...(event.data.people ?? []).map((p) => `people:${p.id}`),
+]);
 
 // Resolve linked era, place, and people references.
 const eras = await getCollection('eras');
@@ -173,6 +183,14 @@ const jsonld = [
               </>
             )
           }
+
+          <Quiz
+            questions={quizQuestions}
+            heading="Before you turn the page"
+            round={5}
+            moreHref="/quiz"
+            moreLabel="Take the full quiz →"
+          />
 
           <!-- Turn the page: read the chronicle in order -->
           <nav class="page-turn" aria-label="Previous and next in time">

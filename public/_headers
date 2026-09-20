@@ -11,7 +11,7 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=(), interest-cohort=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
 
 # Notes on the CSP above, so the next person does not weaken it by accident:
 #
@@ -22,6 +22,15 @@
 #   deliberately: with no user input reaching the DOM and no third-party script
 #   host allowed, the remaining XSS surface is content, which item #14 in the
 #   worklist closes at the serialisation layer.
+#
+# script-src 'wasm-unsafe-eval' — Pagefind compiles a WebAssembly module to
+#   run the search index in the browser. Without this token the compile is
+#   refused and /search hangs on "Searching for ..." forever, with the reason
+#   only in the console. It permits WebAssembly compilation and nothing else:
+#   it does NOT re-enable eval() or new Function(), which is why it is here
+#   instead of 'unsafe-eval'. Browsers too old to know the token (Safari below
+#   16.4) keep blocking the WASM and fall back to the "index hasn't been built"
+#   message, which is the correct degradation.
 #
 # img-src tile.openstreetmap.org — the map's tiles. If the tile provider ever
 #   changes (see docs/08-WORKLIST.md item #3), change it here too or the map

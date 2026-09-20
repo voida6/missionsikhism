@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/check-built-css.mjs && pagefind --site dist",
+    "build": "astro build && pagefind --site dist && node scripts/check-built.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "test": "node scripts/check-content.mjs && node --experimental-strip-types --test src/**/*.test.ts"

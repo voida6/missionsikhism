@@ -42,6 +42,54 @@ export type Question = {
   topic: string;
 };
 
+/**
+ * The day's questions: the same ten for everyone, chosen from the whole bank
+ * by the date alone.
+ *
+ * This runs in the browser rather than at build time, and it has to. The site
+ * is static and built once, so a set chosen during the build would be frozen
+ * at the build date and every visitor would see the same ten until the next
+ * deploy. Given the date it is pure and deterministic, which is what makes a
+ * ladder comparable: two people who played on the same day answered the same
+ * questions.
+ *
+ * `date` is an ISO day in UTC, so the set turns over at the same moment
+ * everywhere instead of drifting a day apart across timezones.
+ *
+ * The shape ramps easy to hard rather than picking ten at random. Ten of the
+ * hardest tier is a wall, and a daily that feels like a wall is not a daily.
+ */
+export function dailySet(
+  questions: Question[],
+  date: string,
+  shape: Record<Tier, number> = { easy: 4, medium: 3, hard: 3 }
+): Question[] {
+  const byHash = (a: Question, b: Question) =>
+    hash(date + a.id) - hash(date + b.id) || a.id.localeCompare(b.id);
+
+  const deck: Question[] = [];
+  const order: Tier[] = ['easy', 'medium', 'hard'];
+
+  for (const tier of order) {
+    deck.push(...questions.filter((q) => q.tier === tier).sort(byHash).slice(0, shape[tier]));
+  }
+
+  // A thin tier backfills from whatever is left, so the round is always full
+  // rather than short on a day the shuffle lands badly.
+  const wanted = order.reduce((n, t) => n + shape[t], 0);
+  if (deck.length < wanted) {
+    const taken = new Set(deck.map((q) => q.id));
+    deck.push(
+      ...questions
+        .filter((q) => !taken.has(q.id))
+        .sort(byHash)
+        .slice(0, wanted - deck.length)
+    );
+  }
+
+  return deck;
+}
+
 export type QuizEvent = {
   id: string;
   title: string;

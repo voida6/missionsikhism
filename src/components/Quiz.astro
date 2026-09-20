@@ -15,6 +15,12 @@ interface Props {
   questions: Question[];
   /** Difficulty chips. The hub wants them; a five-question block does not. */
   showTiers?: boolean;
+  /**
+   * The daily: a fixed set chosen from the whole bank by today's date, one
+   * attempt, a streak, and a line to share. The set is picked in the browser
+   * because a static build would freeze it at the build date.
+   */
+  daily?: boolean;
   round?: number;
   /** Heading for the block form. Omitted on the hub, which has an <h1>. */
   heading?: string;
@@ -26,6 +32,7 @@ interface Props {
 const {
   questions,
   showTiers = false,
+  daily = false,
   round = 10,
   heading,
   moreHref,
@@ -47,7 +54,7 @@ const size = Math.min(round, questions.length);
 
 {
   questions.length > 0 && (
-    <div class="quiz-root" data-round={size}>
+    <div class="quiz-root" data-round={size} data-daily={daily ? '1' : undefined}>
       {heading && <h2 class="quiz-heading">{heading}</h2>}
 
       {showTiers && (
@@ -93,7 +100,12 @@ const size = Math.min(round, questions.length);
                 {moreLabel}
               </a>
             )}
-            <button type="button" class="btn" data-again>
+            {daily && (
+              <button type="button" class="btn" data-share>
+                Copy your result
+              </button>
+            )}
+            <button type="button" class="btn" data-again hidden={daily}>
               Play again
             </button>
           </span>
@@ -116,9 +128,56 @@ const size = Math.min(round, questions.length);
   )
 }
 
-<script is:inline>
+{/* A bundled module rather than an inline script, so the daily can import the
+    same `dailySet` the tests pin rather than keeping a second copy of the
+    algorithm in the page. It is served from our own origin, so `script-src
+    'self'` covers it without widening the CSP. */}
+<script>
+  import { dailySet } from '../quiz';
+
   (function () {
     var ROUND_KEY = 'ms-quiz-best';
+    var DAILY_STREAK = 'ms-daily-streak';
+
+    /** Today in UTC, so the set turns over at one moment worldwide. */
+    function today() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function dayBefore(iso) {
+      var d = new Date(iso + 'T00:00:00Z');
+      d.setUTCDate(d.getUTCDate() - 1);
+      return d.toISOString().slice(0, 10);
+    }
+
+    function readJSON(key, fallback) {
+      try {
+        return JSON.parse(localStorage.getItem(key)) || fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    function writeJSON(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch (e) {
+        // Private mode, blocked storage. The round works; the streak does not.
+      }
+    }
+
+    /**
+     * A day played extends the streak only if yesterday was played too.
+     * Replaying the same day never double-counts.
+     */
+    function recordStreak(date) {
+      var s = readJSON(DAILY_STREAK, { last: '', n: 0 });
+      if (s.last === date) return s.n;
+      s.n = s.last === dayBefore(date) ? s.n + 1 : 1;
+      s.last = date;
+      writeJSON(DAILY_STREAK, s);
+      return s.n;
+    }
 
     // The same path with and without its trailing slash, so a question about
     // the page you are standing on can be recognised.
@@ -168,8 +227,13 @@ const size = Math.min(round, questions.length);
       var doneEl = root.querySelector('[data-done]');
       var scoreEl = root.querySelector('[data-score]');
       var againEl = root.querySelector('[data-again]');
+      var shareEl = root.querySelector('[data-share]');
       var progressEl = root.querySelector('[data-progress]');
       var streakEl = root.querySelector('[data-streak]');
+
+      var isDaily = !!root.dataset.daily;
+      var day = today();
+      var dayKey = 'ms-daily-' + day;
 
       // Only the hub keeps a record. A five-question block on one entry is not
       // the same game and would trample the score.
@@ -183,12 +247,35 @@ const size = Math.min(round, questions.length);
       shell.hidden = false;
 
       function start() {
-        var pool = tier === 'mixed' ? ALL : ALL.filter(function (q) { return q.tier === tier; });
-        deck = shuffle(pool).slice(0, Math.min(round, pool.length));
+        if (isDaily) {
+          // Deliberately not shuffled: dailySet already ramps easy to hard,
+          // and everyone playing today gets the questions in the same order.
+          deck = dailySet(ALL, day);
+        } else {
+          var pool = tier === 'mixed' ? ALL : ALL.filter(function (q) { return q.tier === tier; });
+          deck = shuffle(pool).slice(0, Math.min(round, pool.length));
+        }
         at = 0;
         correct = 0;
         doneEl.hidden = true;
         show();
+      }
+
+      /** The finished state, shown after a round and on a revisit the same day. */
+      function finish(score, streak) {
+        afterEl.hidden = true;
+        optionsEl.textContent = '';
+        promptEl.textContent = '';
+        progressEl.textContent = isDaily ? 'Today, ' + day : 'Round complete';
+        scoreEl.textContent =
+          score + ' out of ' + deck.length + '.' +
+          (isDaily && streak > 1 ? ' ' + streak + ' days running.' : '');
+        streakEl.textContent = isDaily
+          ? streak
+            ? 'Streak: ' + streak
+            : ''
+          : 'Best: ' + store(ROUND_KEY) + '/' + round;
+        doneEl.hidden = false;
       }
 
       function show() {
@@ -241,18 +328,63 @@ const size = Math.min(round, questions.length);
       nextEl.addEventListener('click', function () {
         at++;
         if (at < deck.length) return show();
-        afterEl.hidden = true;
-        optionsEl.textContent = '';
-        promptEl.textContent = '';
-        progressEl.textContent = 'Round complete';
-        if (tracksBest && correct > store(ROUND_KEY)) store(ROUND_KEY, correct);
-        scoreEl.textContent = correct + ' out of ' + deck.length + '.';
-        streakEl.textContent = tracksBest ? 'Best: ' + store(ROUND_KEY) + '/' + round : '';
-        doneEl.hidden = false;
-        againEl.focus({ preventScroll: true });
+
+        if (isDaily) {
+          writeJSON(dayKey, { score: correct, of: deck.length });
+          finish(correct, recordStreak(day));
+        } else {
+          if (tracksBest && correct > store(ROUND_KEY)) store(ROUND_KEY, correct);
+          finish(correct, 0);
+        }
+        (shareEl || againEl).focus({ preventScroll: true });
       });
 
       againEl.addEventListener('click', start);
+
+      if (shareEl) {
+        shareEl.addEventListener('click', function () {
+          var played = readJSON(dayKey, { score: 0, of: deck.length });
+          var streak = readJSON(DAILY_STREAK, { n: 0 }).n;
+          // Plain text on purpose. It has to survive a TikTok comment, a
+          // WhatsApp message and a screen reader, and the site does not
+          // otherwise speak in emoji.
+          var line =
+            'Mission Sikhism daily, ' + day + ': ' +
+            played.score + '/' + played.of +
+            (streak > 1 ? ', ' + streak + ' days running' : '') +
+            '\n' + location.origin + '/daily';
+          // The clipboard API needs permission and a real gesture, and is
+          // refused outright in some embedded browsers. Falling back to a
+          // selected input means the offer is always keepable: the reader can
+          // still copy it themselves rather than being told to copy something
+          // that is not on the page.
+          function offerManually() {
+            var box = root.querySelector('[data-share-text]');
+            if (!box) {
+              box = document.createElement('input');
+              box.type = 'text';
+              box.readOnly = true;
+              box.className = 'quiz-share-text';
+              box.setAttribute('data-share-text', '');
+              box.setAttribute('aria-label', 'Your result, ready to copy');
+              shareEl.parentNode.insertBefore(box, shareEl.nextSibling);
+            }
+            box.value = line.replace('\n', ' ');
+            box.focus();
+            box.select();
+            shareEl.textContent = 'Copy it from here';
+          }
+
+          try {
+            navigator.clipboard.writeText(line).then(
+              function () { shareEl.textContent = 'Copied'; },
+              offerManually
+            );
+          } catch (e) {
+            offerManually();
+          }
+        });
+      }
 
       Array.prototype.forEach.call(root.querySelectorAll('.quiz-tier'), function (b) {
         b.addEventListener('click', function () {
@@ -263,6 +395,21 @@ const size = Math.min(round, questions.length);
           start();
         });
       });
+
+      // One attempt a day. A revisit shows the result rather than replaying it.
+      //
+      // ponytail: this is localStorage, so clearing site data replays the day.
+      // That is fine while the score stays on the device; the moment a ladder
+      // accepts submissions, the day's set and the scoring have to be checked
+      // server-side, because nothing sent from a browser can be trusted.
+      if (isDaily) {
+        var played = readJSON(dayKey, null);
+        if (played) {
+          deck = dailySet(ALL, day);
+          finish(played.score, readJSON(DAILY_STREAK, { n: 0 }).n);
+          return;
+        }
+      }
 
       start();
     }

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildQuestions, type QuizContent } from './quiz.ts';
+import { buildQuestions, dailySet, type QuizContent } from './quiz.ts';
 
 // A fixture rather than the real collections: the invariants below have to hold
 // for any content, and a test that reads src/content would start failing for
@@ -165,4 +165,67 @@ test('every question points at an entry that can explain it', () => {
     assert.match(q.href, /^\/(events|people|glossary)\/[a-z0-9-]+$/, `${q.id} has href ${q.href}`);
     assert.match(q.topic, /^(events|people|glossary):[a-z0-9-]+$/, `${q.id} has topic ${q.topic}`);
   }
+});
+
+// A bank big enough to exercise the daily shape: the fixture above yields too
+// few questions per tier to tell a deliberate pick from an accident.
+const bigBank = buildQuestions({
+  events: Array.from({ length: 40 }, (_, i) => ({
+    id: `e${i}`,
+    title: `Event ${i}`,
+    year: 1500 + i * 7,
+    eraId: `era${i % 6}`,
+    eraTitle: `Era Name ${i % 6}`,
+    placeName: `Place ${i % 9}`,
+  })),
+  people: Array.from({ length: 12 }, (_, i) => ({
+    id: `p${i}`,
+    name: `Person ${i}`,
+    category: 'other',
+    role: `Role number ${i}`,
+  })),
+  terms: Array.from({ length: 10 }, (_, i) => ({
+    id: `t${i}`,
+    term: `Term${i}`,
+    definition: `Definition number ${i}. Second sentence.`,
+  })),
+});
+
+test('the daily set is the same ten for everyone on a given day', () => {
+  const a = dailySet(bigBank, '2026-09-20');
+  const b = dailySet(bigBank, '2026-09-20');
+  assert.deepEqual(
+    a.map((q) => q.id),
+    b.map((q) => q.id)
+  );
+  assert.equal(a.length, 10);
+});
+
+test('a different day is a different set', () => {
+  const today = dailySet(bigBank, '2026-09-20').map((q) => q.id);
+  const tomorrow = dailySet(bigBank, '2026-09-21').map((q) => q.id);
+  assert.notDeepEqual(today, tomorrow);
+});
+
+test('the daily ramps easy to hard rather than picking ten at random', () => {
+  const tiers = dailySet(bigBank, '2026-09-20').map((q) => q.tier);
+  assert.deepEqual(tiers, [
+    'easy', 'easy', 'easy', 'easy',
+    'medium', 'medium', 'medium',
+    'hard', 'hard', 'hard',
+  ]);
+});
+
+test('the daily never repeats a question within the round', () => {
+  for (const day of ['2026-09-20', '2026-12-25', '2027-01-01']) {
+    const ids = dailySet(bigBank, day).map((q) => q.id);
+    assert.equal(new Set(ids).size, ids.length, `${day} repeated a question`);
+  }
+});
+
+test('a thin tier backfills so the round is never short', () => {
+  const easyOnly = bigBank.filter((q) => q.tier === 'easy');
+  const set = dailySet(easyOnly, '2026-09-20');
+  assert.equal(set.length, 10, 'shipped a short round');
+  assert.equal(new Set(set.map((q) => q.id)).size, 10);
 });

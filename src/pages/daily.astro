@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Quiz from '../components/Quiz.astro';
+import { allQuestions } from '../quiz-content';
+
+// The whole bank ships; the day's ten are chosen in the browser. A static site
+// built once would otherwise serve the same ten until the next deploy. See
+// dailySet() in src/quiz.ts.
+const questions = await allQuestions();
+---
+
+<BaseLayout
+  title="The Daily — Mission Sikhism"
+  description="Ten questions from Sikh history, the same ten for everyone, new every day. Every question comes from a sourced entry on this site."
+>
+  <section class="section">
+    <div class="container quiz-page">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <span aria-current="page">The Daily</span>
+      </nav>
+      <span class="kicker">Ten a day</span>
+      <h1>The Daily</h1>
+      <p class="lede">
+        Ten questions, the same ten for everyone, new every day. They get harder
+        as you go. Come back tomorrow and the streak keeps counting — it lives
+        in your browser and goes nowhere else.
+      </p>
+
+      <Quiz questions={questions} daily round={10} moreHref="/quiz" moreLabel="Play the full quiz →" />
+    </div>
+  </section>
+</BaseLayout>

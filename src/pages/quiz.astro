@@ -1,0 +1,251 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { jsonScript } from '../json-script';
+import { buildQuestions, type QuizContent } from '../quiz';
+
+// The bank is generated at build time from the collections, so it ships as
+// data and the page needs no network calls and no backend. See src/quiz.ts for
+// why generation is deterministic and why distractors come from the same pool
+// as the answer.
+const [eventsRaw, peopleRaw, placesRaw, erasRaw, termsRaw] = await Promise.all([
+  getCollection('events'),
+  getCollection('people'),
+  getCollection('places'),
+  getCollection('eras'),
+  getCollection('glossary'),
+]);
+
+const eraById = new Map(erasRaw.map((e) => [e.id, e.data]));
+const placeById = new Map(placesRaw.map((p) => [p.id, p.data]));
+
+const content: QuizContent = {
+  events: eventsRaw.map((e) => ({
+    id: e.id,
+    title: e.data.title,
+    year: e.data.year,
+    eraId: e.data.era.id,
+    eraTitle: eraById.get(e.data.era.id)?.title ?? e.data.era.id,
+    placeName: e.data.place ? placeById.get(e.data.place.id)?.name : undefined,
+  })),
+  people: peopleRaw.map((p) => ({
+    id: p.id,
+    name: p.data.name,
+    category: p.data.category,
+    role: p.data.role,
+    guruNumber: p.data.guruNumber,
+  })),
+  terms: termsRaw.map((t) => ({
+    id: t.id,
+    term: t.data.term,
+    definition: t.data.definition,
+  })),
+};
+
+const questions = buildQuestions(content);
+
+const countOf = (tier: string) =>
+  tier === 'mixed' ? questions.length : questions.filter((q) => q.tier === tier).length;
+
+const tiers = [
+  { id: 'mixed', label: 'Mixed' },
+  { id: 'easy', label: 'Easier' },
+  { id: 'medium', label: 'Harder' },
+  { id: 'hard', label: 'Hardest' },
+].map((t) => ({ ...t, count: countOf(t.id) }));
+---
+
+<BaseLayout
+  title="Quiz — Mission Sikhism"
+  description="Test what you know about Sikh history — eras, places, years, the ten Gurus, and the words of the faith. Every question comes from a sourced entry on this site."
+>
+  <section class="section">
+    <div class="container quiz-page">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> › <span aria-current="page">Quiz</span>
+      </nav>
+      <span class="kicker">Test yourself</span>
+      <h1>Quiz</h1>
+      <p class="lede">
+        {questions.length} questions, every one drawn from a sourced entry on this
+        site. Get one wrong and you can read the entry it came from. Nothing is
+        recorded anywhere but your own browser.
+      </p>
+
+      <div class="quiz-tiers" role="group" aria-label="Choose a difficulty">
+        {
+          tiers.map((t) => (
+            <button
+              type="button"
+              class="chip quiz-tier"
+              data-tier={t.id}
+              aria-pressed={t.id === 'mixed' ? 'true' : 'false'}
+            >
+              {t.label} <span class="quiz-tier-count">{t.count}</span>
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="quiz-shell" id="quiz" hidden>
+        <div class="quiz-scoreline">
+          <span id="quiz-progress">Question 1 of 10</span>
+          <span id="quiz-streak" class="quiz-streak"></span>
+        </div>
+
+        <p class="quiz-prompt" id="quiz-prompt" aria-live="polite"></p>
+
+        <div class="quiz-options" id="quiz-options" role="group" aria-label="Answers"></div>
+
+        <div class="quiz-after" id="quiz-after" hidden>
+          <p class="quiz-verdict" id="quiz-verdict" aria-live="polite"></p>
+          <a class="quiz-read" id="quiz-read" href="/">Read the entry →</a>
+          <button type="button" class="btn quiz-next" id="quiz-next">Next question</button>
+        </div>
+
+        <div class="quiz-done" id="quiz-done" hidden>
+          <p class="quiz-verdict" id="quiz-score"></p>
+          <button type="button" class="btn quiz-again" id="quiz-again">Play again</button>
+        </div>
+      </div>
+
+      <noscript>
+        <p class="search-fallback">
+          The quiz needs JavaScript. You can still read every entry it draws on:
+          <a href="/history">History</a>, <a href="/people">People</a>, or the
+          <a href="/glossary">Glossary</a>.
+        </p>
+      </noscript>
+    </div>
+  </section>
+
+  <script is:inline set:html={`window.__QUIZ__ = ${jsonScript(questions)};`} />
+
+  <script is:inline>
+    (function () {
+      var ALL = window.__QUIZ__ || [];
+      var ROUND = 10;
+      var KEY = 'ms-quiz-best';
+
+      var shell = document.getElementById('quiz');
+      if (!ALL.length || !shell) return;
+      shell.hidden = false;
+
+      var promptEl = document.getElementById('quiz-prompt');
+      var optionsEl = document.getElementById('quiz-options');
+      var afterEl = document.getElementById('quiz-after');
+      var verdictEl = document.getElementById('quiz-verdict');
+      var readEl = document.getElementById('quiz-read');
+      var nextEl = document.getElementById('quiz-next');
+      var doneEl = document.getElementById('quiz-done');
+      var scoreEl = document.getElementById('quiz-score');
+      var againEl = document.getElementById('quiz-again');
+      var progressEl = document.getElementById('quiz-progress');
+      var streakEl = document.getElementById('quiz-streak');
+
+      var tier = 'mixed';
+      var deck = [];
+      var at = 0;
+      var correct = 0;
+
+      // Fisher-Yates. The bank is generated in a stable order on purpose, so
+      // every shuffle the player sees happens here.
+      function shuffle(list) {
+        var a = list.slice();
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var t = a[i];
+          a[i] = a[j];
+          a[j] = t;
+        }
+        return a;
+      }
+
+      function best(value) {
+        try {
+          if (value === undefined) return parseInt(localStorage.getItem(KEY) || '0', 10) || 0;
+          localStorage.setItem(KEY, String(value));
+        } catch (e) {
+          // Private mode, blocked storage. The quiz works, the record does not.
+        }
+        return value || 0;
+      }
+
+      function start() {
+        var pool = tier === 'mixed' ? ALL : ALL.filter(function (q) { return q.tier === tier; });
+        deck = shuffle(pool).slice(0, ROUND);
+        at = 0;
+        correct = 0;
+        doneEl.hidden = true;
+        show();
+      }
+
+      function show() {
+        var q = deck[at];
+        afterEl.hidden = true;
+        progressEl.textContent = 'Question ' + (at + 1) + ' of ' + deck.length;
+        var record = best();
+        streakEl.textContent = record ? 'Best: ' + record + '/' + ROUND : '';
+        promptEl.textContent = q.prompt;
+
+        optionsEl.textContent = '';
+        shuffle([q.answer].concat(q.distractors)).forEach(function (choice) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'quiz-option';
+          b.textContent = choice;
+          b.addEventListener('click', function () { answer(b, choice, q); });
+          optionsEl.appendChild(b);
+        });
+      }
+
+      function answer(button, choice, q) {
+        var right = choice === q.answer;
+        if (right) correct++;
+
+        Array.prototype.forEach.call(optionsEl.children, function (b) {
+          b.disabled = true;
+          if (b.textContent === q.answer) b.classList.add('is-right');
+        });
+        if (!right) button.classList.add('is-wrong');
+
+        verdictEl.textContent = right ? 'Correct.' : 'Not quite — the answer is ' + q.answer + '.';
+        readEl.href = q.href;
+        afterEl.hidden = false;
+        nextEl.textContent = at === deck.length - 1 ? 'See your score' : 'Next question';
+        // preventScroll: keyboard users still land on the control, but the
+        // page does not lurch downward under a mouse user who has just read
+        // the verdict where it appeared.
+        nextEl.focus({ preventScroll: true });
+      }
+
+      nextEl.addEventListener('click', function () {
+        at++;
+        if (at < deck.length) return show();
+        afterEl.hidden = true;
+        optionsEl.textContent = '';
+        promptEl.textContent = '';
+        progressEl.textContent = 'Round complete';
+        if (correct > best()) best(correct);
+        scoreEl.textContent = correct + ' out of ' + deck.length + '.';
+        streakEl.textContent = 'Best: ' + best() + '/' + ROUND;
+        doneEl.hidden = false;
+        againEl.focus({ preventScroll: true });
+      });
+
+      againEl.addEventListener('click', start);
+
+      Array.prototype.forEach.call(document.querySelectorAll('.quiz-tier'), function (b) {
+        b.addEventListener('click', function () {
+          tier = b.dataset.tier;
+          Array.prototype.forEach.call(document.querySelectorAll('.quiz-tier'), function (o) {
+            o.setAttribute('aria-pressed', String(o === b));
+          });
+          start();
+        });
+      });
+
+      start();
+    })();
+  </script>
+</BaseLayout>

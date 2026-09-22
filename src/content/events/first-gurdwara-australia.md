@@ -5,7 +5,7 @@ date: "6 June 1968"
 era: modern-era
 place: woolgoolga
 type: founding
-summary: "Banana growers on the New South Wales coast opened the first gurdwara in Australia — built in local brick and tile, in a town where Sikhs would become the majority."
+summary: "Banana growers on the New South Wales coast opened the first gurdwara in Australia — built in local brick and tile, in a town where about one in six people is now Sikh."
 sources:
   - title: "Sikhs in Woolgoolga — Historical Notes"
     publisher: "The First Gurudwara of Australia"
@@ -17,6 +17,10 @@ sources:
   - title: "Religious affiliation in Australia, Census 2021"
     publisher: "Australian Bureau of Statistics"
     url: "https://www.abs.gov.au/articles/religious-affiliation-australia"
+  - title: "Woolgoolga, 2021 Census All persons QuickStats"
+    publisher: "Australian Bureau of Statistics"
+    url: "https://abs.gov.au/census/find-census-data/quickstats/2021/SAL14420"
+    page: "Religious affiliation: Sikhism 1,059 of 6,151 people (17.2%)"
 ---
 
 ## Hawkers, then bananas
@@ -31,8 +35,8 @@ The First Sikh Temple on Hastings Street opened on 6 June 1968, the ceremony per
 
 That was a choice about belonging, made by a community that had spent seventy years being told it did not. A second and much larger gurdwara, in a more recognisably Punjabi style, was added later — the two buildings between them marking a shift in how confidently the community expected to be read.
 
-## A Sikh country town
+## A Sikh community in a country town
 
-Woolgoolga is unusual anywhere in the diaspora. Sikhs form a substantial majority of a town of roughly six thousand people — not a neighbourhood within a city but the town itself, with the gurdwara functioning as a community centre for Sikh and non-Sikh residents alike.{{1}}
+Woolgoolga is unusual in the diaspora: a large Sikh community in a country town rather than a neighbourhood within a city. The 2021 census counted 1,059 Sikhs among its 6,151 residents, about one in six.{{4}} The gurdwara functions as a community centre for Sikh and non-Sikh residents alike.{{1}}
 
 Australia's Sikh population has since grown very fast, largely through skilled and student migration to Melbourne, Sydney and Brisbane. The 2021 census counted 210,400 Sikhs — 0.8 per cent of the country, almost triple the 2011 figure, with a median age of 30.{{3}} Almost all recent Sikh arrivals were born in India.{{3}}
